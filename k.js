@@ -1,8 +1,10 @@
 
 var Element = require('/home/mjennings/pagebuilder/html.js');
 
-var pcolor = 'rgb(180, 20, 20)';
-var scolor = 'rgb(255, 255, 235)';
+var pcolor = 'rgb(190, 20, 20)';
+var scolor = 'rgb(255, 255, 205)';
+
+/////////////////////////////////
 
 var tops = { 
   'margin' : '0',
@@ -11,28 +13,22 @@ var tops = {
   'font-family':"'Quicksand', sans serif"
 };
 
-
 var html = new Element('html').style(tops);
-
+var body = new Element('body').style(tops);
 var head = new Element('head').content(
   new Element('link', {'rel' : 'stylesheet', 'type' : 'text/css', 'href' : 'o.css'}),
-  new Element('link', {'rel' : 'stylesheet', 'type' : 'text/css', 'href' : 'http://fonts.googleapis.com/css?family=Open+Sans:300'}),
-  new Element('link', {'rel' : 'stylesheet', 'type' : 'text/css', 'href' : 'http://fonts.googleapis.com/css?family=Rajdhani:300,400'}),
   new Element('link', {'rel' : 'stylesheet', 'type' : 'text/css', 'href' : 'http://fonts.googleapis.com/css?family=Quicksand:300,400'})
 );
 
-var body = new Element('body').style(tops);
 
-var red = new Element('div');
 var height = 62;
-red.style({
+var red = new Element('div').style({
   'position': 'absolute',
   'width':'100%',
   'height': height + '%',
   'top' : (50 - height/2) + '%',
   'background-color': pcolor
-});
-
+})
 
 var title = new Element('div').style({
   'display' :'flex',
@@ -47,9 +43,20 @@ var title = new Element('div').style({
   'position' : 'absolute'
 })
 
+var bargen = require('./bars.js');
+var dirs = ['top', 'bottom'];
+var bars = [];
+for(var i = 0; i < dirs.length; i++){
+  bars.push(bargen(dirs[i], 50 - height / 2, scolor)[0]);
+}
+
+//////////////////////////////////////
+
 html.content(
   head,
   body.content(
+    bars[0],
+    bars[1],
     red.content(
       title.content(
         '| MICHAEL JENNINGS |'
@@ -58,8 +65,9 @@ html.content(
   )
 );
 
-var fs = require('fs');
+///////////////////////////////////
 
+var fs = require('fs');
 var p = html.generate({}, true);
 fs.writeFileSync('o.css', p.css);
 fs.writeFileSync('index.html', p.html);
