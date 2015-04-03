@@ -3,6 +3,7 @@ var Element = require('/home/mjennings/pagebuilder/html.js');
 
 var pcolor = 'rgb(190, 20, 20)';
 var scolor = 'rgb(255, 255, 205)';
+var tcolor = 'rgb(220, 190, 120)';
 
 /////////////////////////////////
 
@@ -46,8 +47,11 @@ var title = new Element('div').style({
 var bargen = require('./bars.js');
 var dirs = ['top', 'bottom'];
 var bars = [];
+var svgs = [];
 for(var i = 0; i < dirs.length; i++){
-  bars.push(bargen(dirs[i], 50 - height / 2, scolor)[0]);
+  var a = bargen(dirs[i], 50 - height / 2, scolor, tcolor);
+  bars.push(a[0]);
+  svgs.push(a[1]['svg']);
 }
 
 //////////////////////////////////////
@@ -62,12 +66,15 @@ html.content(
         '| MICHAEL JENNINGS |'
       )
     )
-  )
+  ),
+  new Element('script', 'src', 'o.js'),
+  new Element('script', 'src', 'back.js')
 );
 
 ///////////////////////////////////
 
 var fs = require('fs');
-var p = html.generate({}, true);
+var p = html.generate({'svg1': svgs[0], 'svg2': svgs[1], 'tcolor' : tcolor}, true);
 fs.writeFileSync('o.css', p.css);
+fs.writeFileSync('o.js', p.js);
 fs.writeFileSync('index.html', p.html);
