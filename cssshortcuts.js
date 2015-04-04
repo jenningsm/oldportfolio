@@ -14,3 +14,5 @@ function prefix(style, value, prefixes){
   prefixed[style] = value;
   return prefixed;
 }
+
+module.exports.linearGradient = linearGradient;

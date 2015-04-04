@@ -1,16 +1,17 @@
 
 var Element = require('/home/mjennings/pagebuilder/html.js');
+var util = require('./util.js');
 
-var pcolor = 'rgb(190, 20, 20)';
-var scolor = 'rgb(255, 255, 205)';
-var tcolor = 'rgba(220, 190, 120, .8)';
+var pcolor = [190, 20, 20];
+var scolor = [255, 255, 205];
+var tcolor = [220, 190, 120, .8];
 
 /////////////////////////////////
 
 var tops = { 
   'margin' : '0',
   'padding' : '0',
-  'background' : scolor,
+  'background' : util.colorString(scolor),
   'font-family':"'Quicksand', sans serif"
 };
 
@@ -28,7 +29,7 @@ var red = new Element('div').style({
   'width':'100%',
   'height': height + '%',
   'top' : (50 - height/2) + '%',
-  'background-color': pcolor
+  'background-color': util.colorString(pcolor)
 })
 
 var title = new Element('div').style({
@@ -40,7 +41,7 @@ var title = new Element('div').style({
   'top' : '50%',
   'left' : '50%',
   'transform' : 'translate(-50%, -50%)',
-  'color' : scolor,
+  'color' : util.colorString(scolor),
   'position' : 'absolute'
 })
 
@@ -74,7 +75,7 @@ html.content(
 ///////////////////////////////////
 
 var fs = require('fs');
-var p = html.generate({'svg1': svgs[0], 'svg2': svgs[1], 'tcolor' : tcolor}, true);
+var p = html.generate({'svg1': svgs[0], 'svg2': svgs[1], 'tcolor' : util.colorString(tcolor)}, true);
 fs.writeFileSync('o.css', p.css);
 fs.writeFileSync('o.js', p.js);
 fs.writeFileSync('index.html', p.html);
