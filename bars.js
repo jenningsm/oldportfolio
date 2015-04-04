@@ -31,11 +31,12 @@ function bar(dir, size, scolor, tcolor){
      {'z-index': '1'}
   );
 
-  var els = [svg, gradient, null];
-  return [function(i) { return els[i] }, {'svg': svg}];
+  return [[svg, gradient], {'svg': svg}];
 }
 
 module.exports = bar;
+
+
 
 
 /////////////////////////////////////
