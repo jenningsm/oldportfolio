@@ -1,6 +1,6 @@
 
 var Element = require('/home/mjennings/pagebuilder/html.js');
-var util = require('./util.js');
+var util = require('./tools/util.js');
 
 var pcolor = [190, 20, 20];
 var scolor = [255, 255, 205];
@@ -69,7 +69,7 @@ html.content(
     )
   ),
   new Element('script', 'src', 'o.js'),
-  new Element('script', 'src', 'back.js')
+  new Element('script', 'src', 'cs/back.js')
 );
 
 ///////////////////////////////////

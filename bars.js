@@ -2,8 +2,8 @@
 //creates the top bars of the page
 
 var Element = require('/home/mjennings/pagebuilder/html.js');
-var css = require('./cssshortcuts.js');
-var util = require('./util.js');
+var css = require('./tools/cssshortcuts.js');
+var util = require('./tools/util.js');
 
 function bar(dir, size, scolor, tcolor){
   var s = {
