@@ -6,22 +6,12 @@ var css = require('./tools/cssshortcuts.js');
 var util = require('./tools/util.js');
 
 function bar(dir, size, scolor, tcolor){
-  var s = {
+  var positioning = {
     'width' : '100%',
     'height' : size + '%',
     'position' : 'absolute'
   }
-  s[dir] = '0%';
-  var div = new Element('div').style(
-    s
-  );
-  
-
-  var positioning = {
-    'width' : '100%',
-    'height' : '100%',
-    'position' : 'absolute'
-  }
+  positioning[dir] = '0%';
 
   var svg = new Element('svg').attribute({
     'xmlns' : 'http://www.w3.org/2000/svg', 
@@ -41,12 +31,14 @@ function bar(dir, size, scolor, tcolor){
      {'z-index': '1'}
   );
 
-  return [div.content(svg, gradient), {'svg': svg}];
+  var els = [svg, gradient, null];
+  return [function(i) { return els[i] }, {'svg': svg}];
 }
 
 module.exports = bar;
 
 
+/////////////////////////////////////
 
 function svgLinearGrad(tcolor){
   return function(k){
