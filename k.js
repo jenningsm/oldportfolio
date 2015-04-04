@@ -3,7 +3,7 @@ var Element = require('/home/mjennings/pagebuilder/html.js');
 
 var pcolor = 'rgb(190, 20, 20)';
 var scolor = 'rgb(255, 255, 205)';
-var tcolor = 'rgb(220, 190, 120)';
+var tcolor = 'rgba(220, 190, 120, .8)';
 
 /////////////////////////////////
 

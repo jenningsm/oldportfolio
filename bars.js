@@ -1,5 +1,8 @@
 
+//creates the top bars of the page
+
 var Element = require('/home/mjennings/pagebuilder/html.js');
+var css = require('./cssshortcuts.js');
 
 function bar(dir, size, scolor, tcolor){
   var s = {
@@ -12,24 +15,30 @@ function bar(dir, size, scolor, tcolor){
     s
   );
   
+
   var positioning = {
     'width' : '100%',
     'height' : '100%',
     'position' : 'absolute'
   }
+
   var svg = new Element('svg').attribute({
     'xmlns' : 'http://www.w3.org/2000/svg', 
     'version' : '1.1'
-  }).style(positioning).content(
+  })
+  .style(positioning)
+  .content(
     new Element('defs').content(
       svgLinearGrad(tcolor)
     )
   );
 
   var gradient = new Element('div')
-  .style(linearGradient(dir, scolor, 'rgba(0, 0, 0, 0)'))
-  .style(positioning)
-  .style('z-index', '1');
+  .style(
+     css.linearGradient(dir, scolor, 'rgba(0, 0, 0, 0)'),
+     positioning,
+     {'z-index': '1'}
+  );
 
   return [div.content(svg, gradient), {'svg': svg}];
 }
@@ -37,21 +46,6 @@ function bar(dir, size, scolor, tcolor){
 module.exports = bar;
 
 
-function linearGradient(dir, start, stop){
-  return prefix('background', 'linear-gradient(to ' + dir + ', ' + start + ', ' + stop + ')');
-}
-
-function prefix(style, value, prefixes){
-  if(prefixes === undefined){
-    prefixes = ['webkit', 'o', 'moz'];
-  }
-  var prefixed = {};
-  for(var i = 0; i < prefixes.length; i++){
-    prefixed['-' + prefixes[i] + '-' + style] = value;
-  }
-  prefixed[style] = value;
-  return prefixed;
-}
 
 function svgLinearGrad(tcolor){
   return function(k){
