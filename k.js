@@ -1,6 +1,7 @@
 
 var Element = require('/home/mjennings/pagebuilder/html.js');
 var util = require('./tools/util.js');
+var pages = require('./pages.js');
 
 //primary, secondary, and tertiary colors, respectively
 var pcolor = [190, 20, 20];
@@ -33,18 +34,6 @@ var red = new Element('div').style({
   'background-color': util.colorString(pcolor)
 })
 
-var title = new Element('div').style({
-  'display' :'flex',
-  'justify-content' : 'center',
-  'align-items':'center',
-  'font-weight' : '400',
-  'font-size': '1.7em',
-  'top' : '50%',
-  'left' : '50%',
-  'transform' : 'translate(-50%, -50%)',
-  'color' : util.colorString(scolor),
-  'position' : 'absolute'
-})
 
 var bargen = require('./bars.js');
 var dirs = ['top', 'bottom'];
@@ -64,9 +53,7 @@ html.content(
     bars[0],
     bars[1],
     red.content(
-      title.content(
-        '| MICHAEL JENNINGS |'
-      )
+      pages(util.colorString(scolor))
     )
   ),
   new Element('script', 'src', 'o.js'),
