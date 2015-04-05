@@ -9,9 +9,12 @@ for(var i = 0; i < svgs.length; i++){
     var xp = ((j % Math.floor(num / 2)) * (100 / Math.floor(num / 2)));
     xp += (Math.random() - .5) * 7;
     var point = [xp, Math.random() * 100];
+    if(i === 1){
+      point[1] = 100 - point[1];
+    }
     var axis = (Math.random() > .5 ? 'horz' : 'vert');
-    var length = 8000 / dims[(axis === 'horz' ? 0 : 1)];
-    var taper = 900 / dims[(axis === 'horz' ? 0 : 1)];
-    svgs[i].appendChild(genTaperedLine(axis, point[0], point[1], length, Math.random() * 3, taper, pbr.tcolor, '%'));
+    length = Math.max(dims[0], dims[1]) / 20;
+    taper = length / 4;
+    svgs[i].appendChild(genTaperedLine(point[0], point[1], axis, length, Math.random() * 3.5, taper, pbr.tcolor));
   }
 }
