@@ -25,7 +25,7 @@ function genLine(x1, y1, x2, y2, width, unit){
 function genTaper(x, y, dir, length, width){
   var taper = document.createElementNS('http://www.w3.org/2000/svg','ellipse');
 
-  length = (length / 2) + '%';
+  length = length + '%';
   width = width / 2;
   x = x + '%';
   y = y + '%';
