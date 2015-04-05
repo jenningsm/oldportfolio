@@ -1,24 +1,34 @@
 
+/*
+  returns a tapered line
+
+  x: x coordinate, in percentage, of the center of the line
+  y: y coordinate, in percentage, of the center of the line
+  axis: direction of the line, either 'horz' for horizontal or 'vert' for vertical
+  length: the length, in pixels, of the line
+  width: the width, in pixels, of the line
+  taperLength: the length, in pixels, of the taper
+  color: the color, as a css string,  of the line
+*/
 function genTaperedLine (x, y, axis, length, width, taperLength, color){
   var group = document.createElementNS('http://www.w3.org/2000/svg','g');
   group.setAttribute('stroke', 'none');
   group.setAttribute('fill', color);
-  var dirs = [];
-  if(axis === 'vert'){
-    dirs = ['bottom', 'top'];
-  } else {
-    dirs = ['right', 'left'];
-  }
+
   var line = genLine(x, y, axis, length, width);
   group.appendChild(line);
   for(var i = 0; i < 2; i++){
-    var taper = genTaper(x, y, dirs[i], length, width, taperLength);
+    var taper = genTaper(x, y, axis, length, width, i === 0, taperLength);
     group.appendChild(taper);
   }
  
   return group;
 }
 
+/*
+  returns a line without a tapers
+  the arguments are the same as the first five for genTaperedLine
+*/
 function genLine(x, y, axis, length, width){
 
   x = x + '%';
@@ -42,12 +52,15 @@ function genLine(x, y, axis, length, width){
 }
 
 /*
-  Here, the first five arguments are the dimensions of the line the taper belongs to,
-  while the last argument, taper, is the actual length of the taper.
-*/
-function genTaper(x, y, dir, length, width, taperLength){
+  returns a taper
+  the first five arguments are the same as the first five of genTaperedLine and 
+  are the dimensions of the line this taper will be at the end of
 
-  console.log(x, y, dir, length, width, taperLength);
+  dir is a boolean specifying whether the taper should be at the positive (true) or negative (false) end of the line
+  taperLength is the length, in pixels, for the taper
+*/
+function genTaper(x, y, axis, length, width, dir, taperLength){
+
   width = width / 2;
   x = x + '%';
   y = y + '%';
@@ -57,19 +70,20 @@ function genTaper(x, y, dir, length, width, taperLength){
   taper.setAttribute('cy', y);
 
   var transform = [];
-  if(dir === 'left' || dir === 'right'){
+  if(axis === 'horz'){
     taper.setAttribute('ry', width );
     taper.setAttribute('rx', taperLength );
-    taper.setAttribute('fill', 'url(#' + dir + '-horz-grad)');
+    taper.setAttribute('fill', 'url(#' + (dir ? 'right' : 'left') + '-horz-grad)');
     transform = [ length / 2, 0];
-    transform[0] *= (dir === 'left' ? -1 : 1);
+    transform[0] *= (dir ? 1 : -1);
   } else {
     taper.setAttribute('rx', width );
     taper.setAttribute('ry', taperLength );
-    taper.setAttribute('fill', 'url(#' + dir + '-vert-grad)');
+    taper.setAttribute('fill', 'url(#' + (dir ? 'bottom' : 'top') + '-vert-grad)');
     transform = [ 0, length / 2];
-    transform[1] *= (dir === 'top' ? -1 : 1);
+    transform[1] *= (dir ? 1 : -1);
   }
+  console.log(axis, transform);
   taper.setAttribute('transform', 'translate(' + transform[0] + ',' + transform[1] + ')');
 
   return taper;
