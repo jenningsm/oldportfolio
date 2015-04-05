@@ -59,8 +59,10 @@ function svgLinearGrad(tcolor){
     .attribute('x2', (i === 0 && j === 0 ? '100%' : 0))
     .attribute('y2', (i === 1 && j === 1 ? '100%' : 0))
     .content(
-      cstop().attribute({'offset' : '0%', 'stop-opacity' : '1'}),
+      cstop().attribute({'offset' : '49.99%', 'stop-opacity' : '0'}),
+      cstop().attribute({'offset' : '50%', 'stop-opacity' : '1'}),
       cstop().attribute({'offset' : '100%', 'stop-opacity' : '0'})
     )
   }
 }
+
