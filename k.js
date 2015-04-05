@@ -2,6 +2,7 @@
 var Element = require('/home/mjennings/pagebuilder/html.js');
 var util = require('./tools/util.js');
 
+//primary, secondary, and tertiary colors, respectively
 var pcolor = [190, 20, 20];
 var scolor = [255, 255, 205];
 var tcolor = [220, 190, 120, .8];
