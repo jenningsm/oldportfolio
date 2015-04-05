@@ -57,6 +57,7 @@ html.content(
     )
   ),
   new Element('script', 'src', 'o.js'),
+  new Element('script', 'src', 'cs/taperedline.js'),
   new Element('script', 'src', 'cs/back.js')
 );
 
