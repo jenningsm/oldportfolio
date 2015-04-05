@@ -1,7 +1,7 @@
 
 var Element = require('/home/mjennings/pagebuilder/html.js');
 var util = require('./tools/util.js');
-var pages = require('./pages.js');
+var pages = require('./pages/pages.js');
 
 //primary, secondary, and tertiary colors, respectively
 var pcolor = [190, 20, 20];
@@ -45,6 +45,14 @@ for(var i = 0; i < dirs.length; i++){
   svgs.push(a[1]['svg']);
 }
 
+var scripts = [
+  new Element('script', 'src', 'o.js'),
+  new Element('script', 'src', 'cs/util.js'),
+  new Element('script', 'src', 'cs/paging.js'),
+  new Element('script', 'src', 'cs/taperedline.js'),
+  new Element('script', 'src', 'cs/back.js')
+];
+
 //////////////////////////////////////
 
 html.content(
@@ -56,9 +64,7 @@ html.content(
       pages(util.colorString(scolor))
     )
   ),
-  new Element('script', 'src', 'o.js'),
-  new Element('script', 'src', 'cs/taperedline.js'),
-  new Element('script', 'src', 'cs/back.js')
+  scripts
 );
 
 ///////////////////////////////////
