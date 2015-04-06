@@ -32,6 +32,7 @@ var red = new Element('div').style({
   'height': height + '%',
   'top' : (50 - height/2) + '%',
   'background-color': util.colorString(pcolor),
+  'color' : util.colorString(scolor),
   'overflow' : 'hidden'
 })
 

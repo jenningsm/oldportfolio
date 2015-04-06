@@ -1,12 +1,11 @@
 
 var Element = require('/home/mjennings/pagebuilder/html.js');
 
-module.exports.full = function(color){
+module.exports.full = function(){
   return new Element('div').style({
     'width' : '100%',
     'height' : '100%',
-    'position' : 'absolute',
-    'color' : color
+    'position' : 'absolute'
   });
 }
 
