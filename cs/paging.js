@@ -33,7 +33,7 @@ function toPage(from, to, dir){
     } else {
       from.style.transform = "translate3d(0, " + (dir ? -100 : 100) + '%, 0)';
       from.style.display = "none";
-      to.style.transform = null;
+      to.style.transform = "translate3d(0, 0, 0)";
     }
   }
 
