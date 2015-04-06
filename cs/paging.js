@@ -1,4 +1,13 @@
 
+
+var p = pbr.pages;
+var keys = Object.keys(p);
+var pages = {};
+
+for (var i = 0; i < keys.length; i++){
+  pages[keys[i]] = p[keys[i]]();
+}
+
 /*
   Transitions to a page
 
@@ -7,7 +16,7 @@
   dir : a boolean specifying if the page should transition up (true) or down (false)
 */
 function toPage(from, to, dir){
-  var move = motion(3, 3);
+  var move = motion(3, 3, 1);
 
   var speed = .01;
   var time = 0;
@@ -20,7 +29,7 @@ function toPage(from, to, dir){
       var shift = (dir ? -1 : 1) * pos * 100;
       from.style.transform = "translate3d(0, " + shift + '%, 0)';
       to.style.transform = "translate3d(0, " + (toStart + shift) + '%, 0)';
-      requestAnimationFrame(transitionFrom);
+      requestAnimationFrame(transition);
     } else {
       from.style.transform = "translate3d(0, " + (dir ? -100 : 100) + '%, 0)';
       from.style.display = "none";
@@ -29,6 +38,6 @@ function toPage(from, to, dir){
   }
 
   to.style.transform = "translate3d(0, " + toStart + '%, 0)';
-  to.style.display = null;
+  to.style.display = 'block';
   requestAnimationFrame(transition);
 }

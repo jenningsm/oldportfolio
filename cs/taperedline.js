@@ -83,7 +83,6 @@ function genTaper(x, y, axis, length, width, dir, taperLength){
     transform = [ 0, length / 2];
     transform[1] *= (dir ? 1 : -1);
   }
-  console.log(axis, transform);
   taper.setAttribute('transform', 'translate(' + transform[0] + ',' + transform[1] + ')');
 
   return taper;

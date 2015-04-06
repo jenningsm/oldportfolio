@@ -31,7 +31,8 @@ var red = new Element('div').style({
   'width':'100%',
   'height': height + '%',
   'top' : (50 - height/2) + '%',
-  'background-color': util.colorString(pcolor)
+  'background-color': util.colorString(pcolor),
+  'overflow' : 'hidden'
 })
 
 
@@ -48,10 +49,13 @@ for(var i = 0; i < dirs.length; i++){
 var scripts = [
   new Element('script', 'src', 'o.js'),
   new Element('script', 'src', 'cs/util.js'),
+  new Element('script', 'src', 'cs/motion.js'),
   new Element('script', 'src', 'cs/paging.js'),
   new Element('script', 'src', 'cs/taperedline.js'),
   new Element('script', 'src', 'cs/back.js')
 ];
+
+pages = pages(util.colorString(scolor));
 
 //////////////////////////////////////
 
@@ -61,7 +65,7 @@ html.content(
     bars[0],
     bars[1],
     red.content(
-      pages(util.colorString(scolor))
+      pages
     )
   ),
   scripts
@@ -70,7 +74,7 @@ html.content(
 ///////////////////////////////////
 
 var fs = require('fs');
-var p = html.generate({'svg1': svgs[0], 'svg2': svgs[1], 'tcolor' : util.colorString(tcolor)}, true);
+var p = html.generate({'svg1': svgs[0], 'svg2': svgs[1], 'tcolor' : util.colorString(tcolor), 'pages' : pages}, true);
 fs.writeFileSync('o.css', p.css);
 fs.writeFileSync('o.js', p.js);
 fs.writeFileSync('index.html', p.html);

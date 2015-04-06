@@ -54,6 +54,11 @@ function motion(accel, decel, maxSpeed){
   totalDist += ((1 - decelAt) * decel + stopSpeed)* (1 - decelAt) - .5 * decel * Math.pow(1 - decelAt, 2);
 
   return function(x){
+
+    if(x >= 1){
+      return 1;
+    }
+
     //amount of time spent accelerating, floating, and decelerating, respectively
     var accelFor = Math.min(x, stopAccelAt);
     var floatFor = Math.max(0, Math.min(x - stopAccelAt, decelAt - stopAccelAt));

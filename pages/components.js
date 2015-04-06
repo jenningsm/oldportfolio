@@ -16,12 +16,12 @@ module.exports.backButton = function(){
   )
 }
 
-module.exports.browseButtons = function(prev, next){
+module.exports.browseButtons = function(curr, prev, next){
   return edgeButton('top').content(
     '-&nbsp;',
-    new Element('span').content('PREV'),
+    new Element('span').content('PREV').attribute('onclick', 'toPage(pages.' + curr + ',pages.' + prev + ',false)'),
     '&nbsp;|&nbsp;',
-    new Element('span').content('NEXT'),
+    new Element('span').content('NEXT').attribute('onclick', 'toPage(pages.' + curr + ',pages.' + next + ',true)'),
     '&nbsp;-'
   );
 }
