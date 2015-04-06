@@ -6,48 +6,32 @@ var coms = require('./components.js');
 var Element = require('/home/mjennings/pagebuilder/html.js');
 
 function pages(){
-  var front =  title()
-  var onep = test('| ONE |', ['one', 'front', 'two']);
-  var twop = test('| TWO |', ['two', 'one', 'front']);
+  var front = midContent('| MICHAEL JENNINGS |')('front', 'two', 'one').style('display', 'block');
+  var onep = midContent('| ONE |')('one', 'front', 'two');
+  var twop = midContent('| TWO |')('two', 'one', 'front');
   var pages = {'front' : front, 'one' : onep, 'two' : twop};
   return pages;
 }
 
 
-function title(){
-  return coms.full().content(
-    new Element('div').style({
-      'display' :'flex',
-      'justify-content' : 'center',
-      'align-items':'center',
-      'width' : '100%',
-      'height' : '100%',
-      'position' : 'absolute'
-      },
-      coms.font(1.7)
-    ).content(
-      '| MICHAEL JENNINGS |'
-    ),
-    coms.browseButtons('front', 'two', 'one')
-  )
-}
-
-function test(content, pages){
-  return coms.full().content(
-    new Element('div').style({
-      'display' :'flex',
-      'justify-content' : 'center',
-      'align-items':'center',
-      'top' : '50%',
-      'left' : '50%',
-      'transform' : 'translate(-50%, -50%)',
-      'position' : 'absolute'
-      },
-      coms.font(1.7)
-    ).content(
-      content
-    ),
-    coms.browseButtons(pages[0], pages[1], pages[2])
-  ).style('display', 'none');
+function midContent(content){
+  return function(currPage, prevPage, nextPage){
+    return coms.full().content(
+      new Element('div').style({
+        'display' :'flex',
+        'justify-content' : 'center',
+        'align-items':'center',
+        'width' : '100%',
+        'height' : '100%',
+        'position' : 'absolute'
+        },
+        coms.font(1.7)
+      ).content(
+        content
+      ),
+      coms.browseButtons(currPage, prevPage, nextPage),
+      coms.backButton()
+    ).style('display', 'none');
+  }
 }
 
