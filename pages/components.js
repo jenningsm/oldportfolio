@@ -10,13 +10,13 @@ module.exports.full = function(){
 }
 
 module.exports.backButton = function(){
-  return edgeButton('bottom').content(
+  return edgeButton(false).content(
     "- BACK -"
   )
 }
 
 module.exports.browseButtons = function(curr, prev, next){
-  return edgeButton('top').content(
+  return edgeButton(true).content(
     '-&nbsp;',
     new Element('span').content('PREV').attribute('onclick', 'toPage(pages.' + curr + ',pages.' + prev + ',false)'),
     '&nbsp;|&nbsp;',
@@ -37,8 +37,8 @@ function font(size, weight){
 }
 
 
-
-function edgeButton(dir){
+// pos specifies whether the button should be at the top (true) or bottom (false) of the page
+function edgeButton(pos){
   return new Element('div').style({
     'width' : '100%',
     'height' : '12%',
@@ -48,6 +48,6 @@ function edgeButton(dir){
     'position' : 'absolute'
     },
     font(1.4)
-  ).style(dir, '0%');
+  ).style((pos ? 'top' : 'bottom'), '0%');
 }
 
