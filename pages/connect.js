@@ -1,4 +1,58 @@
 
+/*
+
+  connectPages takes a page tree composed of page objects, and connects
+  the page objects. Each of these terms is defined below.
+
+  A page object represents a page. It has the following properties:
+ 
+   generator: a function which takes info about the page's
+              siblings and children, and returns a page element.
+              The page element is the actual Element object that
+              will generate the page's html.
+
+   name     : the name of the page, as a string. if this property is not
+              included, one will be automatically created.
+
+   info     : this property is entirely optional, and may take any form
+              (ie function, string, object). If it exists, it will be passed,
+              along with name, to the page object's parent's generator.
+              The parent may use this information to determine how to
+              link to it (ie you may include a short description of the page
+              that the parent will include below the link to it)
+
+  A page tree represents a page hierarchy. It is passed in the form of
+  an array. The first element of this array must be a page object, and
+  this object is the root of the tree. The rest of the elements in the array are the
+  children of this node, and may be either page objects, or page trees
+  themselves.
+
+  Additionally at any point where a page object would be passed in, a
+  single function may be passed in instead, in which case the function
+  will be interpreted as the generator of a page object with no name
+  or info properties.
+
+  generator functions will be passed the following parameters, in this order:
+
+    children    : an array of child objects. Each of these child objects will
+                  be the same as that child's page object, except that it will
+                  not have the generator property. The data in each child
+                  object is used to determine how to link to that child.
+
+    name        : The name this page.
+
+    nextSibling : The name of the next sibling. If the page being generated
+                  is the last sibling, then this will be the name of the
+                  page's parent.
+
+    prevSibling : The name of the previous sibling. If the page being
+                  generated is the first sibling, then this will be the name
+                  of the page's parent.
+  
+  The information contained in these arguments is used to generate links. 
+
+*/
+
 var Element = require('/home/mjennings/pagebuilder/html.js');
 
 module.exports = connectPages;
