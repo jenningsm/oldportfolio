@@ -4,7 +4,7 @@ var Element = require('/home/mjennings/pagebuilder/html.js');
 module.exports = function(structure){
 
   assignNames(structure);
-  structure[0].generator = structure[0].generator(structure[0].name, null, null);
+  structure[0].neighbors = [null, null];
   var pageList = connect(structure);
 
   var pageSet = {};
@@ -17,7 +17,7 @@ module.exports = function(structure){
 
 function iterator(structure){
   var items = [];
-  function collate(s){
+  (function collate(s){
     if(Array.isArray(s)){
       for(var i = 0; i < s.length; i++){
         collate(s[i]);
@@ -25,8 +25,8 @@ function iterator(structure){
     } else {
       items.push(s);
     }
-  }
-  collate(structure);
+  })(structure);
+
   var i = 0;
   return function(){
     if(i === items.length){
@@ -81,13 +81,16 @@ function connect(s){
     children = [];
   }
   if(children.length === 0){
-    return [{'name' : par.name, 'page' : par.generator([])}];
+    return [{
+             'name' : par.name,
+             'page' : par.generator([], par.name, par.neighbors[0], par.neighbors[1])
+           }]
   } else {
     for(var i = 0; i < children.length; i++){
       var child = getTop(children[i]);
       var prevChildName = (i === 0 ? par.name : getTop(children[i-1]).name);
       var nextChildName = (i === children.length - 1 ? par.name : getTop(children[i+1]).name);
-      child.generator = child.generator(child.name, prevChildName, nextChildName);
+      child.neighbors = [prevChildName, nextChildName];
     }
     
     var childrenNameMap = [];
@@ -100,7 +103,10 @@ function connect(s){
       childrenNameMap.push(childRecord);
     }
 
-    var pages = [{'name' : par.name, 'page' : par.generator(childrenNameMap)}];
+    var pages = [{
+                  'name' : par.name,
+                  'page' : par.generator(childrenNameMap, par.name, par.neighbors[0], par.neighbors[1])
+                }];
     for(var i = 0; i < children.length; i++){
       pages = pages.concat(connect(children[i]));
     }

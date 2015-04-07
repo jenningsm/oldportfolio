@@ -29,8 +29,7 @@ var dummy =
 function midContent(name, content){
   return {
     'generator' :
-    function(currPage, prevPage, nextPage){
-      return function(children){
+    function(children, currPage, prevPage, nextPage){
         return coms.full().content(
           new Element('div').style({
             'display' :'flex',
@@ -48,7 +47,6 @@ function midContent(name, content){
           coms.backButton()
         ).style('display', (name === 'front' ? 'block' : 'none'));
       }
-    }
   }
 }
 
