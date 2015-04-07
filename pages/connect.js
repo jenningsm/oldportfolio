@@ -1,12 +1,12 @@
 
 var Element = require('/home/mjennings/pagebuilder/html.js');
 
-module.exports = function(structure){
+module.exports = function(tree){
 
-  structure = formatted(structure);
-  assignNames(structure);
-  structure[0].neighbors = [null, null];
-  var pageList = connect(structure);
+  tree = formatted(tree);
+  assignNames(tree);
+  tree[0].neighbors = [null, null];
+  var pageList = connect(tree);
 
   var pageSet = {};
   for(var i = 0; i < pageList.length; i++){
@@ -15,8 +15,9 @@ module.exports = function(structure){
   return pageSet;
 }
 
-
-function iterator(structure){
+//returns an iterator that iterates through
+//each of the elements in a page tree
+function iterator(tree){
   var items = [];
   (function collate(s){
     if(Array.isArray(s)){
@@ -26,7 +27,7 @@ function iterator(structure){
     } else {
       items.push(s);
     }
-  })(structure);
+  })(tree);
 
   var i = 0;
   return function(){
@@ -37,36 +38,38 @@ function iterator(structure){
   }
 }
 
-function formatted(structure){
-  if(Array.isArray(structure)){
+//takes a page tree and returns that tree with
+//all generators replaced by page objects
+function formatted(tree){
+  if(Array.isArray(tree)){
     var ret = [];
-    for(var i = 0; i < structure.length; i++){
-      ret = ret.concat(formatted(structure[i]));
+    for(var i = 0; i < tree.length; i++){
+      ret = ret.concat(formatted(tree[i]));
     }
     return ret;
   } else {
-    if(typeof structure === 'function'){
-      return [{'generator' : structure}]
+    if(typeof tree === 'function'){
+      return [{'generator' : tree}]
     } else {
-      return [structure]
+      return [tree]
     }
   }
 }
 
 var count = 0;
-function assignNames(structure){
+function assignNames(tree){
   var iter, item;
 
   //get all the names that have already been assigned
   //so we can avoid collisions when assigning new names
   var names = {};
-  iter = iterator(structure);
+  iter = iterator(tree);
   while((item = iter()) !== null){
     names[item.name] = true;
   }
   
   //assign names to those that don't already have them
-  iter = iterator(structure);
+  iter = iterator(tree);
   while((item = iter()) !== null){
     if(item.name === undefined){
       //make sure the new name doesn't collide
@@ -87,14 +90,14 @@ function getTop(n){
   }
 }
  
-function connect(s){
+function connect(tree){
   var par;
   var children;
-  if(Array.isArray(s)){
-    par = s[0];
-    children = s.slice(1);
+  if(Array.isArray(tree)){
+    par = tree[0];
+    children = tree.slice(1);
   } else {
-    par = s;
+    par = tree;
     children = [];
   }
   if(children.length === 0){
