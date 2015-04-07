@@ -48,8 +48,7 @@ function midContent(name, content){
           coms.backButton()
         ).style('display', (name === 'front' ? 'block' : 'none'));
       }
-    },
-    'name' : name
+    }
   }
 }
 

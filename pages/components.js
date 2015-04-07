@@ -24,7 +24,7 @@ module.exports.browseButtons = function(curr, prev, next){
 
   for(var i = 0; i < buttons.length; i++){
     if(targets[i] !== null){
-      buttons[i].attribute('onclick', 'toPage(pages[' + curr + '],pages[' + targets[i] + '],' + (i === 1 ? 'true' : 'false') + ')');
+      buttons[i].attribute('onclick', 'toPage(pages[&quot;' + curr + '&quot;],pages[&quot;' + targets[i] + '&quot;],' + (i === 1 ? 'true' : 'false') + ')');
     } else {
       buttons[i].style('opacity', '.5');
     }

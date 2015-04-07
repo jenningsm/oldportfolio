@@ -3,13 +3,13 @@ var Element = require('/home/mjennings/pagebuilder/html.js');
 
 module.exports = function(structure){
 
-  assignIDs(structure);
-  structure[0].generator = structure[0].generator(structure[0].id, null, null);
+  assignNames(structure);
+  structure[0].generator = structure[0].generator(structure[0].name, null, null);
   var pageList = connect(structure);
 
   var pageSet = {};
   for(var i = 0; i < pageList.length; i++){
-    pageSet[pageList[i][0]] = pageList[i][1];
+    pageSet[pageList[i].name] = pageList[i].page;
   }
   return pageSet;
 }
@@ -36,12 +36,29 @@ function iterator(structure){
   }
 }
 
-var pageID = 0;
-function assignIDs(structure){
-  var iter = iterator(structure);
-  var item;
+var count = 0;
+function assignNames(structure){
+  var iter, item;
+
+  //get all the names that have already been assigned
+  //so we can avoid collisions when assigning new names
+  var names = {};
+  iter = iterator(structure);
   while((item = iter()) !== null){
-    item.id = pageID++;
+    names[item.name] = true;
+  }
+  
+  //assign names to those that don't already have them
+  iter = iterator(structure);
+  while((item = iter()) !== null){
+    if(item.name === undefined){
+      //make sure the new name doesn't collide
+      //with any existing names
+      while(names[count] !== undefined){
+        count++;
+      }
+      item.name = count++;
+    }
   }
 }
 
@@ -64,22 +81,26 @@ function connect(s){
     children = [];
   }
   if(children.length === 0){
-    return [[par.id, par.generator([])]];
+    return [{'name' : par.name, 'page' : par.generator([])}];
   } else {
     for(var i = 0; i < children.length; i++){
       var child = getTop(children[i]);
-      var prevID = (i === 0 ? par.id : getTop(children[i-1]).id);
-      var nextID = (i === children.length - 1 ? par.id : getTop(children[i+1]).id);
-      child.generator = child.generator(child.id, prevID, nextID);
+      var prevChildName = (i === 0 ? par.name : getTop(children[i-1]).name);
+      var nextChildName = (i === children.length - 1 ? par.name : getTop(children[i+1]).name);
+      child.generator = child.generator(child.name, prevChildName, nextChildName);
     }
     
     var childrenNameMap = [];
     for(var i = 0; i < children.length; i++){
       var child = getTop(children[i]);
-      childrenNameMap.push([child.name, child.id]);
+      var childRecord = {'name' : child.name};
+      if(child.info !== undefined){
+        childRecord.info = child.info;
+      }
+      childrenNameMap.push(childRecord);
     }
 
-    var pages = [[par.id, par.generator(childrenNameMap)]];
+    var pages = [{'name' : par.name, 'page' : par.generator(childrenNameMap)}];
     for(var i = 0; i < children.length; i++){
       pages = pages.concat(connect(children[i]));
     }
