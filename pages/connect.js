@@ -1,8 +1,8 @@
 
 var Element = require('/home/mjennings/pagebuilder/html.js');
 
-module.exports = function(tree){
-
+module.exports = connectPages;
+function connectPages(tree){
   tree = formatted(tree);
   assignNames(tree);
   tree[0].neighbors = [null, null];
@@ -56,6 +56,8 @@ function formatted(tree){
   }
 }
 
+//goes through a page tree and assigns arbitrary names to those
+//page objects that don't already have them
 var count = 0;
 function assignNames(tree){
   var iter, item;
@@ -123,10 +125,11 @@ function connect(tree){
       childrenNameMap.push(childRecord);
     }
 
-    var pages = [{
-                  'name' : par.name,
-                  'page' : par.generator(childrenNameMap, par.name, par.neighbors[0], par.neighbors[1])
-                }];
+    var pages =
+      [{
+        'name' : par.name,
+        'page' : par.generator(childrenNameMap, par.name, par.neighbors[0], par.neighbors[1])
+      }];
     for(var i = 0; i < children.length; i++){
       pages = pages.concat(connect(children[i]));
     }

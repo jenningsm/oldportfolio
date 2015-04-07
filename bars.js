@@ -1,5 +1,5 @@
 
-//creates the top bars of the page
+//creates the top and bottom bars of the page
 
 var Element = require('/home/mjennings/pagebuilder/html.js');
 var css = require('./tools/cssshortcuts.js');
