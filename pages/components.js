@@ -16,11 +16,24 @@ module.exports.backButton = function(){
 }
 
 module.exports.browseButtons = function(curr, prev, next){
+  var prevButton = new Element('span').content('PREV');
+  var nextButton = new Element('span').content('NEXT');
+  
+  var buttons = [prevButton, nextButton];
+  var targets = [prev, next];
+
+  for(var i = 0; i < buttons.length; i++){
+    if(targets[i] !== null){
+      buttons[i].attribute('onclick', 'toPage(pages[' + curr + '],pages[' + targets[i] + '],' + (i === 1 ? 'true' : 'false') + ')');
+    } else {
+      buttons[i].style('opacity', '.5');
+    }
+  }
   return edgeButton(true).content(
     '-&nbsp;',
-    new Element('span').content('PREV').attribute('onclick', 'toPage(pages.' + curr + ',pages.' + prev + ',false)'),
+    prevButton,
     '&nbsp;|&nbsp;',
-    new Element('span').content('NEXT').attribute('onclick', 'toPage(pages.' + curr + ',pages.' + next + ',true)'),
+    nextButton,
     '&nbsp;-'
   );
 }
