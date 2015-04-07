@@ -42,21 +42,10 @@ module.exports = function(structure){
       }
       var pages = [[par.id, par.generator(childrenNameMap)]];
   
-      var child = getTop(children[0]);
-      var prevID = par.id;
-      var nextID = (children.length > 1 ? getTop(children[1]).id : par.id);
-      child.generator = child.generator(child.id, prevID, nextID);
-      for(var i = 1; i < children.length - 1; i++){
-        child = getTop(children[i]);
-        prevID = getTop(children[i-1]).id;
-        nextID = getTop(children[i+1]).id;
-        child.generator = child.generator(child.id, prevID, nextID);
-      }
-      if(children.length > 1){
-        var lastIndex = children.length - 1;
-        child = getTop(children[lastIndex]);
-        prevID = getTop(children[lastIndex-1]).id;
-        nextID = par.id
+      for(var i = 0; i < children.length; i++){
+        var child = getTop(children[i]);
+        var prevID = (i === 0 ? par.id : getTop(children[i-1]).id);
+        var nextID = (i === children.length - 1 ? par.id : getTop(children[i+1]).id);
         child.generator = child.generator(child.id, prevID, nextID);
       }
       
@@ -69,5 +58,11 @@ module.exports = function(structure){
 
   assignIDs(structure);
   structure[0].generator = structure[0].generator(structure[0].id, null, null);
-  return connect(structure);
+  var pageList = connect(structure);
+
+  var pageSet = {};
+  for(var i = 0; i < pageList.length; i++){
+    pageSet[pageList[i][0]] = pageList[i][1];
+  }
+  return pageSet;
 }

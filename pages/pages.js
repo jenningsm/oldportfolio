@@ -10,12 +10,7 @@ module.exports = function(){
       midContent('two', '| TWO |'),
   ]
 
-  var a = connectPages(structure);
-  var ret = {};
-  for (var i = 0; i < a.length; i++){
-    ret[a[i][0]] = a[i][1];
-  }
-  return ret;
+  return connectPages(structure);
 }
 
 
