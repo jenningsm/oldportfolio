@@ -15,15 +15,33 @@ module.exports = function(structure){
 }
 
 
+function iterator(structure){
+  var items = [];
+  function collate(s){
+    if(Array.isArray(s)){
+      for(var i = 0; i < s.length; i++){
+        collate(s[i]);
+      }
+    } else {
+      items.push(s);
+    }
+  }
+  collate(structure);
+  var i = 0;
+  return function(){
+    if(i === items.length){
+      return null;
+    }
+    return items[i++];
+  }
+}
 
 var pageID = 0;
-function assignIDs(s){
-  if(Array.isArray(s)){
-    for(var i = 0; i < s.length; i++){
-      assignIDs(s[i]);
-    }
-  } else {
-    s.id = pageID++;
+function assignIDs(structure){
+  var iter = iterator(structure);
+  var item;
+  while((item = iter()) !== null){
+    item.id = pageID++;
   }
 }
 
@@ -48,13 +66,6 @@ function connect(s){
   if(children.length === 0){
     return [[par.id, par.generator([])]];
   } else {
-    var childrenNameMap = [];
-    for(var i = 0; i < children.length; i++){
-      var child = getTop(children[i]);
-      childrenNameMap.push([child.name, child.id]);
-    }
-    var pages = [[par.id, par.generator(childrenNameMap)]];
-
     for(var i = 0; i < children.length; i++){
       var child = getTop(children[i]);
       var prevID = (i === 0 ? par.id : getTop(children[i-1]).id);
@@ -62,6 +73,13 @@ function connect(s){
       child.generator = child.generator(child.id, prevID, nextID);
     }
     
+    var childrenNameMap = [];
+    for(var i = 0; i < children.length; i++){
+      var child = getTop(children[i]);
+      childrenNameMap.push([child.name, child.id]);
+    }
+
+    var pages = [[par.id, par.generator(childrenNameMap)]];
     for(var i = 0; i < children.length; i++){
       pages = pages.concat(connect(children[i]));
     }
