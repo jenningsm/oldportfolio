@@ -27,26 +27,23 @@ var dummy =
 }
 
 function midContent(name, content){
-  return {
-    'generator' :
-    function(children, currPage, prevPage, nextPage){
-        return coms.full().content(
-          new Element('div').style({
-            'display' :'flex',
-            'justify-content' : 'center',
-            'align-items':'center',
-            'width' : '100%',
-            'height' : '100%',
-            'position' : 'absolute'
-            },
-            coms.font(1.7)
-          ).content(
-            content
-          ),
-          coms.browseButtons(currPage, prevPage, nextPage),
-          coms.backButton()
-        ).style('display', (name === 'front' ? 'block' : 'none'));
-      }
+  return function(children, currPage, prevPage, nextPage){
+    return coms.full().content(
+      new Element('div').style({
+        'display' :'flex',
+        'justify-content' : 'center',
+        'align-items':'center',
+        'width' : '100%',
+        'height' : '100%',
+        'position' : 'absolute'
+        },
+        coms.font(1.7)
+      ).content(
+        content
+      ),
+      coms.browseButtons(currPage, prevPage, nextPage),
+      coms.backButton()
+    ).style('display', (name === 'front' ? 'block' : 'none'));
   }
 }
 

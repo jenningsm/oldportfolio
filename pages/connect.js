@@ -3,6 +3,7 @@ var Element = require('/home/mjennings/pagebuilder/html.js');
 
 module.exports = function(structure){
 
+  structure = formatted(structure);
   assignNames(structure);
   structure[0].neighbors = [null, null];
   var pageList = connect(structure);
@@ -33,6 +34,22 @@ function iterator(structure){
       return null;
     }
     return items[i++];
+  }
+}
+
+function formatted(structure){
+  if(Array.isArray(structure)){
+    var ret = [];
+    for(var i = 0; i < structure.length; i++){
+      ret = ret.concat(formatted(structure[i]));
+    }
+    return ret;
+  } else {
+    if(typeof structure === 'function'){
+      return [{'generator' : structure}]
+    } else {
+      return [structure]
+    }
   }
 }
 
