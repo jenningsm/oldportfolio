@@ -1,15 +1,26 @@
 
 /*
 
-  connectPages takes a page tree composed of page objects, and connects
-  the page objects. Each of these terms is defined below.
+  connectPages takes a page hierarchy composed of page generators. Each of
+  these generators, when supplied with information about it's neighboring
+  siblings and its children within the hierarchy, which it may or may not 
+  use to link to those pages, will generate a page. The role of connectPages
+  is to get this information to each page.
+
+  The intent is to allow you to write page generators that dynamically link
+  to children and siblings, rather than hardcoding links into pages.
+
+  More specifically, connectPages takes a page tree composed of page objects,
+  and calls each page object's generator function, passing in sibling and child
+  information and returns the pages generated. Each of these terms is defined
+  below.
 
   TERMS:
 
-  a page element is an object with a generate() function which will 
+  A PAGE ELEMENT is an object with a generate() function which will 
   return the actual html for that page.
 
-  A page object represents a page. It may come in two forms. The first form
+  A PAGE OBJECT represents a page. It may come in two forms. The first form
   is an object with the following properties:
  
    generator: A function which takes info about the page's
@@ -29,18 +40,16 @@
   will be interpreted as the generate property of a page object of the first
   form, without name or info properties.
 
-  A page record is the same as a page object, except that it does not have the
+  A PAGE RECORD is the same as a page object, except that it does not have the
   generator property.
 
-  A page tree represents a page hierarchy. It is passed in the form of
+  A PAGE TREE represents a page hierarchy. It is passed in the form of
   an array. The first element of this array must be a page object, and
-  this object is the root of the tree. The rest of the elements in the array are the
-  children of this node, and may be either page objects, or page trees
+  this object is the root of the tree. The rest of the elements in the array
+  are the children of this node, and may be either page objects, or page trees
   themselves. The order of these elements are preserved. The siblings passed
   to the generator functions (described below) of each child will be those
   adjacent to each child within this array.
-
-
 
   the generator functions are expected to return a page element, and will
   be passed the following parameters, in this order:
@@ -58,7 +67,16 @@
                   generated is the first sibling, then this will be the page
                   record of the page's parent.
   
-  The information contained in these arguments is used to generate links. 
+
+  BEHAVIOR:
+
+  Each page will be passed, as siblings, the sibling page immediately before
+  and immediately after it in the page tree. If the page is at the end, the
+  parent will be passed as it's next sibling, and if it as the beginning, 
+  the parent will be passed as it's previous sibling. Each parent will
+  be passed all it's children.
+
+  I hope I haven't written too much.
 
 */
 
@@ -74,6 +92,8 @@ function connectPages(tree){
   assignNames(tree);
 
   //set the neighbors of the root node to null
+  //this must be done because the function connect begins with the
+  //children, rather than the parent
   tree[0].neighbors = [null, null];
 
   //connect the pages
@@ -90,6 +110,24 @@ function connectPages(tree){
 
 ////////////////////////////////////////////////
 
+
+//takes a page tree and returns that tree with all
+//bare generator functions replaced by page objects
+function formatted(tree){
+  if(Array.isArray(tree)){
+    var ret = [];
+    for(var i = 0; i < tree.length; i++){
+      ret = ret.concat(formatted(tree[i]));
+    }
+    return ret;
+  } else {
+    if(typeof tree === 'function'){
+      return [{'generator' : tree}]
+    } else {
+      return [tree]
+    }
+  }
+}
 
 //returns an iterator that iterates through
 //each of the page objects in a page tree
@@ -111,24 +149,6 @@ function iterator(tree){
       return null;
     }
     return items[i++];
-  }
-}
-
-//takes a page tree and returns that tree with all
-//bare generator functions replaced by page objects
-function formatted(tree){
-  if(Array.isArray(tree)){
-    var ret = [];
-    for(var i = 0; i < tree.length; i++){
-      ret = ret.concat(formatted(tree[i]));
-    }
-    return ret;
-  } else {
-    if(typeof tree === 'function'){
-      return [{'generator' : tree}]
-    } else {
-      return [tree]
-    }
   }
 }
 
@@ -169,6 +189,8 @@ function getPageRecord(page){
   return record;
 }
 
+//when called on a child, n, get's the direct child, without any of that
+//child's descendents, if it has any
 function getTop(n){
   if(Array.isArray(n)){
     return n[0];
@@ -177,8 +199,17 @@ function getTop(n){
   }
 }
 
-//takes a page tree, connects all the page objects,
-//and returns an array of name, page element pairs
+/*
+  takes a page tree, tree, and returns an array of pairs of generated pages
+  and their names.
+
+  The function first goes through each of the children
+  and notes each child's neighboring siblings. It then passes all the
+  children's records, along with the parent's neighbors, which should have been 
+  noted in the last iteration, to the parent's generator. It returns the page
+  generated by the parent's generator concatenated with the return values of
+  itself called recursively on each of the children.
+*/
 function connect(tree){
   // the parent, or root node of the tree
   var par;
@@ -191,13 +222,14 @@ function connect(tree){
     par = tree;
     children = [];
   }
+
   if(children.length === 0){ //leaf node, no children
     return [{
-             'name' : par.name,
-             'page' : par.generator([], par.name, par.neighbors[0], par.neighbors[1])
-           }]
+      'name' : par.name,
+      'page' : par.generator([], par.name, par.neighbors[0], par.neighbors[1])
+    }]
   } else {
-    //set the neighbors of each child
+    //note the neighboring siblings of each child
     for(var i = 0; i < children.length; i++){
       var child = getTop(children[i]);
       var prevChild = (i === 0 ? par : getTop(children[i-1]));
@@ -211,11 +243,12 @@ function connect(tree){
       childrenRecords.push(getPageRecord(children[i]));
     }
 
-    var pages =
-      [{
-        'name' : par.name,
-        'page' : par.generator(childrenRecords, par.name, par.neighbors[0], par.neighbors[1])
-      }];
+    //generate the page
+    var pages = [{
+      'name' : par.name,
+      'page' : par.generator(childrenRecords, par.name, par.neighbors[0], par.neighbors[1])
+    }];
+    //concatenate the page with the pages of all the children
     for(var i = 0; i < children.length; i++){
       pages = pages.concat(connect(children[i]));
     }
