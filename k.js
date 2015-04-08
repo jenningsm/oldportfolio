@@ -75,7 +75,13 @@ html.content(
 ///////////////////////////////////
 
 var fs = require('fs');
-var p = html.generate({'svg1': svgs[0], 'svg2': svgs[1], 'tcolor' : util.colorString(tcolor), 'pages' : pages}, true);
+var p = html.generate({
+    'svgs': svgs,
+    'tcolor' : util.colorString(tcolor),
+    'pages' : pages
+  }, 
+  true
+);
 fs.writeFileSync('o.css', p.css);
 fs.writeFileSync('o.js', p.js);
 fs.writeFileSync('index.html', p.html);

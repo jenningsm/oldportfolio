@@ -1,5 +1,5 @@
 
-var svgs = [pbr.svg1(), pbr.svg2()];
+var svgs = [pbr.svgs[0](), pbr.svgs[1]()];
 
 for(var i = 0; i < svgs.length; i++){
   var a = svgs[i].getBoundingClientRect();
