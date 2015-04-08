@@ -20,7 +20,15 @@ module.exports.browseButtons = function(curr, prev, next){
   var nextButton = new Element('span').content('NEXT');
   
   var buttons = [prevButton, nextButton];
-  var targets = [prev, next];
+  var targets = [];
+  for(var i = 1 ; i < 3; i++){
+    if(arguments[i] === null){
+      targets.push(null)
+    } else {
+      targets.push(arguments[i].name);
+    }
+  }
+
 
   for(var i = 0; i < buttons.length; i++){
     if(targets[i] !== null){

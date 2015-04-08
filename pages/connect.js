@@ -138,6 +138,14 @@ function assignNames(tree){
   }
 }
 
+function getPageRecord(page){
+  var record = {'name' : page.name};
+  if(page.info !== undefined){
+    record.info = page.info;
+  }
+  return record;
+}
+
 function getTop(n){
   if(Array.isArray(n)){
     return n[0];
@@ -164,19 +172,14 @@ function connect(tree){
   } else {
     for(var i = 0; i < children.length; i++){
       var child = getTop(children[i]);
-      var prevChildName = (i === 0 ? par.name : getTop(children[i-1]).name);
-      var nextChildName = (i === children.length - 1 ? par.name : getTop(children[i+1]).name);
-      child.neighbors = [prevChildName, nextChildName];
+      var prevChild = (i === 0 ? par : getTop(children[i-1]));
+      var nextChild = (i === children.length - 1 ? par : getTop(children[i+1]));
+      child.neighbors = [getPageRecord(prevChild), getPageRecord(nextChild)];
     }
     
     var childrenNameMap = [];
     for(var i = 0; i < children.length; i++){
-      var child = getTop(children[i]);
-      var childRecord = {'name' : child.name};
-      if(child.info !== undefined){
-        childRecord.info = child.info;
-      }
-      childrenNameMap.push(childRecord);
+      childrenNameMap.push(getPageRecord(children[i]));
     }
 
     var pages =
