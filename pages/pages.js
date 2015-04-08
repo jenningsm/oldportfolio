@@ -27,23 +27,44 @@ var dummy =
 }
 
 function midContent(name, content){
-  return function(children, currPage, prevPage, nextPage){
-    return coms.full().content(
-      new Element('div').style({
-        'display' :'flex',
-        'justify-content' : 'center',
-        'align-items':'center',
-        'width' : '100%',
-        'height' : '100%',
-        'position' : 'absolute'
-        },
-        coms.font(1.7)
-      ).content(
-        content
-      ),
-      coms.browseButtons(currPage, prevPage, nextPage),
-      coms.backButton()
-    ).style('display', (name === 'front' ? 'block' : 'none'));
+  return {
+  'generator' :
+    function(children, currPage, prevPage, nextPage){
+      return coms.full().content(
+        new Element('div').style({
+            'width' : '100%',
+            'height' : '100%',
+            'position' : 'absolute'
+          }
+        ).content(
+          box(
+            [
+              ['ABOUT', '-', 'PROJECTS', '-', 'CONTACT'],
+              ['| MICHAEL JENNINGS |'],
+              ['EXPERIENCE', '-', 'EDUCATION']
+            ],
+            [1, 1.7, 1]
+          )
+        )
+      ).style('display', (name === 'front' ? 'block' : 'none'));
+    },
+  'name' : name
   }
 }
 
+function box(content, fontSizes){
+  var divs = [];
+  for(var i = 0; i < content.length; i++){
+    var d = new Element('div')
+      .style(coms.font(fontSizes[i]))
+    for(var j = 0; j < content[i].length; j++){
+      d.content(
+        new Element('span')
+         .style('position', 'absolute')
+         .content(content[i][j])
+      )
+    }
+    divs.push(d)
+  }
+  return divs;
+}

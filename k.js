@@ -53,7 +53,8 @@ var scripts = [
   new Element('script', 'src', 'cs/motion.js'),
   new Element('script', 'src', 'cs/paging.js'),
   new Element('script', 'src', 'cs/taperedline.js'),
-  new Element('script', 'src', 'cs/back.js')
+  new Element('script', 'src', 'cs/back.js'),
+  new Element('script', 'src', 'cs/boxtext.js')
 ];
 
 pages = pages(util.colorString(scolor));
