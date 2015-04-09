@@ -1,3 +1,4 @@
+var embed = false;
 
 var Element = require('/home/mjennings/pagebuilder/html.js');
 var util = require('./tools/util.js');
@@ -19,10 +20,17 @@ var tops = {
 
 var html = new Element('html').style(tops);
 var body = new Element('body').style(tops);
-var head = new Element('head').content(
-  new Element('link', {'rel' : 'stylesheet', 'type' : 'text/css', 'href' : 'o.css'}),
-  new Element('link', {'rel' : 'stylesheet', 'type' : 'text/css', 'href' : 'http://fonts.googleapis.com/css?family=Quicksand:300,400'})
-);
+var head;
+if(!embed){
+  head = new Element('head').content(
+    new Element('link', {'rel' : 'stylesheet', 'type' : 'text/css', 'href' : 'o.css'}),
+    new Element('link', {'rel' : 'stylesheet', 'type' : 'text/css', 'href' : 'http://fonts.googleapis.com/css?family=Quicksand:300,400'})
+  )
+} else {
+  head = new Element('head').embedJS().embedCSS().content(
+    new Element('link', {'rel' : 'stylesheet', 'type' : 'text/css', 'href' : 'http://fonts.googleapis.com/css?family=Quicksand:300,400'})
+  )
+}
 
 
 var height = 62;
@@ -48,7 +56,6 @@ for(var i = 0; i < dirs.length; i++){
 }
 
 var scripts = [
-  new Element('script', 'src', 'o.js'),
   new Element('script', 'src', 'cs/util.js'),
   new Element('script', 'src', 'cs/motion.js'),
   new Element('script', 'src', 'cs/paging.js'),
@@ -56,6 +63,9 @@ var scripts = [
   new Element('script', 'src', 'cs/back.js'),
   new Element('script', 'src', 'cs/boxtext.js')
 ];
+if(!embed){
+  scripts.unshift(new Element('script', 'src', 'o.js'));
+}
 
 pages = pages(util.colorString(scolor));
 
@@ -79,9 +89,13 @@ var p = html.generate({
   'svgs': svgs,
   'tcolor' : util.colorString(tcolor),
   'pages' : pages
-},true);
+}, true);
 
 var fs = require('fs');
-fs.writeFileSync('o.css', p.css);
-fs.writeFileSync('o.js', p.js);
+if(p.css !== undefined){
+  fs.writeFileSync('o.css', p.css);
+}
+if(p.js !== undefined){
+  fs.writeFileSync('o.js', p.js);
+}
 fs.writeFileSync('index.html', p.html);

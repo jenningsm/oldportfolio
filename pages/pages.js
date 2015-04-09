@@ -40,7 +40,8 @@ function midContent(name, content){
               ['ABOUT', '-', 'PROJECTS', '-', 'CONTACT'],
               ['EXPERIENCE', '-', 'EDUCATION']
             ],
-            [1.85, 1.1, 1.1]
+            [1.85, 1.1, 1.1],
+            [4, 1]
           )
         ).style('display', (name === 'front' ? 'table' : 'none'))
       )},
@@ -48,13 +49,15 @@ function midContent(name, content){
   }
 }
 
-function box(content, fontSizes){
+function box(content, fontSizes, spacing){
   var divs = [];
+  spacing.push(0);
   for(var i = 0; i < content.length; i++){
     var d = new Element('div')
       .style(coms.font(fontSizes[i]))
       .style({
         'display' : 'flex',
+        'margin-bottom' : spacing[i] + 'px',
         'justify-content' : 'space-between'
       })
     for(var j = 0; j < content[i].length; j++){
@@ -63,7 +66,11 @@ function box(content, fontSizes){
          .content(content[i][j])
       )
     }
-    divs.push(new Element('div').style('display', 'table-row').content(d))
+    divs.push(new Element('div')
+      .style({
+        'display': 'table-row'
+      }).content(d)
+    )
   }
   return divs;
 }
