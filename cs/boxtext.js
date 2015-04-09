@@ -18,6 +18,7 @@ function boxText(box, container, spacing, textShift){
       itemWidths[i].push(width);
     }
   }
+  console.log(itemWidths);
 
   var lineWidths = [];
   for(var i = 0; i < itemWidths.length; i++){
@@ -32,11 +33,20 @@ function boxText(box, container, spacing, textShift){
     maxWidth = Math.max(maxWidth, lineWidths[i]);
   }
 
-  var height = heights[0];
-  var vertOffsets = [0];
-  for(var i = 1; i < heights.length; i++){
+  if(!Array.isArray(spacing)){
+    var s = [];
+    for(var i = 0; i < heights.length - 1; i++){
+      s.push(spacing);
+    }
+    spacing = s;
+  }
+  spacing.push(0);
+
+  var height = 0;
+  var vertOffsets = [];
+  for(var i = 0; i < heights.length; i++){
     vertOffsets.push(height - heights[i] * textShift);
-    height += spacing + heights[i];
+    height += spacing[i] + heights[i];
   }
 
   var horzOffsets = [];
@@ -71,4 +81,4 @@ function boxText(box, container, spacing, textShift){
   return resize;
 }
 
-boxText(pages['front'].children[0], pages['front'], 2, 0);
+boxText(pages['front'].children[0], pages['front'], [4, 1], 0);

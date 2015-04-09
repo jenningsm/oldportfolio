@@ -39,11 +39,11 @@ function midContent(name, content){
         ).content(
           box(
             [
-              ['ABOUT', '-', 'PROJECTS', '-', 'CONTACT'],
               ['| MICHAEL JENNINGS |'],
+              ['ABOUT', '-', 'PROJECTS', '-', 'CONTACT'],
               ['EXPERIENCE', '-', 'EDUCATION']
             ],
-            [1, 1.7, 1]
+            [1.85, 1.1, 1.1]
           )
         )
       ).style('display', (name === 'front' ? 'block' : 'none'));
