@@ -5,6 +5,9 @@ module.exports.full = function(){
   return new Element('div').style({
     'width' : '100%',
     'height' : '100%',
+    'display' :'flex',
+    'justify-content' : 'center',
+    'align-items' : 'center',
     'position' : 'absolute'
   });
 }

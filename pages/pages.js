@@ -32,11 +32,8 @@ function midContent(name, content){
     function(children, currPage, prevPage, nextPage){
       return coms.full().content(
         new Element('div').style({
-            'width' : '100%',
-            'height' : '100%',
-            'position' : 'absolute'
-          }
-        ).content(
+          'display' : 'table',
+        }).content(
           box(
             [
               ['| MICHAEL JENNINGS |'],
@@ -45,9 +42,8 @@ function midContent(name, content){
             ],
             [1.85, 1.1, 1.1]
           )
-        )
-      ).style('display', (name === 'front' ? 'block' : 'none'));
-    },
+        ).style('display', (name === 'front' ? 'table' : 'none'))
+      )},
   'name' : name
   }
 }
@@ -57,14 +53,17 @@ function box(content, fontSizes){
   for(var i = 0; i < content.length; i++){
     var d = new Element('div')
       .style(coms.font(fontSizes[i]))
+      .style({
+        'display' : 'flex',
+        'justify-content' : 'space-between'
+      })
     for(var j = 0; j < content[i].length; j++){
       d.content(
         new Element('span')
-         .style('position', 'absolute')
          .content(content[i][j])
       )
     }
-    divs.push(d)
+    divs.push(new Element('div').style('display', 'table-row').content(d))
   }
   return divs;
 }
