@@ -50,7 +50,7 @@ function toPage(from, to, dir){
   }
 
   to.style.transform = "translate3d(0, " + toStart + '%, 0)';
-  to.style.display = 'flex';
+  to.style.display = 'block';
   to.style.opacity = 0;
   requestAnimationFrame(transition);
 }

@@ -73,7 +73,7 @@ function title(){
 
       return coms.pageContainer().content(
         box(text, [1.85, 1.1], [4, 1])
-      ).style('display', 'flex')
+      ).style('display', 'block')
     },
   'name' : 'what'
   }

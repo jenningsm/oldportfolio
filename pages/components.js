@@ -6,19 +6,21 @@ module.exports.pageContainer = function(){
     'display' :'none',
     'width' : '100%',
     'height' : '100%',
-    'justify-content' : 'center',
-    'align-items' : 'center',
     'position' : 'absolute',
-    'flex-direction' : 'column'
-  })
+  }).content(
+    flexBox().capture()
+  )
 }
 
-module.exports.flexBox = function(){
+function flexBox(){
   return new Element('div').style({
     'display' : 'flex',
     'justify-content' : 'center',
     'align-items' : 'center',
-    'flex-direction' : 'column'
+    'flex-direction' : 'column',
+    'width' : '100%',
+    'height' : '100%',
+    'position' : 'absolute'
   })
 }
 
