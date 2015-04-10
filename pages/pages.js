@@ -32,24 +32,39 @@ function dummy(name){
 }
 
 function contact(){
+
+  var content = [
+    new Element('p').content(
+      new Element('span').style(
+        coms.font(1.7),
+        {'border-bottom': '1px solid'}
+      ).content('CONTACT')
+    ).style('text-align', 'center'),
+    new Element('p').content(
+      new Element('span')
+      .style(coms.font(1.4))
+      .content("Shoot me an email:<br/>"),
+      new Element('span')
+      .style(coms.font(1.2))
+      .content('mpjngs@gmail.com')
+    ).style({
+      'line-spacing': '165%',
+      'text-align' : 'center'
+    })
+  ]
+
+  return flatInfo('CONTACT', content)
+}
+
+function flatInfo(name, content){
   return {
     'generator' :
     function(){
       return coms.pageContainer().content(
-        new Element('span').style(
-          coms.font(1.7),
-          {
-            'border-bottom': '1px solid',
-            'margin-bottom': '10px',
-            'text-align': 'center'
-          }
-        ).content('CONTACT'),
-        new Element('div')
-        .style(coms.font(1.4))
-        .content('mpjngs@gmail.com')
+        new Element('div').content(content)
       )
     },
-    'name' : 'CONTACT'
+    'name' : name
   }
 }
 
