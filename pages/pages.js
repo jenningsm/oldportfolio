@@ -8,7 +8,7 @@ module.exports = function(){
     title(),
       dummy('ABOUT'),
       dummy('PROJECTS'),
-      dummy('CONTACT'),
+      contact(),
       dummy('EXPERIENCE'),
       dummy('EDUCATION')
   ]
@@ -25,9 +25,28 @@ function dummy(name){
     function(){
       return coms.pageContainer().content(
         new Element('div').content(name)
-      ).style('display', 'none');
+      )
     },
     'name' : name
+  }
+}
+
+function contact(){
+  return {
+    'generator' :
+    function(){
+      return coms.pageContainer().content(
+        new Element('div').content(
+          new Element('div')
+          .style(coms.font(1.7))
+          .content('CONTACT'),
+          new Element('div')
+          .style(coms.font(1.4))
+          .content('mpjngs@gmail.com')
+        )
+      ).style('text-align', 'center');
+    },
+    'name' : 'CONTACT'
   }
 }
 
@@ -56,7 +75,7 @@ function title(){
             [4, 1]
           )
         )
-      )
+      ).style('display', 'flex');
     },
   'name' : 'what'
   }
