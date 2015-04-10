@@ -3,13 +3,23 @@ var Element = require('/home/mjennings/pagebuilder/html.js');
 
 module.exports.pageContainer = function(){
   return new Element('div').style({
+    'display' :'none',
     'width' : '100%',
     'height' : '100%',
-    'display' :'none',
     'justify-content' : 'center',
     'align-items' : 'center',
-    'position' : 'absolute'
-  });
+    'position' : 'absolute',
+    'flex-direction' : 'column'
+  })
+}
+
+module.exports.flexBox = function(){
+  return new Element('div').style({
+    'display' : 'flex',
+    'justify-content' : 'center',
+    'align-items' : 'center',
+    'flex-direction' : 'column'
+  })
 }
 
 module.exports.backButton = function(){

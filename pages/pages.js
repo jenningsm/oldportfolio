@@ -36,15 +36,18 @@ function contact(){
     'generator' :
     function(){
       return coms.pageContainer().content(
-        new Element('div').content(
-          new Element('div')
-          .style(coms.font(1.7))
-          .content('CONTACT'),
-          new Element('div')
-          .style(coms.font(1.4))
-          .content('mpjngs@gmail.com')
-        )
-      ).style('text-align', 'center');
+        new Element('span').style(
+          coms.font(1.7),
+          {
+            'border-bottom': '1px solid',
+            'margin-bottom': '10px',
+            'text-align': 'center'
+          }
+        ).content('CONTACT'),
+        new Element('div')
+        .style(coms.font(1.4))
+        .content('mpjngs@gmail.com')
+      )
     },
     'name' : 'CONTACT'
   }
@@ -54,6 +57,7 @@ function title(){
   return {
   'generator' :
     function(children, currPage){
+
       var text = [[['| MICHAEL JENNINGS |', null]]]
       var lineLength = 100;
       for(var i = 0; i < children.length; i++){
@@ -66,16 +70,10 @@ function title(){
         text[text.length-1].push([children[i].name, coms.transition(currPage, children[i].name, true)]);
         lineLength += children[i].name.length;
       }
+
       return coms.pageContainer().content(
-        new Element('div').style('display', 'table')
-        .content(
-          box(
-            text,
-            [1.85, 1.1],
-            [4, 1]
-          )
-        )
-      ).style('display', 'flex');
+        box(text, [1.85, 1.1], [4, 1])
+      ).style('display', 'flex')
     },
   'name' : 'what'
   }
@@ -116,5 +114,5 @@ function box(content, fontSizes, spacing){
       .content(d)
     )
   }
-  return divs;
+  return new Element('div').style('display', 'table').content(divs);
 }
