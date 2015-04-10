@@ -4,36 +4,20 @@ var connectPages = require('./connect.js');
 
 
 module.exports = function(){
-  var structure = 
-  [ midContent('one', '| ONE |'),
-      midContent('front', '| MICHAEL JENNINGS |'),
-      midContent('two', '| TWO |'),
-  ]
-
+  var structure = [ title() ]
   return connectPages(structure);
 }
 
 
 /////////////////////////////////////////////////
 
-var dummy = 
-{
-  'generator' : function(){
-    return function(){
-      return new Element("dummy")
-    }
-  },
-  'name' : 'dummy'
-}
-
-function midContent(name, content){
+function title(){
   return {
   'generator' :
     function(children, currPage, prevPage, nextPage){
-      return coms.full().content(
-        new Element('div').style({
-          'display' : 'table',
-        }).content(
+      return coms.pageContainer().content(
+        new Element('div').style('display', 'table')
+        .content(
           box(
             [
               ['| MICHAEL JENNINGS |'],
@@ -43,9 +27,10 @@ function midContent(name, content){
             [1.85, 1.1, 1.1],
             [4, 1]
           )
-        ).style('display', (name === 'front' ? 'table' : 'none'))
-      )},
-  'name' : name
+        )
+      )
+    },
+  'name' : 'what'
   }
 }
 
@@ -54,22 +39,25 @@ function box(content, fontSizes, spacing){
   spacing.push(0);
   for(var i = 0; i < content.length; i++){
     var d = new Element('div')
-      .style(coms.font(fontSizes[i]))
-      .style({
+    .style(
+      {
         'display' : 'flex',
         'margin-bottom' : spacing[i] + 'px',
         'justify-content' : 'space-between'
-      })
+      },
+      coms.font(fontSizes[i])
+    )
+    
     for(var j = 0; j < content[i].length; j++){
       d.content(
         new Element('span')
-         .content(content[i][j])
+       .content(content[i][j])
       )
     }
-    divs.push(new Element('div')
-      .style({
-        'display': 'table-row'
-      }).content(d)
+    divs.push(
+      new Element('div')
+      .style('display', 'table-row')
+      .content(d)
     )
   }
   return divs;

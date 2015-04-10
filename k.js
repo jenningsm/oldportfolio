@@ -1,8 +1,8 @@
 var embed = false;
+var legible = true;
 
 var Element = require('/home/mjennings/pagebuilder/html.js');
 var util = require('./tools/util.js');
-var pages = require('./pages/pages.js');
 
 //primary, secondary, and tertiary colors, respectively
 var pcolor = [190, 20, 20];
@@ -11,30 +11,40 @@ var tcolor = [220, 190, 120, .8];
 
 /////////////////////////////////
 
-var tops = { 
+var html = new Element('html').style({
   'margin' : '0',
   'padding' : '0',
   'background' : util.colorString(scolor),
   'font-family':"'Quicksand', sans serif"
-};
+})
 
-var html = new Element('html').style(tops);
-var body = new Element('body').style(tops);
-var head;
+var body = new Element('body').style({
+  'margin' : '0',
+  'padding' : '0'
+})
+
+var head = new Element('head').content(
+  new Element('link').attribute({
+    'rel' : 'stylesheet', 
+    'type' : 'text/css', 
+    'href' : 'http://fonts.googleapis.com/css?family=Quicksand:300,400'
+  })
+)
+
 if(!embed){
-  head = new Element('head').content(
-    new Element('link', {'rel' : 'stylesheet', 'type' : 'text/css', 'href' : 'o.css'}),
-    new Element('link', {'rel' : 'stylesheet', 'type' : 'text/css', 'href' : 'http://fonts.googleapis.com/css?family=Quicksand:300,400'})
+  head.content(
+    new Element('link').attribute({
+      'rel' : 'stylesheet',
+      'type' : 'text/css',
+      'href' : 'o.css'
+    })
   )
 } else {
-  head = new Element('head').embedJS().embedCSS().content(
-    new Element('link', {'rel' : 'stylesheet', 'type' : 'text/css', 'href' : 'http://fonts.googleapis.com/css?family=Quicksand:300,400'})
-  )
+  head.embedJS().embedCSS()
 }
 
-
 var height = 62;
-var red = new Element('div').style({
+var bulk = new Element('div').style({
   'position': 'absolute',
   'width':'100%',
   'height': height + '%',
@@ -47,12 +57,12 @@ var red = new Element('div').style({
 
 var bargen = require('./bars.js');
 var dirs = ['top', 'bottom'];
-var bars = [];
+var barContent = [];
 var svgs = [];
 for(var i = 0; i < dirs.length; i++){
   var a = bargen(dirs[i], 50 - height / 2, scolor, tcolor);
-  bars.push(a[0]);
-  svgs.push(a[1]['svg']);
+  barContent.push(a.svg, a.gradient);
+  svgs.push(a.svg);
 }
 
 var scripts = [
@@ -61,22 +71,20 @@ var scripts = [
   new Element('script', 'src', 'cs/paging.js'),
   new Element('script', 'src', 'cs/taperedline.js'),
   new Element('script', 'src', 'cs/back.js'),
-  new Element('script', 'src', 'cs/boxtext.js')
 ];
 if(!embed){
   scripts.unshift(new Element('script', 'src', 'o.js'));
 }
 
-pages = pages(util.colorString(scolor));
+var pages = require('./pages/pages.js')(util.colorString(scolor));
 
 //////////////////////////////////////
 
 html.content(
   head,
   body.content(
-    bars[0],
-    bars[1],
-    red.content(
+    barContent,
+    bulk.content(
       pages
     )
   ),
@@ -89,7 +97,7 @@ var p = html.generate({
   'svgs': svgs,
   'tcolor' : util.colorString(tcolor),
   'pages' : pages
-}, true);
+}, legible);
 
 var fs = require('fs');
 if(p.css !== undefined){

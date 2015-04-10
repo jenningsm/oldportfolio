@@ -31,7 +31,7 @@ function bar(dir, size, scolor, tcolor){
      {'z-index': '1'}
   );
 
-  return [[svg, gradient], {'svg': svg}];
+  return {'svg': svg, 'gradient' : gradient}
 }
 
 module.exports = bar;

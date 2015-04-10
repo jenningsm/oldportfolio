@@ -1,7 +1,7 @@
 
 var Element = require('/home/mjennings/pagebuilder/html.js');
 
-module.exports.full = function(){
+module.exports.pageContainer = function(){
   return new Element('div').style({
     'width' : '100%',
     'height' : '100%',
@@ -28,25 +28,32 @@ module.exports.browseButtons = function(curr, prev, next){
     if(arguments[i] === null){
       targets.push(null)
     } else {
-      targets.push(arguments[i].name);
+      targets.push(arguments[i].name)
     }
   }
-
 
   for(var i = 0; i < buttons.length; i++){
     if(targets[i] !== null){
-      buttons[i].attribute('onclick', 'toPage(pages[&quot;' + curr + '&quot;],pages[&quot;' + targets[i] + '&quot;],' + (i === 1 ? 'true' : 'false') + ')');
+      buttons[i].attribute('onclick', 
+       'toPage(pages[&quot;' +
+        curr + 
+       '&quot;],pages[&quot;' + 
+        targets[i] + 
+       '&quot;],' + 
+        (i === 1 ? 'true' : 'false') + ')'
+      )
     } else {
-      buttons[i].style('opacity', '.5');
+      buttons[i].style('opacity', '.5')
     }
   }
+
   return edgeButton(true).content(
     '-&nbsp;',
     prevButton,
     '&nbsp;|&nbsp;',
     nextButton,
     '&nbsp;-'
-  );
+  )
 }
 
 module.exports.font = font;
