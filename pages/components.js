@@ -34,14 +34,7 @@ module.exports.browseButtons = function(curr, prev, next){
 
   for(var i = 0; i < buttons.length; i++){
     if(targets[i] !== null){
-      buttons[i].attribute('onclick', 
-       'toPage(pages[&quot;' +
-        curr + 
-       '&quot;],pages[&quot;' + 
-        targets[i] + 
-       '&quot;],' + 
-        (i === 1 ? 'true' : 'false') + ')'
-      )
+      buttons[i].attribute('onclick', transition(curr, targets[i], i === 1))
     } else {
       buttons[i].style('opacity', '.5')
     }
@@ -54,6 +47,16 @@ module.exports.browseButtons = function(curr, prev, next){
     nextButton,
     '&nbsp;-'
   )
+}
+
+module.exports.transition = transition;
+function transition(from, to, dir){
+  return 'toPage(pages[&quot;' +
+          from + 
+         '&quot;],pages[&quot;' + 
+          to + 
+         '&quot;],' + 
+          dir + ')'
 }
 
 module.exports.font = font;
