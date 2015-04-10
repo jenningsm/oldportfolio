@@ -58,10 +58,10 @@ function title(){
   'generator' :
     function(children, currPage){
 
-      var text = [[['| MICHAEL JENNINGS |', null]]]
+      var text = [[['MICHAEL JENNINGS', null]]]
       var lineLength = 100;
       for(var i = 0; i < children.length; i++){
-        if(lineLength + children[i].name.length > text[0][0][0].length){
+        if(lineLength + children[i].name.length > 1.5 * text[0][0][0].length){
           text.push([]);
           lineLength = 0;
         } else {
@@ -72,7 +72,7 @@ function title(){
       }
 
       return coms.pageContainer().content(
-        box(text, [1.85, 1.1], [4, 1])
+        box(text, [1.85, 1.1], [8, 1.5])
       ).style('display', 'block')
     },
   'name' : 'what'
@@ -98,6 +98,9 @@ function box(content, fontSizes, spacing){
       },
       coms.font(fontSizes[i])
     )
+    if(i === 0){
+      d.style('border-bottom', '1px solid');
+    }
     
     for(var j = 0; j < content[i].length; j++){
       var span = new Element('span')
