@@ -26,7 +26,7 @@ function bar(dir, size, scolor, tcolor){
 
   var gradient = new Element('div')
   .style(
-     css.linearGradient(dir, util.colorString(scolor), 'rgba(0, 0, 0, 0)'),
+     css.linearGradient(dir, util.colorString(scolor.concat([.5])), 'rgba(0, 0, 0, 0)'),
      positioning,
      {'z-index': '1'}
   );
