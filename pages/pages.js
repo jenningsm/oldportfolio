@@ -6,11 +6,11 @@ var connectPages = require('./connect.js');
 module.exports = function(){
   var structure = [
     title(),
-      dummy('PROJECTS'),
-      dummy('ABOUT'),
+      dummy('projects'),
+      dummy('about'),
       contact(),
-      dummy('EXPERIENCE'),
-      dummy('EDUCATION'),
+      dummy('experience'),
+      dummy('education'),
   ]
   return connectPages(structure);
 }
@@ -58,7 +58,7 @@ function contact(){
     coms.backButton()
   ]
 
-  return flatInfo('CONTACT', content)
+  return flatInfo('contact', content)
 }
 
 function flatInfo(name, content){
@@ -87,7 +87,7 @@ function title(){
         } else {
           text[text.length-1].push(['-', null]);
         }
-        text[text.length-1].push([children[i].name, coms.transition(children[i].name, 'up')]);
+        text[text.length-1].push([children[i].name.toUpperCase(), coms.transition(children[i].name, 'up', 'push')]);
         lineLength += children[i].name.length;
       }
 

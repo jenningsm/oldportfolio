@@ -9,7 +9,7 @@ for (var i = 0; i < keys.length; i++){
   pages[keys[i]] = p[keys[i]]();
 }
 
-window.addEventListener('popstate', function(e) { toPage(e.state.page, 'down') });
+window.addEventListener('popstate', function(e) { toPage(e.state.page, 'down', 'pop') });
 
 var currPage = 'front';
 currPage.display = 'block';
@@ -24,14 +24,18 @@ history.replaceState({page : currPage}, '', root + '/');
 */
 var lock = false;
 
-function toPage(page, dir){
+function toPage(page, dir, action){
   if(lock){
     return
   } else {
     lock = true;
   }
 
-  history.pushState({page : page}, '', root + '/' + page.toLowerCase());
+  if(action === 'push'){
+    history.pushState({page : page}, '', root + '/' + page);
+  } else if(action === 'replace'){
+    history.replaceState({page : page}, '', root + '/' + page);
+  }
 
   var to = pages[page]
   var from = pages[currPage]
