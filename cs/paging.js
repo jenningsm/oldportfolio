@@ -62,23 +62,21 @@ function toPage(page, dir, action){
     time += speed;
     var pos = move(time);
     if(pos < 1){
-      from.style.transform = "translate3d(" + transform(pos) + ')';
-      to.style.transform = "translate3d(" + transform(pos-1) + ')';
       var pro = .5;
       if(time < pro + speed){
         if(time < pro){
-          from.style.opacity = Math.max(0, (1 - time / pro))
+          from.style.opacity = 1 - time / pro
+          from.style.transform = "translate3d(" + transform(pos) + ')';
         } else {
-          from.style.opacity = 0;
+          from.style.display = 'none';
         }
       }
       if(time > (1 - pro)){
+        to.style.transform = "translate3d(" + transform(pos-1) + ')';
         to.style.opacity = Math.max(0, (time - 1 + pro) / pro);
       }
       requestAnimationFrame(transition);
     } else {
-      from.style.transform = "translate3d(" + transform(1) + ')';
-      from.style.display = "none";
       to.style.transform = "translate3d(0, 0, 0)";
       to.style.opacity = 1;
       currPage = page;
