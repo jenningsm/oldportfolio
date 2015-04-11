@@ -35,6 +35,7 @@ function contact(){
 
   var content = [
     coms.flexBox().content(
+      new Element('p'),
       new Element('p').content(
         new Element('span').style(
           coms.font(1.7),
@@ -54,11 +55,11 @@ function contact(){
         'text-align' : 'center',
         'line-height' : '1.5em'
       }),
+      new Element('p'),
       new Element('p').content(
         '- BACK -'
       ).style({
         'text-align': 'center',
-        'transform' : 'translate(0, 35px)'
       })
       .style(coms.font(1.15))
       .attribute('onclick', 'history.back()')
