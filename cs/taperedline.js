@@ -22,7 +22,35 @@ function genTaperedLine (x, y, axis, length, width, taperLength, color){
     group.appendChild(taper);
   }
  
-  return group;
+  var move = mover(x, y, axis, length, width, taperLength, group, (Math.random() - .5) * 3);
+
+  return {'line' : group, 'mover' : move};
+}
+
+function mover(x, y, axis, length, width, taperLength, line, speed){
+  var pos = 0;
+  var translate, di, start
+  if(axis === 'horz'){
+    translate = function(x){ return x + ",0" }
+    dimindex = 0;
+    start = x / 100;
+  } else {
+    translate = function(x){ return "0," + x }
+    dimindex = 1;
+    start = y / 100;
+  }
+  var dir = (speed > 0 ? 1 : -1);
+  var wrapAt = (speed > 0 ? 1 : 0);
+
+  return function(dims){
+    pos += speed;
+    var center = start * dims[dimindex] + pos
+    var stretch = taperLength + (length / 2)
+    if(dir * (center - stretch * dir) > wrapAt * dims[dimindex]){
+      pos -= dir * (dims[dimindex] + length + 2 * taperLength);
+    }
+    line.setAttribute("transform", "translate(" + translate(pos) + ")");
+  }
 }
 
 /*

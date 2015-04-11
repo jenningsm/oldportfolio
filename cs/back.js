@@ -1,5 +1,6 @@
 
 var svgs = [pbr.svgs[0](), pbr.svgs[1]()];
+var movers = [];
 
 for(var i = 0; i < svgs.length; i++){
   var a = svgs[i].getBoundingClientRect();
@@ -15,6 +16,31 @@ for(var i = 0; i < svgs.length; i++){
     var axis = (Math.random() > .5 ? 'horz' : 'vert');
     length = Math.max(dims[0], dims[1]) / 20;
     taper = length / 4;
-    svgs[i].appendChild(genTaperedLine(point[0], point[1], axis, length, Math.random() * 3.5, taper, pbr.tcolor));
+    var line = genTaperedLine(point[0], point[1], axis, length, Math.random() * 3.5, taper, pbr.tcolor)
+    svgs[i].appendChild(line.line);
+    movers.push(line.mover);
   }
 }
+
+
+var pos = 0;
+function translate(){
+  pos += 1;
+  for(var i = 0; i < lines.length; i++){
+    lines[i].setAttribute("transform", "translate(" + pos + ", 0)");
+  }
+  requestAnimationFrame(translate);
+}
+
+//translate();
+
+var bb = svgs[0].getBoundingClientRect(svgs[0]);
+var dims = [bb.right - bb.left, bb.bottom - bb.top];
+function moveEm(){
+  for(var i = 0; i < movers.length; i++){
+    movers[i](dims);
+  }
+  requestAnimationFrame(moveEm);
+}
+
+moveEm();
