@@ -6,11 +6,11 @@ var connectPages = require('./connect.js');
 module.exports = function(){
   var structure = [
     title(),
-      dummy('ABOUT'),
       dummy('PROJECTS'),
+      dummy('ABOUT'),
       contact(),
       dummy('EXPERIENCE'),
-      dummy('EDUCATION')
+      dummy('EDUCATION'),
   ]
   return connectPages(structure);
 }
@@ -34,23 +34,28 @@ function dummy(name){
 function contact(){
 
   var content = [
-    new Element('p').content(
-      new Element('span').style(
-        coms.font(1.7),
-        {'border-bottom': '1px solid'}
-      ).content('CONTACT')
-    ).style('text-align', 'center'),
-    new Element('p').content(
-      new Element('span')
-      .style(coms.font(1.4))
-      .content("Shoot me an email:<br/>"),
-      new Element('span')
-      .style(coms.font(1.2))
-      .content('mpjngs@gmail.com')
-    ).style({
-      'line-spacing': '165%',
-      'text-align' : 'center'
-    })
+    coms.flexBox().content(
+      new Element('p').content(
+        new Element('span').style(
+          coms.font(1.7),
+          {'border-bottom': '1px solid'}
+        ).content('CONTACT')
+      ).style('text-align', 'center'),
+      new Element('p').content(
+        new Element('span')
+        .style(coms.font(1.3))
+        .content("Shoot me an email:"),
+        new Element('br/'),
+        new Element('span')
+        .style(coms.font(1.2))
+        .content('mpjngs@gmail.com')
+      ).style({
+        'line-spacing': '165%',
+        'text-align' : 'center',
+        'line-height' : '1.5em'
+      })
+    ),
+    coms.backButton()
   ]
 
   return flatInfo('CONTACT', content)
@@ -76,13 +81,13 @@ function title(){
       var text = [[['MICHAEL JENNINGS', null]]]
       var lineLength = 100;
       for(var i = 0; i < children.length; i++){
-        if(lineLength + children[i].name.length > 1.5 * text[0][0][0].length){
+        if(lineLength + children[i].name.length > 1.3 * text[0][0][0].length){
           text.push([]);
           lineLength = 0;
         } else {
           text[text.length-1].push(['-', null]);
         }
-        text[text.length-1].push([children[i].name, coms.transition(currPage, children[i].name, true)]);
+        text[text.length-1].push([children[i].name, coms.transition(children[i].name, 'up')]);
         lineLength += children[i].name.length;
       }
 
@@ -90,7 +95,7 @@ function title(){
         box(text, [1.85, 1.1], [8, 1.5])
       ).style('display', 'block')
     },
-  'name' : 'what'
+  'name' : 'front'
   }
 }
 
@@ -132,5 +137,5 @@ function box(content, fontSizes, spacing){
       .content(d)
     )
   }
-  return new Element('div').style('display', 'table').content(divs);
+  return coms.flexBox().content(new Element('div').style('display', 'table').content(divs));
 }

@@ -24,16 +24,17 @@ var body = new Element('body').style({
 })
 
 var head = new Element('head').content(
-  new Element('link').attribute({
+  new Element('link/').attribute({
     'rel' : 'stylesheet', 
     'type' : 'text/css', 
     'href' : 'http://fonts.googleapis.com/css?family=Quicksand:300,400'
   })
 )
 
+
 if(!embed){
   head.content(
-    new Element('link').attribute({
+    new Element('link/').attribute({
       'rel' : 'stylesheet',
       'type' : 'text/css',
       'href' : 'o.css'

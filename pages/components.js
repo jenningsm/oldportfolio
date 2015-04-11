@@ -7,12 +7,10 @@ module.exports.pageContainer = function(){
     'width' : '100%',
     'height' : '100%',
     'position' : 'absolute',
-  }).content(
-    flexBox().capture()
-  )
+  })
 }
 
-function flexBox(){
+module.exports.flexBox = function(){
   return new Element('div').style({
     'display' : 'flex',
     'justify-content' : 'center',
@@ -27,7 +25,7 @@ function flexBox(){
 module.exports.backButton = function(){
   return edgeButton(false).content(
     "- BACK -"
-  )
+  ).attribute('onclick', 'history.back()')
 }
 
 module.exports.browseButtons = function(curr, prev, next){
@@ -46,7 +44,7 @@ module.exports.browseButtons = function(curr, prev, next){
 
   for(var i = 0; i < buttons.length; i++){
     if(targets[i] !== null){
-      buttons[i].attribute('onclick', transition(curr, targets[i], i === 1))
+      buttons[i].attribute('onclick', transition(targets[i], (i === 1 ? 'right' : 'left')))
     } else {
       buttons[i].style('opacity', '.5')
     }
@@ -62,13 +60,8 @@ module.exports.browseButtons = function(curr, prev, next){
 }
 
 module.exports.transition = transition;
-function transition(from, to, dir){
-  return 'toPage(pages[&quot;' +
-          from + 
-         '&quot;],pages[&quot;' + 
-          to + 
-         '&quot;],' + 
-          dir + ')'
+function transition(to, dir){
+  return 'toPage(&quot;' + to + '&quot;,&quot;' + dir + '&quot;)'
 }
 
 module.exports.font = font;
@@ -87,13 +80,13 @@ function font(size, weight){
 function edgeButton(pos){
   return new Element('div').style({
     'width' : '100%',
-    'height' : '12%',
+    'height' : '15%',
     'display' : 'flex',
     'align-items' : 'center',
     'justify-content' : 'center',
     'position' : 'absolute'
     },
-    font(1.4)
+    font(1.3)
   ).style((pos ? 'top' : 'bottom'), '0%');
 }
 
