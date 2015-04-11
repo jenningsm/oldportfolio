@@ -5,7 +5,7 @@ var movers = [];
 for(var i = 0; i < svgs.length; i++){
   var a = svgs[i].getBoundingClientRect();
   var dims = [a.right - a.left, a.bottom - a.top];
-  var num = 100;
+  var num = 110;
   for(var j = 0; j < num; j++){
     var xp = ((j % Math.floor(num / 2)) * (100 / Math.floor(num / 2)));
     xp += (Math.random() - .5) * 7;
@@ -36,6 +36,7 @@ function translate(){
 
 var bb = svgs[0].getBoundingClientRect(svgs[0]);
 var dims = [bb.right - bb.left, bb.bottom - bb.top];
+console.log(dims);
 function moveEm(){
   for(var i = 0; i < movers.length; i++){
     movers[i](dims);
