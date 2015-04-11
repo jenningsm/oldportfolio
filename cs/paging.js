@@ -22,10 +22,12 @@ history.replaceState({page : currPage}, '', root + '/');
   to : the page to transition to
   dir : a boolean specifying if the page should transition up (true) or down (false)
 */
+var queue = null;
 var lock = false;
 
 function toPage(page, dir, action){
   if(lock){
+    queue = {'page' : page, 'dir': dir, 'action' : action}
     return
   } else {
     lock = true;
@@ -77,7 +79,13 @@ function toPage(page, dir, action){
       to.style.transform = "translate3d(0, 0, 0)";
       to.style.opacity = 1;
       currPage = page;
+
       lock = false;
+      if(queue !== null){
+        var hold = queue
+        queue = null
+        toPage(hold.page, hold.dir, hold.action)
+      }
     }
   }
 
