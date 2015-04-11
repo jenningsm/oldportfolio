@@ -53,9 +53,16 @@ function contact(){
         'line-spacing': '165%',
         'text-align' : 'center',
         'line-height' : '1.5em'
+      }),
+      new Element('p').content(
+        '- BACK -'
+      ).style({
+        'text-align': 'center',
+        'transform' : 'translate(0, 35px)'
       })
-    ),
-    coms.backButton()
+      .style(coms.font(1.15))
+      .attribute('onclick', 'history.back()')
+    )
   ]
 
   return flatInfo('contact', content)
