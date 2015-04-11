@@ -11,7 +11,9 @@ for (var i = 0; i < keys.length; i++){
 
 window.addEventListener('popstate', function(e) { toPage(e.state.page, 'down', 'pop') });
 
-var currPage = 'front';
+var frontPage = 'front';
+
+var currPage = frontPage;
 currPage.display = 'block';
 history.replaceState({page : currPage}, '', root + '/');
 
@@ -33,10 +35,11 @@ function toPage(page, dir, action){
     lock = true;
   }
 
+  var urlEnd = (page === frontPage ? '' : page);
   if(action === 'push'){
-    history.pushState({page : page}, '', root + '/' + page);
+    history.pushState({page : page}, '', root + '/' + urlEnd);
   } else if(action === 'replace'){
-    history.replaceState({page : page}, '', root + '/' + page);
+    history.replaceState({page : page}, '', root + '/' + urlEnd);
   }
 
   var to = pages[page]
