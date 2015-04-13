@@ -4,17 +4,15 @@ var legible = true;
 var Element = require('/home/mjennings/pagebuilder/html.js');
 var util = require('./tools/util.js');
 
-//primary, secondary, and tertiary colors, respectively
-var pcolor = [190, 20, 20];
-var scolor = [255, 255, 205];
-var tcolor = [220, 190, 120, .8];
+
+var colors = require('./colors.js');
 
 /////////////////////////////////
 
 var html = new Element('html').style({
   'margin' : '0',
   'padding' : '0',
-  'background' : util.colorString(scolor),
+  'background' : util.colorString(colors.scolor),
   'font-family':"'Quicksand', sans serif"
 })
 
@@ -50,8 +48,8 @@ var bulk = new Element('div').style({
   'width':'100%',
   'height': height + '%',
   'top' : (50 - height/2) + '%',
-  'background-color': util.colorString(pcolor),
-  'color' : util.colorString(scolor),
+  'background-color': util.colorString(colors.pcolor),
+  'color' : util.colorString(colors.scolor),
   'overflow' : 'hidden'
 })
 
@@ -61,7 +59,7 @@ var dirs = ['top', 'bottom'];
 var barContent = [];
 var svgs = [];
 for(var i = 0; i < dirs.length; i++){
-  var a = bargen(dirs[i], 50 - height / 2, scolor, tcolor);
+  var a = bargen(dirs[i], 50 - height / 2, colors.scolor, colors.tcolor);
   barContent.push(a.svg, a.gradient);
   svgs.push(a.svg);
 }
@@ -77,7 +75,7 @@ if(!embed){
   scripts.unshift(new Element('script', 'src', 'o.js'));
 }
 
-var pages = require('./pages/pages.js')(util.colorString(scolor));
+var pages = require('./pages/pages.js')(util.colorString(colors.scolor));
 
 //////////////////////////////////////
 
@@ -96,7 +94,7 @@ html.content(
 
 var p = html.generate({
   'svgs': svgs,
-  'tcolor' : util.colorString(tcolor),
+  'tcolor' : util.colorString(colors.tcolor),
   'pages' : pages
 }, legible);
 

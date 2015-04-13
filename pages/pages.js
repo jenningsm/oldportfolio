@@ -1,7 +1,7 @@
-var coms = require('./components.js');
-var Element = require('/home/mjennings/pagebuilder/html.js');
-var connectPages = require('./connect.js');
-
+var coms = require('./components.js')
+var Element = require('/home/mjennings/pagebuilder/html.js')
+var connectPages = require('./connect.js')
+var arrow = require('../arrow.js')
 
 module.exports = function(){
   var structure = [
@@ -34,35 +34,24 @@ function dummy(name){
 function contact(){
 
   var content = [
-    coms.flexBox().content(
-      new Element('p'),
-      new Element('p').content(
-        new Element('span').style(
-          coms.font(1.7),
-          {'border-bottom': '1px solid'}
-        ).content('CONTACT')
-      ).style('text-align', 'center'),
-      new Element('p').content(
-        new Element('span')
+    coms.flexBox().style('justify-content', 'space-between').content(
+      new Element('div'),
+      arrow('up', '', 100).attribute('onclick', 'history.back()'),
+      new Element('div').content(
+        new Element('div')
         .style(coms.font(1.3))
-        .content("Shoot me an email:"),
-        new Element('br/'),
+        .style('margin-bottom', '10px')
+        .style('text-align' , 'center')
+        .content("Want to chat?<br> Shoot me an email:<br>"),
         new Element('span')
         .style(coms.font(1.2))
         .content('mpjngs@gmail.com')
       ).style({
-        'line-spacing': '165%',
         'text-align' : 'center',
         'line-height' : '1.5em'
       }),
-      new Element('p'),
-      new Element('p').content(
-        '- BACK -'
-      ).style({
-        'text-align': 'center',
-      })
-      .style(coms.font(1.15))
-      .attribute('onclick', 'history.back()')
+      new Element('div'),
+      new Element('div')
     )
   ]
 
