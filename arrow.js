@@ -1,5 +1,6 @@
 var Element = require('/home/mjennings/pagebuilder/html.js')
-var color = require('./tools/util.js').colorString(require('./colors.js').scolor)
+var colors = require('./colors.js')
+var color = colors.colorString(colors.scolor)
 
 module.exports = function(dir, unit, size){
 
@@ -44,13 +45,13 @@ module.exports = function(dir, unit, size){
     'stroke-linejoin' : 'round',
     'points' : pointString 
   })
+  .pseudoStyle('hover', 'stroke-width', width + 1)
 
   return new Element('svg').attribute({
     'xmlns' : 'http://www.w3.org/2000/svg',
     'version' : '1.1',
     'height' : (2 * width + dims[1]) + unit,
     'width' : (2 * width + dims[0]) + unit,
-   // 'viewBox' : "0 0 " + (width + dims[0]) + " " + (width + dims[1]),
   })
   .content(line)
 }

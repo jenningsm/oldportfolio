@@ -2,7 +2,6 @@ var embed = false;
 var legible = true;
 
 var Element = require('/home/mjennings/pagebuilder/html.js');
-var util = require('./tools/util.js');
 
 
 var colors = require('./colors.js');
@@ -12,7 +11,7 @@ var colors = require('./colors.js');
 var html = new Element('html').style({
   'margin' : '0',
   'padding' : '0',
-  'background' : util.colorString(colors.scolor),
+  'background' : colors.colorString(colors.scolor),
   'font-family':"'Quicksand', sans serif"
 })
 
@@ -25,7 +24,7 @@ var head = new Element('head').content(
   new Element('link/').attribute({
     'rel' : 'stylesheet', 
     'type' : 'text/css', 
-    'href' : 'http://fonts.googleapis.com/css?family=Quicksand:300,400'
+    'href' : 'http://fonts.googleapis.com/css?family=Quicksand:300,400, 700'
   })
 )
 
@@ -48,8 +47,8 @@ var bulk = new Element('div').style({
   'width':'100%',
   'height': height + '%',
   'top' : (50 - height/2) + '%',
-  'background-color': util.colorString(colors.pcolor),
-  'color' : util.colorString(colors.scolor),
+  'background-color': colors.colorString(colors.pcolor),
+  'color' : colors.colorString(colors.scolor),
   'overflow' : 'hidden'
 })
 
@@ -65,7 +64,6 @@ for(var i = 0; i < dirs.length; i++){
 }
 
 var scripts = [
-  new Element('script', 'src', 'cs/util.js'),
   new Element('script', 'src', 'cs/motion.js'),
   new Element('script', 'src', 'cs/paging.js'),
   new Element('script', 'src', 'cs/taperedline.js'),
@@ -75,7 +73,12 @@ if(!embed){
   scripts.unshift(new Element('script', 'src', 'o.js'));
 }
 
-var pages = require('./pages/pages.js')(util.colorString(colors.scolor));
+var pages = require('./pages/pages.js')(colors.colorString(colors.scolor));
+var pageList = [];
+var keys = Object.keys(pages);
+for(var i = 0; i < keys.length; i++){
+  pageList.push(pages[keys[i]]);
+}
 
 //////////////////////////////////////
 
@@ -84,7 +87,7 @@ html.content(
   body.content(
     barContent,
     bulk.content(
-      pages
+      pageList
     )
   ),
   scripts
@@ -94,7 +97,7 @@ html.content(
 
 var p = html.generate({
   'svgs': svgs,
-  'tcolor' : util.colorString(colors.tcolor),
+  'tcolor' : colors.colorString(colors.tcolor),
   'pages' : pages
 }, legible);
 

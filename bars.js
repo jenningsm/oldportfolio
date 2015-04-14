@@ -3,9 +3,9 @@
 
 var Element = require('/home/mjennings/pagebuilder/html.js');
 var css = require('./tools/cssshortcuts.js');
-var util = require('./tools/util.js');
+var colors = require('./colors.js')
 
-function bar(dir, size, scolor, tcolor){
+function bar(dir, size){
   var positioning = {
     'width' : '100%',
     'height' : size + '%',
@@ -20,13 +20,13 @@ function bar(dir, size, scolor, tcolor){
   .style(positioning)
   .content(
     new Element('defs').content(
-      svgLinearGrad(tcolor)
+      svgLinearGrad(colors.tcolor)
     )
   );
 
   var gradient = new Element('div')
   .style(
-     css.linearGradient(dir, util.colorString(scolor.concat([.5])), 'rgba(0, 0, 0, 0)'),
+     css.linearGradient(dir, colors.colorString(colors.scolor.concat([.5])), 'rgba(0, 0, 0, 0)'),
      positioning,
      {'z-index': '1'}
   );
@@ -41,7 +41,7 @@ module.exports = bar;
 
 /////////////////////////////////////
 
-function svgLinearGrad(tcolor){
+function svgLinearGrad(){
   return function(k){
     if(k === 4){
       return null;
@@ -49,7 +49,7 @@ function svgLinearGrad(tcolor){
     var i = Math.floor(k / 2);
     var j = k % 2;
     function cstop(){
-      return new Element('stop').style('stop-color', util.colorString(tcolor));
+      return new Element('stop').style('stop-color', colors.colorString(colors.tcolor));
     };
   
     return new Element('linearGradient')

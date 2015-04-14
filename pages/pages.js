@@ -2,12 +2,13 @@ var coms = require('./components.js')
 var Element = require('/home/mjennings/pagebuilder/html.js')
 var connectPages = require('./connect.js')
 var arrow = require('../arrow.js')
+var colors = require('../colors.js')
 
 module.exports = function(){
   var structure = [
     title(),
       dummy('projects'),
-      dummy('about'),
+      about(),
       contact(),
       dummy('experience'),
       dummy('education'),
@@ -24,7 +25,9 @@ function dummy(name){
     'generator':
     function(){
       return coms.pageContainer().content(
-        new Element('div').content(name)
+        coms.flexBox().content(
+          new Element('div').content(name)
+        )
       )
     },
     'name' : name
@@ -33,37 +36,57 @@ function dummy(name){
 
 function contact(){
 
-  var content = [
-    coms.flexBox().style('justify-content', 'space-between').content(
-      new Element('div'),
-      arrow('up', '', 100).attribute('onclick', 'history.back()'),
-      new Element('div').content(
-        new Element('div')
-        .style(coms.font(1.3))
-        .style('margin-bottom', '10px')
-        .style('text-align' , 'center')
-        .content("Want to chat?<br> Shoot me an email:<br>"),
-        new Element('span')
-        .style(coms.font(1.2))
-        .content('mpjngs@gmail.com')
-      ).style({
-        'text-align' : 'center',
-        'line-height' : '1.5em'
-      }),
-      new Element('div'),
-      new Element('div')
-    )
-  ]
+  var content = new Element('div').content(
+    new Element('div')
+    .style(coms.font(1.3))
+    .style('margin-bottom', '10px')
+    .style('text-align' , 'center')
+    .content("Want to chat?<br> Shoot me an email:<br>"),
+    new Element('span')
+    .style(coms.font(1.2))
+    .content('mpjngs@gmail.com')
+  ).style({
+    'text-align' : 'center',
+    'line-height' : '1.5em'
+  })
 
   return flatInfo('contact', content)
 }
 
+function about(){
+  var content = new Element('div').content(
+    'My name is Michael Jennings. This is my site. You ' +
+    'are now looking at my site. I like to make websites now'
+  ).style(
+    {
+      'width': '30%',
+      'text-align' : 'center'
+    },
+    coms.font(1.3)
+  )
+
+  return flatInfo('about', content)
+}
+
+
 function flatInfo(name, content){
+
+  var back = coms.flexBox().content(
+    arrow('up', '', 90)
+    .attribute('onclick', 'history.back()')
+  ).style({
+    'width' : '100%',
+    'height' : '21%',
+    'top': '0',
+    'position': 'absolute',
+  })
+
   return {
     'generator' :
     function(){
       return coms.pageContainer().content(
-        new Element('div').content(content)
+        back,
+        coms.flexBox().content(content).style('pointer-events', 'none')
       )
     },
     'name' : name
@@ -74,20 +97,26 @@ function title(){
   return {
   'generator' :
     function(children, currPage){
-
-      var text = [[['MICHAEL JENNINGS', null]]]
-      var lineLength = 100;
+      var topText = 'MICHAEL JENNINGS'
+      var text = [[new Element('span').content(topText).style('-moz-user-select', 'none').style('cursor', 'default')]]
+      var lineLength = 1000;
       for(var i = 0; i < children.length; i++){
-        if(lineLength + children[i].name.length > 1.3 * text[0][0][0].length){
+        if(lineLength + children[i].name.length > 1.3 * topText.length){
           text.push([]);
           lineLength = 0;
         } else {
-          text[text.length-1].push(['-', null]);
+          text[text.length-1].push(new Element('span').content('-').style('-moz-user-select', 'none'));
         }
-        text[text.length-1].push([children[i].name.toUpperCase(), coms.transition(children[i].name, 'up', 'push')]);
+        var span = new Element('span')
+        .content(children[i].name.toUpperCase())
+        .attribute('onclick', coms.transition(children[i].name, 'up', 'push'))
+        .style({
+          '-moz-user-select' : 'none',
+          'cursor' : 'pointer'
+        })
+        text[text.length-1].push(span);
         lineLength += children[i].name.length;
       }
-
       return coms.pageContainer().content(
         box(text, [1.85, 1.1], [8, 1.5])
       ).style('display', 'block')
@@ -120,13 +149,7 @@ function box(content, fontSizes, spacing){
     }
     
     for(var j = 0; j < content[i].length; j++){
-      var span = new Element('span')
-      .content(content[i][j][0])
-  
-      if(content[i][j][1] !== null){
-        span.attribute('onclick', content[i][j][1])
-      }
-      d.content(span)
+      d.content(content[i][j])
     }
     divs.push(
       new Element('div')

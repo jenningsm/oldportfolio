@@ -16,9 +16,9 @@ module.exports.flexBox = function(){
     'justify-content' : 'center',
     'align-items' : 'center',
     'flex-direction' : 'column',
+    'position' : 'absolute',
     'width' : '100%',
     'height' : '100%',
-    'position' : 'absolute'
   })
 }
 
