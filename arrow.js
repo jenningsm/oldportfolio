@@ -45,7 +45,6 @@ module.exports = function(dir, unit, size){
     'stroke-linejoin' : 'round',
     'points' : pointString 
   })
-  .pseudoStyle('hover', 'stroke-width', width + 1)
 
   return new Element('svg').attribute({
     'xmlns' : 'http://www.w3.org/2000/svg',

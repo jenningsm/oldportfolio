@@ -27,8 +27,6 @@ var head = new Element('head').content(
     'href' : 'http://fonts.googleapis.com/css?family=Quicksand:300,400, 700'
   })
 )
-
-
 if(!embed){
   head.content(
     new Element('link/').attribute({
@@ -42,7 +40,7 @@ if(!embed){
 }
 
 var height = 62;
-var bulk = new Element('div').style({
+var main = new Element('div').style({
   'position': 'absolute',
   'width':'100%',
   'height': height + '%',
@@ -73,7 +71,7 @@ if(!embed){
   scripts.unshift(new Element('script', 'src', 'o.js'));
 }
 
-var pages = require('./pages/pages.js')(colors.colorString(colors.scolor));
+var pages = require('./pages/pages.js')();
 var pageList = [];
 var keys = Object.keys(pages);
 for(var i = 0; i < keys.length; i++){
@@ -86,7 +84,7 @@ html.content(
   head,
   body.content(
     barContent,
-    bulk.content(
+    main.content(
       pageList
     )
   ),

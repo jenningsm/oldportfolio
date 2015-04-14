@@ -17,14 +17,3 @@ module.exports.colorString = function(color){
   ret += ')';
   return ret;
 }
-
-module.exports.interpolate = function(first, second, ratio){
-  var ret = [];
-  var colors = [first, second];
-
-  for(var i = 0; i < 3; i++){
-    ret.push(first[i] * (1 - ratio) + second[i] * ratio)
-  }
-
-  return ret
-}

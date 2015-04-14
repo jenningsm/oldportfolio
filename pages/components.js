@@ -1,5 +1,6 @@
 
 var Element = require('/home/mjennings/pagebuilder/html.js');
+var arrow = require('../arrow.js')
 
 module.exports.pageContainer = function(){
   return new Element('div').style({
@@ -10,7 +11,8 @@ module.exports.pageContainer = function(){
   })
 }
 
-module.exports.flexBox = function(){
+module.exports.flexBox = flexBox
+function flexBox(){
   return new Element('div').style({
     'display' : 'flex',
     'justify-content' : 'center',
@@ -22,10 +24,32 @@ module.exports.flexBox = function(){
   })
 }
 
-module.exports.backButton = function(){
-  return edgeButton(false).content(
-    "- BACK -"
-  ).attribute('onclick', 'history.back()')
+module.exports.backArrow = function(){
+  return flexBox().content(
+    arrow('up', '', 90)
+    .attribute('onclick', 'history.back()')
+  ).style({
+    'width' : '100%',
+    'height' : '21%',
+    'top': '0',
+    'position': 'absolute',
+  })
+}
+
+module.exports.transition = transition;
+function transition(to, dir, action){
+  return 'toPage(&quot;' + to + '&quot;,&quot;' + dir + '&quot;,&quot;' + action + '&quot;)'
+}
+
+module.exports.font = font;
+function font(size, weight){
+  if(weight === undefined){
+    weight = '400';
+  }
+  return {
+    'font-weight' : weight,
+    'font-size': size + 'em',
+  }
 }
 
 module.exports.browseButtons = function(curr, prev, next){
@@ -57,36 +81,5 @@ module.exports.browseButtons = function(curr, prev, next){
     nextButton,
     '&nbsp;-'
   )
-}
-
-module.exports.transition = transition;
-function transition(to, dir, action){
-  return 'toPage(&quot;' + to + '&quot;,&quot;' + dir + '&quot;,&quot;' + action + '&quot;)'
-}
-
-module.exports.font = font;
-function font(size, weight){
-  if(weight === undefined){
-    weight = '400';
-  }
-  return {
-    'font-weight' : weight,
-    'font-size': size + 'em',
-  }
-}
-
-
-// pos specifies whether the button should be at the top (true) or bottom (false) of the page
-function edgeButton(pos){
-  return new Element('div').style({
-    'width' : '100%',
-    'height' : '15%',
-    'display' : 'flex',
-    'align-items' : 'center',
-    'justify-content' : 'center',
-    'position' : 'absolute'
-    },
-    font(1.3)
-  ).style((pos ? 'top' : 'bottom'), '0%');
 }
 

@@ -1,7 +1,6 @@
 var coms = require('./components.js')
 var Element = require('/home/mjennings/pagebuilder/html.js')
 var connectPages = require('./connect.js')
-var arrow = require('../arrow.js')
 var colors = require('../colors.js')
 
 module.exports = function(){
@@ -71,21 +70,11 @@ function about(){
 
 function flatInfo(name, content){
 
-  var back = coms.flexBox().content(
-    arrow('up', '', 90)
-    .attribute('onclick', 'history.back()')
-  ).style({
-    'width' : '100%',
-    'height' : '21%',
-    'top': '0',
-    'position': 'absolute',
-  })
-
   return {
     'generator' :
     function(){
       return coms.pageContainer().content(
-        back,
+        coms.backArrow(),
         coms.flexBox().content(content).style('pointer-events', 'none')
       )
     },
