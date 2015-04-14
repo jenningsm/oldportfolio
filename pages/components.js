@@ -8,7 +8,9 @@ module.exports.pageContainer = function(){
     'width' : '100%',
     'height' : '100%',
     'position' : 'absolute',
+    'text-align' : 'center',
   })
+  .style(font(1.3))
 }
 
 module.exports.flexBox = flexBox
@@ -42,13 +44,16 @@ function transition(to, dir, action){
 }
 
 module.exports.font = font;
-function font(size, weight){
+function font(size, unit, weight){
   if(weight === undefined){
-    weight = '400';
+    weight = '400'
+  }
+  if(unit === undefined){
+    unit = 'em'
   }
   return {
     'font-weight' : weight,
-    'font-size': size + 'em',
+    'font-size': size + unit
   }
 }
 

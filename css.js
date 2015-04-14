@@ -15,4 +15,8 @@ function prefix(style, value, prefixes){
   return prefixed;
 }
 
+module.exports.userSelect = function(value){
+  return prefix('user-select', value, ['moz', 'webkit', 'ms', 'o'])
+}
+
 module.exports.linearGradient = linearGradient;

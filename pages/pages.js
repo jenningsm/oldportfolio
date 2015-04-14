@@ -2,6 +2,7 @@ var coms = require('./components.js')
 var Element = require('/home/mjennings/pagebuilder/html.js')
 var connectPages = require('./connect.js')
 var colors = require('../colors.js')
+var css = require('../css.js')
 
 module.exports = function(){
   var structure = [
@@ -19,35 +20,18 @@ module.exports = function(){
 /////////////////////////////////////////////////
 
 
-function dummy(name){
-  return {
-    'generator':
-    function(){
-      return coms.pageContainer().content(
-        coms.flexBox().content(
-          new Element('div').content(name)
-        )
-      )
-    },
-    'name' : name
-  }
-}
-
 function contact(){
 
   var content = new Element('div').content(
+
     new Element('div')
-    .style(coms.font(1.3))
     .style('margin-bottom', '10px')
-    .style('text-align' , 'center')
-    .content("Want to chat?<br> Shoot me an email:<br>"),
+    .content("Want to chat?<br> Shoot me an email:"),
+
     new Element('span')
-    .style(coms.font(1.2))
     .content('mpjngs@gmail.com')
-  ).style({
-    'text-align' : 'center',
-    'line-height' : '1.5em'
-  })
+
+  )
 
   return flatInfo('contact', content)
 }
@@ -55,13 +39,7 @@ function contact(){
 function about(){
   var content = new Element('div').content(
     'My name is Michael Jennings. This is my site. You ' +
-    'are now looking at my site. I like to make websites now'
-  ).style(
-    {
-      'width': '30%',
-      'text-align' : 'center'
-    },
-    coms.font(1.3)
+    'are now looking at my site. I like to make websites now.'
   )
 
   return flatInfo('about', content)
@@ -75,7 +53,10 @@ function flatInfo(name, content){
     function(){
       return coms.pageContainer().content(
         coms.backArrow(),
-        coms.flexBox().content(content).style('pointer-events', 'none')
+        coms.flexBox().content(
+          content.style('max-width', '30%')
+        )
+        .style('pointer-events', 'none')
       )
     },
     'name' : name
@@ -87,28 +68,34 @@ function title(){
   'generator' :
     function(children, currPage){
       var topText = 'MICHAEL JENNINGS'
-      var text = [[new Element('span').content(topText).style('-moz-user-select', 'none').style('cursor', 'default')]]
+      var text = [[new Element('span')
+                   .content(topText)
+                   .style(
+                     {'cursor': 'default'}
+                   )
+                 ]]
       var lineLength = 1000;
       for(var i = 0; i < children.length; i++){
         if(lineLength + children[i].name.length > 1.3 * topText.length){
           text.push([]);
           lineLength = 0;
         } else {
-          text[text.length-1].push(new Element('span').content('-').style('-moz-user-select', 'none'));
+          text[text.length-1].push(new Element('span').content('-'));
         }
         var span = new Element('span')
         .content(children[i].name.toUpperCase())
         .attribute('onclick', coms.transition(children[i].name, 'up', 'push'))
         .style({
-          '-moz-user-select' : 'none',
           'cursor' : 'pointer'
         })
         text[text.length-1].push(span);
         lineLength += children[i].name.length;
       }
       return coms.pageContainer().content(
-        box(text, [1.85, 1.1], [8, 1.5])
-      ).style('display', 'block')
+        box(text, [1.8, 1.1], [8, 1.5]).style(css.userSelect('none'))
+      ).style(
+        {'display': 'block'}
+      )
     },
   'name' : 'front'
   }
@@ -131,7 +118,7 @@ function box(content, fontSizes, spacing){
         'margin-bottom' : spacing[i] + 'px',
         'justify-content' : 'space-between'
       },
-      coms.font(fontSizes[i])
+      coms.font(fontSizes[i], 'rem')
     )
     if(i === 0){
       d.style('border-bottom', '1px solid');
@@ -147,4 +134,18 @@ function box(content, fontSizes, spacing){
     )
   }
   return coms.flexBox().content(new Element('div').style('display', 'table').content(divs));
+}
+
+function dummy(name){
+  return {
+    'generator':
+    function(){
+      return coms.pageContainer().content(
+        coms.flexBox().content(
+          new Element('div').content(name)
+        )
+      )
+    },
+    'name' : name
+  }
 }
