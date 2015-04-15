@@ -26,16 +26,32 @@ function flexBox(){
   })
 }
 
-module.exports.backArrow = function(){
-  return flexBox().content(
-    arrow('up', '', 90)
-    .attribute('onclick', 'history.back()')
+var breadth = 21;
+module.exports.arrow = function(dir, onclick){
+  var pe = (onclick !== undefined ? 'auto' : 'none')
+  var a = flexBox().content(
+    arrow(dir, '', 90)
+    .attribute('onclick', onclick)
+    .style('pointer-events', pe)
   ).style({
-    'width' : '100%',
-    'height' : '21%',
-    'top': '0',
     'position': 'absolute',
+    'pointer-events' : 'none'
   })
+
+  if(dir === 'left' || dir === 'right'){
+    a.style({
+      'height' : '100%',
+      'width' : breadth + '%'
+    })
+    a.style(dir, 0)
+  } else {
+    a.style({
+      'width' : '100%',
+      'height' : breadth + '%'
+    })
+    a.style(dir === 'up' ? 'top' : 'bottom', 0)
+  }
+  return a
 }
 
 module.exports.transition = transition;

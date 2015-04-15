@@ -53,4 +53,8 @@ module.exports = function(dir, unit, size){
     'width' : (2 * width + dims[0]) + unit,
   })
   .content(line)
+  .style({
+    'cursor': 'pointer',
+    'padding': '7px'
+  })
 }
