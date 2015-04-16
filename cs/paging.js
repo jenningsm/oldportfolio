@@ -9,12 +9,23 @@ for (var i = 0; i < keys.length; i++){
   pages[keys[i]] = p[keys[i]]();
 }
 
+
+
 window.addEventListener('popstate', function(e) { toPage(e.state.page, 'down', 'pop') });
 
 var frontPage = 'front';
 
-var currPage = frontPage;
-currPage.display = 'block';
+var currPage
+
+var page = window.location.pathname.split('/')
+console.log(page)
+if(page.length === 2 || page[2] === ''){
+  currPage = 'front'
+} else {
+  currPage = page[2]
+}
+
+pages[currPage].style.display = 'block';
 history.replaceState({page : currPage}, '', root + '/');
 
 /*

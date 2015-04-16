@@ -46,7 +46,14 @@ function experience(){
 function amazon(){
   var div = new Element('div').content(
     new Element('p').content(
-      coms.underline('Amazon')
+      coms.underline('Amazon').style('font-size', '1.3em'),
+      new Element('br/'),
+      new Element('span').content('Software Engineering Intern'),
+      new Element('br/'),
+      new Element('span').content('Summer 2013')
+    ),
+    new Element('p').content(
+      'At Amazon I developed a text advertisement data model and implemented an API for it'
     )
   )
   return plainInfo('amazon', div)
@@ -82,7 +89,7 @@ function title(){
 
         box('MICHAEL JENNINGS', children, [1.8, 1.1], [8, 1.5])
 
-      ).style('display', 'block')
+      )
       .style('font-family', 'Quicksand')
     },
   'name' : 'front'
