@@ -5,7 +5,6 @@ var colors = require('../colors.js')
 var css = require('../css.js')
 var box = require('./box.js')
 
-
 //////////////////////////////////////////////////
 
 
@@ -15,7 +14,7 @@ module.exports = function(){
       dummy('projects'),
       about(),
       contact(),
-      dummy('experience'),
+      experience(),
       dummy('education'),
   ]
   return connectPages(structure);
@@ -24,18 +23,31 @@ module.exports = function(){
 
 /////////////////////////////////////////////////
 
+function experience(){
+  var div = new Element('div').content(
+     new Element('p').content(
+      "I have worked at ",
+     coms.link("Amazon as a Software Engineering Intern", 'front', 'down', 'push'),
+     ", ",
+     coms.link("Viasat as a Software Engineering Intern", 'front', 'down', 'push'),
+     " and ",
+     coms.link("D&B Credibility Corp. as a Web Development Intern", 'front', 'down', 'push'),
+     '.'
+     ),
+     new Element('p').content(
+      "Admittedly, none of my work experience thus far has been front-end work.\
+       I hope my personal projects make up for this deficit."
+     )
+  )
+  return plainInfo('experience', div, 50)
+}
 
 function contact(){
 
   var content = new Element('div').content(
-
-    new Element('div')
-    .style('margin-bottom', '10px')
-    .content("Want to chat?<br> Shoot me an email:"),
-
-    new Element('span')
-    .content('mpjngs@gmail.com')
-
+    "Want to chat?<br>" + 
+    "Shoot me an email:<br>" + 
+    "mpjngs@gmail.com"
   )
 
   return plainInfo('contact', content)
@@ -68,24 +80,17 @@ function title(){
 
 
 function dummy(name){
-  return {
-    'generator':
-    function(){
-      return coms.pageContainer().content(
-        coms.flexBox().content(
-          new Element('div').content(name)
-        )
-      )
-    },
-    'name' : name
-  }
+  return plainInfo(name, new Element('div').content(name));
 }
 
 
 ////////////////////////////////////////////
 
 
-function plainInfo(name, content){
+function plainInfo(name, content, width){
+
+  if(width === undefined)
+    width = 30
 
   return {
     'generator' :
@@ -93,7 +98,7 @@ function plainInfo(name, content){
       return coms.pageContainer().content(
         coms.arrow('up', 'history.back()').style('z-index', '1'),
         coms.flexBox().content(
-          content.style('max-width', '30%')
+          content.style('max-width', width + '%')
         )
       )
     },

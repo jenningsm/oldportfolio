@@ -54,6 +54,16 @@ module.exports.arrow = function(dir, onclick){
   return a
 }
 
+module.exports.link = function(text, page, dir, action){
+  return new Element('span')
+  .content(text)
+  .attribute('onclick', transition(page, dir, action))
+  .style({
+    'cursor' : 'pointer',
+    'border-bottom' : '1px solid',
+  })
+}
+
 module.exports.transition = transition;
 function transition(to, dir, action){
   return 'toPage(&quot;' + to + '&quot;,&quot;' + dir + '&quot;,&quot;' + action + '&quot;)'
