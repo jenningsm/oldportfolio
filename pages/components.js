@@ -1,6 +1,7 @@
 
 var Element = require('/home/mjennings/pagebuilder/html.js');
 var arrow = require('../arrow.js')
+var colors = require('../colors.js')
 
 module.exports.pageContainer = function(){
   return new Element('div').style({
@@ -60,7 +61,7 @@ module.exports.link = function(text, page, dir, action){
   .attribute('onclick', transition(page, dir, action))
   .style({
     'cursor' : 'pointer',
-    'border-bottom' : '1px solid',
+    'border-bottom' : '1px solid ' + colors.colorString(colors.scolor.concat([.7])),
   })
 }
 
