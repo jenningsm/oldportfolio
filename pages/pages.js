@@ -42,6 +42,12 @@ function experience(){
   return plainInfo('experience', div, 50)
 }
 
+function amazon(){
+  var div = new Element('div').content(
+    new Element('p')
+  )
+}
+
 function contact(){
 
   var content = new Element('div').content(

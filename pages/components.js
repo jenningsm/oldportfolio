@@ -55,14 +55,29 @@ module.exports.arrow = function(dir, onclick){
   return a
 }
 
-module.exports.link = function(text, page, dir, action){
+var underlineDist = .11
+module.exports.underline = underline
+function underline(text){
+  var style = {'position':'relative', 'display':'inline-block'}
   return new Element('span')
-  .content(text)
+  .style(
+    {
+      'top': '-' + underlineDist + 'em',
+      'border-bottom': '1px solid ' + colors.colorString(colors.scolor.concat([.8]))
+    },
+    style
+  ).content(
+    new Element('span').style('top', underlineDist + 'em').content(
+      text
+    )
+    .style(style)
+  )
+}
+
+module.exports.link = function(text, page, dir, action){
+  return underline(text)
   .attribute('onclick', transition(page, dir, action))
-  .style({
-    'cursor' : 'pointer',
-    'border-bottom' : '1px solid ' + colors.colorString(colors.scolor.concat([.7])),
-  })
+  .style('cursor', 'pointer')
 }
 
 module.exports.transition = transition;
