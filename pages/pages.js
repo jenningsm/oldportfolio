@@ -14,7 +14,8 @@ module.exports = function(){
       dummy('projects'),
       about(),
       contact(),
-      experience(),
+      [experience(),
+         amazon()],
       dummy('education'),
   ]
   return connectPages(structure);
@@ -27,7 +28,7 @@ function experience(){
   var div = new Element('div').content(
      new Element('p').content(
       "I have ",
-     coms.link("worked at Amazon", 'front', 'down', 'push'),
+     coms.link("worked at Amazon", 'amazon', 'up', 'push'),
      " as a Software Engineering Intern, ",
      coms.link("worked at Viasat", 'front', 'down', 'push'),
      " as a Software Engineering Intern, and ",
@@ -44,8 +45,11 @@ function experience(){
 
 function amazon(){
   var div = new Element('div').content(
-    new Element('p')
+    new Element('p').content(
+      coms.underline('Amazon')
+    )
   )
+  return plainInfo('amazon', div)
 }
 
 function contact(){

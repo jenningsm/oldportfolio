@@ -117,14 +117,14 @@ function formatted(tree){
   if(Array.isArray(tree)){
     var ret = [];
     for(var i = 0; i < tree.length; i++){
-      ret = ret.concat(formatted(tree[i]));
+      ret.push(formatted(tree[i]));
     }
     return ret;
   } else {
     if(typeof tree === 'function'){
-      return [{'generator' : tree}]
+      return {'generator' : tree}
     } else {
-      return [tree]
+      return tree
     }
   }
 }
@@ -240,7 +240,7 @@ function connect(tree){
     //collect all the child records, to be passed to the generator
     var childrenRecords = [];
     for(var i = 0; i < children.length; i++){
-      childrenRecords.push(getPageRecord(children[i]));
+      childrenRecords.push(getPageRecord(getTop(children[i])));
     }
 
     //generate the page
