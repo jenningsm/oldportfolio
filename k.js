@@ -12,7 +12,7 @@ var html = new Element('html').style({
   'margin' : '0',
   'padding' : '0',
   'background' : colors.colorString(colors.scolor),
-  'font-family':"'Quicksand', sans serif"
+  'font-family':"'Open Sans', sans serif"
 })
 
 var body = new Element('body').style({
@@ -24,7 +24,17 @@ var head = new Element('head').content(
   new Element('link/').attribute({
     'rel' : 'stylesheet', 
     'type' : 'text/css', 
-    'href' : 'http://fonts.googleapis.com/css?family=Quicksand:300,400, 700'
+    'href' : 'http://fonts.googleapis.com/css?family=Quicksand:400'
+  }),
+  new Element('link/').attribute({
+    'rel' : 'stylesheet', 
+    'type' : 'text/css', 
+    'href' : 'http://fonts.googleapis.com/css?family=Source+Sans+Pro:300'
+  }),
+  new Element('link/').attribute({
+    'rel' : 'stylesheet', 
+    'type' : 'text/css', 
+    'href' : 'http://fonts.googleapis.com/css?family=Open+Sans:300'
   })
 )
 if(!embed){

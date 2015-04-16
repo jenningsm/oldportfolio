@@ -73,7 +73,7 @@ function transition(to, dir, action){
 module.exports.font = font;
 function font(size, unit, weight){
   if(weight === undefined){
-    weight = '400'
+    weight = '300'
   }
   if(unit === undefined){
     unit = 'em'

@@ -26,13 +26,13 @@ module.exports = function(){
 function experience(){
   var div = new Element('div').content(
      new Element('p').content(
-      "I have worked at ",
-     coms.link("Amazon as a Software Engineering Intern", 'front', 'down', 'push'),
-     ", ",
-     coms.link("Viasat as a Software Engineering Intern", 'front', 'down', 'push'),
-     " and ",
-     coms.link("D&B Credibility Corp. as a Web Development Intern", 'front', 'down', 'push'),
-     '.'
+      "I have ",
+     coms.link("worked at Amazon", 'front', 'down', 'push'),
+     " as a Software Engineering Intern, ",
+     coms.link("worked at Viasat", 'front', 'down', 'push'),
+     " as a Software Engineering Intern, and ",
+     coms.link("worked at D&B Credibility Corp.", 'front', 'down', 'push'),
+     ' as a Web Development Intern.'
      ),
      new Element('p').content(
       "Admittedly, none of my work experience thus far has been front-end work.\
@@ -73,6 +73,7 @@ function title(){
         box('MICHAEL JENNINGS', children, [1.8, 1.1], [8, 1.5])
 
       ).style('display', 'block')
+      .style('font-family', 'Quicksand')
     },
   'name' : 'front'
   }
