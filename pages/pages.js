@@ -54,7 +54,7 @@ function amazon(){
     'At Amazon I developed a text advertisement data model and implemented an API in Java for ' + 
     "creating and updating advertisements within that model."
   )
-  return plainInfo('amazon', div, 40)
+  return plainInfo('amazon', div, true, 40)
 }
 
 function dandb(){
@@ -64,7 +64,7 @@ function dandb(){
     'At D&B I worked in PHP maintaining the backend of the company\'s website. I also worked with various public ' + 
     "API's to gather and validate business information."
   )
-  return plainInfo('dandb', div, 40)
+  return plainInfo('dandb', div, true, 40)
 }
 
 function viasat(){
@@ -74,7 +74,7 @@ function viasat(){
     'At ViaSat I worked on a team of three interns to develop a prototype for a home security ' + 
     "and automation system. I worked primarily in Java."
   )
-  return plainInfo('viasat', div, 40)
+  return plainInfo('viasat', div, true, 40)
 }
 function dab(){
   var divs = paragraphs
@@ -155,7 +155,7 @@ function indexPage(name, content, width){
 
 }
 
-function plainInfo(name, content, width){
+function plainInfo(name, content, siblings, width){
 
   if(width === undefined)
     width = 30
@@ -169,10 +169,8 @@ function plainInfo(name, content, width){
           content.style('max-width', width + '%')
         )
       )
-      if(prev !== null){
+      if(siblings === true){
         page.content(coms.arrow('left', coms.transition(prev.name, 'right', 'replace')).style('z-index' , 1))
-      }
-      if(next !== null){
         page.content(coms.arrow('right', coms.transition(next.name, 'left', 'replace')).style('z-index' , 1))
       }
       return page

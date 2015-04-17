@@ -27,11 +27,14 @@ function flexBox(){
   })
 }
 
-var breadth = 21;
+var breadth = [21, 8]
+var length = [90, 50]
 module.exports.arrow = function(dir, onclick){
+  var dim = (dir === 'left' || dir === 'right' ? 1 : 0)
+
   var pe = (onclick !== undefined ? 'auto' : 'none')
   var a = flexBox().content(
-    arrow(dir, '', 90)
+    arrow(dir, '', length[dim])
     .attribute('onclick', onclick)
     .style('pointer-events', pe)
   ).style({
@@ -39,16 +42,16 @@ module.exports.arrow = function(dir, onclick){
     'pointer-events' : 'none'
   })
 
-  if(dir === 'left' || dir === 'right'){
+  if(dim === 1){
     a.style({
       'height' : '100%',
-      'width' : breadth + '%'
+      'width' : breadth[1] + '%'
     })
     a.style(dir, 0)
   } else {
     a.style({
       'width' : '100%',
-      'height' : breadth + '%'
+      'height' : breadth[0] + '%'
     })
     a.style(dir === 'up' ? 'top' : 'bottom', 0)
   }

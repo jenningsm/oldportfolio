@@ -5,7 +5,7 @@ var color = colors.colorString(colors.scolor)
 module.exports = function(dir, unit, size){
 
   var ratio = 5;
-  var width = 3;
+  var width = size / 30;
 
   var insize = size - 2 * width;
 
