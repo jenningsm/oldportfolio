@@ -44,7 +44,7 @@ function experience(){
       " make up for this deficit."
      )
   )
-  return plainInfo('experience', div, 50)
+  return indexPage('experience', div, 50)
 }
 
 function amazon(){
@@ -135,6 +135,26 @@ function titledInfo(){
   return div
 }
 
+function indexPage(name, content, width){
+  if(width === undefined)
+    width = 30
+
+  return {
+    'generator' :
+    function(children){
+      return coms.pageContainer().content(
+        coms.arrow('up', 'history.back()').style('z-index', '1'),
+        coms.flexBox().content(
+          content.style('max-width', width + '%')
+        ),
+        coms.arrow('down', coms.transition(children[0].name, 'up', 'push')).style('z-index', '1')
+      )
+    },
+    'name' : name
+  }
+
+}
+
 function plainInfo(name, content, width){
 
   if(width === undefined)
@@ -142,13 +162,20 @@ function plainInfo(name, content, width){
 
   return {
     'generator' :
-    function(){
-      return coms.pageContainer().content(
+    function(children, currpage, prev, next){
+      var page = coms.pageContainer().content(
         coms.arrow('up', 'history.back()').style('z-index', '1'),
         coms.flexBox().content(
           content.style('max-width', width + '%')
         )
       )
+      if(prev !== null){
+        page.content(coms.arrow('left', coms.transition(prev.name, 'right', 'replace')).style('z-index' , 1))
+      }
+      if(next !== null){
+        page.content(coms.arrow('right', coms.transition(next.name, 'left', 'replace')).style('z-index' , 1))
+      }
+      return page
     },
     'name' : name
   }
