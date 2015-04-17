@@ -26,7 +26,7 @@ if(page.length === 2 || page[2] === ''){
 }
 
 pages[currPage].style.display = 'block';
-history.replaceState({page : currPage}, '', root + '/');
+history.replaceState({page : currPage}, '', root + '/' + currPage);
 
 /*
   Transitions to a page
