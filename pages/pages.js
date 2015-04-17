@@ -20,7 +20,7 @@ module.exports = function(){
          dandb()],
       dummy('education'),
   ]
-  return connectPages(structure);
+  return connectPages(structure, 'loop');
 }
 
 

@@ -9,16 +9,13 @@ for (var i = 0; i < keys.length; i++){
   pages[keys[i]] = p[keys[i]]();
 }
 
-
-
 window.addEventListener('popstate', function(e) { toPage(e.state.page, 'down', 'pop') });
 
-var frontPage = 'front';
 
+var frontPage = 'front'
 var currPage
 
 var page = window.location.pathname.split('/')
-console.log(page)
 if(page.length === 2 || page[2] === ''){
   currPage = 'front'
 } else {
@@ -26,7 +23,11 @@ if(page.length === 2 || page[2] === ''){
 }
 
 pages[currPage].style.display = 'block';
-history.replaceState({page : currPage}, '', root + '/' + currPage);
+
+var urlEnd = currPage
+if(urlEnd === frontPage)
+  urlEnd = ''
+history.replaceState({page : currPage}, '', root + '/' + urlEnd);
 
 /*
   Transitions to a page
