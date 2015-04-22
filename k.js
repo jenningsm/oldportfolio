@@ -42,7 +42,7 @@ if(!embed){
     new Element('link/').attribute({
       'rel' : 'stylesheet',
       'type' : 'text/css',
-      'href' : 'o.css'
+      'href' : '/dr/o.css'
     })
   )
 } else {
@@ -72,13 +72,13 @@ for(var i = 0; i < dirs.length; i++){
 }
 
 var scripts = [
-  new Element('script', 'src', 'cs/motion.js'),
-  new Element('script', 'src', 'cs/paging.js'),
-  new Element('script', 'src', 'cs/taperedline.js'),
-  new Element('script', 'src', 'cs/back.js'),
+  new Element('script', 'src', '/dr/cs/motion.js'),
+  new Element('script', 'src', '/dr/cs/paging.js'),
+  new Element('script', 'src', '/dr/cs/taperedline.js'),
+  new Element('script', 'src', '/dr/cs/back.js'),
 ];
 if(!embed){
-  scripts.unshift(new Element('script', 'src', 'o.js'));
+  scripts.unshift(new Element('script', 'src', '/dr/o.js'));
 }
 
 var pages = require('./pages/pages.js')();

@@ -111,7 +111,7 @@ function title(){
         box('MICHAEL JENNINGS', children, [1.8, 1.1], [8, 1.5])
 
       )
-      .style('font-family', 'Quicksand')
+      .style('font-family', '\'Quicksand\', sans serif')
     },
   'name' : 'front'
   }

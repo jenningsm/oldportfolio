@@ -19,7 +19,7 @@ var page = window.location.pathname.split('/')
 if(page.length === 2 || page[2] === ''){
   currPage = 'front'
 } else {
-  currPage = page[2]
+  currPage = page[page.length - 1]
 }
 
 pages[currPage].style.display = 'block';
@@ -49,9 +49,13 @@ function toPage(page, dir, action){
 
   var urlEnd = (page === frontPage ? '' : page);
   if(action === 'push'){
-    history.pushState({page : page}, '', root + '/' + urlEnd);
+    var url = window.location.pathname.replace(/\/$/g, '') + '/' + urlEnd
+    history.pushState({page : page}, '', url);
   } else if(action === 'replace'){
-    history.replaceState({page : page}, '', root + '/' + urlEnd);
+    var url = window.location.pathname.split('/')
+    url[url.length - 1] = urlEnd
+    url = url.join('/')
+    history.replaceState({page : page}, '', url);
   }
 
   var to = pages[page]
