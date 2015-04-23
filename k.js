@@ -1,5 +1,5 @@
 var embed = false;
-var legible = true;
+var legible = false;
 
 var Element = require('/home/mjennings/pagebuilder/html.js');
 
