@@ -3,7 +3,43 @@ var Element = require('/home/mjennings/pagebuilder/html.js');
 var arrow = require('../arrow.js')
 var colors = require('../colors.js')
 
-module.exports.pageContainer = function(){
+module.exports.titledInfo = function(){
+  var div = new Element('div')
+  div.content(underline(arguments[0], true).style('font-size', '1.2em'))
+  for(var i = 1; i < arguments.length; i++){
+    div.content(new Element('p').content(arguments[i]))
+  }
+  return div
+}
+
+module.exports.plainInfo = function(name, content, siblings, child, width){
+
+  if(width === undefined)
+    width = 30
+
+  return {
+    'generator' :
+    function(children, par, prev, next){
+      var page = pageContainer().content(
+        arrowBox('up', conditionalBack(par.name)).style('z-index', '1'),
+        flexBox().content(
+          content.style('max-width', width + '%')
+        )
+      )
+      if(siblings === true){
+        page.content(arrowBox('left', transition(prev.name, 'right', 'replace')).style('z-index' , 1))
+        page.content(arrowBox('right', transition(next.name, 'left', 'replace')).style('z-index' , 1))
+      }
+      if(child === true){
+        page.content(arrowBox('down', transition(children[0].name, 'up', 'push')).style('z-index', '1'))
+      }
+      return page
+    },
+    'name' : name
+  }
+}
+module.exports.pageContainer = pageContainer
+function pageContainer(){
   return new Element('div').style({
     'display' :'none',
     'width' : '100%',
@@ -29,7 +65,8 @@ function flexBox(){
 
 var breadth = [21, 12]
 var length = [90, 55]
-module.exports.arrow = function(dir, onclick){
+module.exports.arrowBox = arrowBox
+function arrowBox(dir, onclick){
   var dim = (dir === 'left' || dir === 'right' ? 1 : 0)
 
   var pe = (onclick !== undefined ? 'auto' : 'none')
@@ -91,7 +128,8 @@ module.exports.link = function(text, page, dir, action){
   .style('cursor', 'pointer')
 }
 
-module.exports.conditionalBack = function(par){
+module.exports.conditionalBack = conditionalBack
+function conditionalBack(par){
   return 'conditionalBack(function() {' + transition(par, 'down', 'replace') + '})'
 }
 

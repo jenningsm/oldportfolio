@@ -4,6 +4,7 @@ var connectPages = require('./connect.js')
 var colors = require('../colors.js')
 var css = require('../css.js')
 var box = require('./box.js')
+var exp = require('./experience.js')
 
 //////////////////////////////////////////////////
 
@@ -14,10 +15,10 @@ module.exports = function(){
       dummy('projects'),
       about(),
       contact(),
-      [experience(),
-         amazon(),
-         viasat(),
-         dandb()],
+      [exp.experience(),
+         exp.amazon(),
+         exp.viasat(),
+         exp.dandb()],
       dummy('education'),
   ]
   return connectPages(structure, 'loop');
@@ -26,59 +27,7 @@ module.exports = function(){
 
 /////////////////////////////////////////////////
 
-function experience(){
-  var info = new Element('div').content(
-     new Element('p').content(
-      "I have ",
-     coms.link("worked at Amazon", 'amazon', 'up', 'push'),
-     " as a Software Engineering Intern, ",
-     coms.link("worked at ViaSat", 'viasat', 'up', 'push'),
-     " as a Software Engineering Intern, and ",
-     coms.link("worked at D&B Credibility Corp.", 'dandb', 'up', 'push'),
-     ' as a Web Development Intern.'
-     ),
-     new Element('p').content(
-      "Admittedly, none of my work experience thus far has been front-end work.\
-       I hope my ",
-       coms.link("personal projects", 'projects', 'up', 'push'),
-      " make up for this deficit."
-     )
-  )
-  return plainInfo('experience', info, false, true, 50)
-}
 
-function amazon(){
-  var div = titledInfo(
-    'Amazon',
-    "I worked at Amazon during the Summer of 2013 as a Software Engineering Intern.",
-    'At Amazon I developed a text advertisement data model and implemented an API in Java for ' + 
-    "creating and updating advertisements within that model."
-  )
-  return plainInfo('amazon', div, true, false, 40)
-}
-
-function dandb(){
-  var div = titledInfo(
-    'D&B Credibility Corp.',
-    "I worked at D&B during the Summer of 2011 as a Web Development Intern.",
-    'At D&B I worked in PHP maintaining the backend of the company\'s website. I also worked with various public ' + 
-    "API's to gather and validate business information."
-  )
-  return plainInfo('dandb', div, true, false, 40)
-}
-
-function viasat(){
-  var div = titledInfo(
-    'ViaSat',
-    "I worked at ViaSat during the Summer of 2012 as a Software Engineering Intern.",
-    'At ViaSat I worked on a team of three interns to develop a prototype for a home security ' + 
-    "and automation system. I worked primarily in Java."
-  )
-  return plainInfo('viasat', div, true, false, 40)
-}
-function dab(){
-  var divs = paragraphs
-}
 
 function contact(){
 
@@ -88,7 +37,7 @@ function contact(){
     "mpjngs@gmail.com"
   )
 
-  return plainInfo('contact', content)
+  return coms.plainInfo('contact', content)
 }
 
 
@@ -99,7 +48,7 @@ function about(){
     'are now looking at my site. I like to make websites now.'
   )
 
-  return plainInfo('about', content)
+  return coms.plainInfo('about', content)
 }
 
 function title(){
@@ -119,65 +68,10 @@ function title(){
 
 
 function dummy(name){
-  return plainInfo(name, new Element('div').content(name));
+  return coms.plainInfo(name, new Element('div').content(name));
 }
 
 
 ////////////////////////////////////////////
 
 
-function titledInfo(){
-  var div = new Element('div')
-  div.content(coms.underline(arguments[0], true).style('font-size', '1.2em'))
-  for(var i = 1; i < arguments.length; i++){
-    div.content(new Element('p').content(arguments[i]))
-  }
-  return div
-}
-
-function indexPage(name, content, width){
-  if(width === undefined)
-    width = 30
-
-  return {
-    'generator' :
-    function(children, par){
-      return coms.pageContainer().content(
-        coms.arrow('up', coms.conditionalBack(par.name)).style('z-index', '1'),
-        coms.flexBox().content(
-          content.style('max-width', width + '%')
-        ),
-        coms.arrow('down', coms.transition(children[0].name, 'up', 'push')).style('z-index', '1')
-      )
-    },
-    'name' : name
-  }
-
-}
-
-function plainInfo(name, content, siblings, child, width){
-
-  if(width === undefined)
-    width = 30
-
-  return {
-    'generator' :
-    function(children, par, prev, next){
-      var page = coms.pageContainer().content(
-        coms.arrow('up', coms.conditionalBack(par.name)).style('z-index', '1'),
-        coms.flexBox().content(
-          content.style('max-width', width + '%')
-        )
-      )
-      if(siblings === true){
-        page.content(coms.arrow('left', coms.transition(prev.name, 'right', 'replace')).style('z-index' , 1))
-        page.content(coms.arrow('right', coms.transition(next.name, 'left', 'replace')).style('z-index' , 1))
-      }
-      if(child === true){
-        page.content(coms.arrow('down', coms.transition(children[0].name, 'up', 'push')).style('z-index', '1'))
-      }
-      return page
-    },
-    'name' : name
-  }
-}
