@@ -27,8 +27,8 @@ function flexBox(){
   })
 }
 
-var breadth = [21, 8]
-var length = [90, 50]
+var breadth = [21, 12]
+var length = [90, 55]
 module.exports.arrow = function(dir, onclick){
   var dim = (dir === 'left' || dir === 'right' ? 1 : 0)
 
