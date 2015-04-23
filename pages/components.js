@@ -58,19 +58,27 @@ module.exports.arrow = function(dir, onclick){
   return a
 }
 
-var underlineDist = .11
+var underlineDist = .17
 module.exports.underline = underline
-function underline(text){
+function underline(text, spaced){
+  var opacity, spacing
+  if(spaced !== undefined){
+    opacity = 1
+    spacing = underlineDist * .7
+  } else {
+    opacity = .65
+    spacing = underlineDist
+  }
   var style = {'position':'relative', 'display':'inline-block'}
   return new Element('span')
   .style(
     {
-      'top': '-' + underlineDist + 'em',
-      'border-bottom': '1px solid ' + colors.colorString(colors.scolor.concat([.8]))
+      'top': '-' + spacing + 'em',
+      'border-bottom': '1px solid ' + colors.colorString(colors.scolor.concat([opacity]))
     },
     style
   ).content(
-    new Element('span').style('top', underlineDist + 'em').content(
+    new Element('span').style('top', spacing + 'em').content(
       text
     )
     .style(style)

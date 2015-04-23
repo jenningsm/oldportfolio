@@ -27,7 +27,7 @@ module.exports = function(){
 /////////////////////////////////////////////////
 
 function experience(){
-  var div = new Element('div').content(
+  var info = new Element('div').content(
      new Element('p').content(
       "I have ",
      coms.link("worked at Amazon", 'amazon', 'up', 'push'),
@@ -44,7 +44,7 @@ function experience(){
       " make up for this deficit."
      )
   )
-  return indexPage('experience', div, 50)
+  return plainInfo('experience', info, false, true, 50)
 }
 
 function amazon(){
@@ -54,7 +54,7 @@ function amazon(){
     'At Amazon I developed a text advertisement data model and implemented an API in Java for ' + 
     "creating and updating advertisements within that model."
   )
-  return plainInfo('amazon', div, true, 40)
+  return plainInfo('amazon', div, true, false, 40)
 }
 
 function dandb(){
@@ -64,7 +64,7 @@ function dandb(){
     'At D&B I worked in PHP maintaining the backend of the company\'s website. I also worked with various public ' + 
     "API's to gather and validate business information."
   )
-  return plainInfo('dandb', div, true, 40)
+  return plainInfo('dandb', div, true, false, 40)
 }
 
 function viasat(){
@@ -74,7 +74,7 @@ function viasat(){
     'At ViaSat I worked on a team of three interns to develop a prototype for a home security ' + 
     "and automation system. I worked primarily in Java."
   )
-  return plainInfo('viasat', div, true, 40)
+  return plainInfo('viasat', div, true, false, 40)
 }
 function dab(){
   var divs = paragraphs
@@ -128,7 +128,7 @@ function dummy(name){
 
 function titledInfo(){
   var div = new Element('div')
-  div.content(coms.underline(arguments[0]).style('font-size', '1.2em'))
+  div.content(coms.underline(arguments[0], true).style('font-size', '1.2em'))
   for(var i = 1; i < arguments.length; i++){
     div.content(new Element('p').content(arguments[i]))
   }
@@ -155,7 +155,7 @@ function indexPage(name, content, width){
 
 }
 
-function plainInfo(name, content, siblings, width){
+function plainInfo(name, content, siblings, child, width){
 
   if(width === undefined)
     width = 30
@@ -172,6 +172,9 @@ function plainInfo(name, content, siblings, width){
       if(siblings === true){
         page.content(coms.arrow('left', coms.transition(prev.name, 'right', 'replace')).style('z-index' , 1))
         page.content(coms.arrow('right', coms.transition(next.name, 'left', 'replace')).style('z-index' , 1))
+      }
+      if(child === true){
+        page.content(coms.arrow('down', coms.transition(children[0].name, 'up', 'push')).style('z-index', '1'))
       }
       return page
     },
