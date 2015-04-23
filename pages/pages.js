@@ -19,7 +19,7 @@ module.exports = function(){
          exp.amazon(),
          exp.viasat(),
          exp.dandb()],
-      dummy('education'),
+      education(),
   ]
   return connectPages(structure, 'loop');
 }
@@ -28,6 +28,19 @@ module.exports = function(){
 /////////////////////////////////////////////////
 
 
+function education(){
+  var div = coms.titledInfo(
+    'University of California, Los Angeles',
+    new Element().content(
+      "B.S. Computer Science",
+      "<br/>",
+      "Graduated March 2014",
+      "<br/>",
+      "GPA: 3.19"
+    )
+  )
+  return coms.plainInfo('education', div, false, false, 100)
+}
 
 function contact(){
 
