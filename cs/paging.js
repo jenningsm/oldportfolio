@@ -29,6 +29,16 @@ if(urlEnd === frontPage)
   urlEnd = ''
 history.replaceState({page : currPage}, '', root + '/' + urlEnd);
 
+var pageDepth = 0;
+function conditionalBack(transition){
+  if(pageDepth !== 0){
+    pageDepth--
+    history.back()
+  } else {
+    transition()
+  }
+}
+
 /*
   Transitions to a page
 
@@ -49,6 +59,7 @@ function toPage(page, dir, action){
 
   var urlEnd = (page === frontPage ? '' : page);
   if(action === 'push'){
+    pageDepth++
     var url = window.location.pathname.replace(/\/$/g, '') + '/' + urlEnd
     history.pushState({page : page}, '', url);
   } else if(action === 'replace'){

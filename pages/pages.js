@@ -143,7 +143,7 @@ function indexPage(name, content, width){
     'generator' :
     function(children, par){
       return coms.pageContainer().content(
-        coms.arrow('up', coms.transition(par.name, 'down', 'replace')).style('z-index', '1'),
+        coms.arrow('up', coms.conditionalBack(par.name)).style('z-index', '1'),
         coms.flexBox().content(
           content.style('max-width', width + '%')
         ),
@@ -164,7 +164,7 @@ function plainInfo(name, content, siblings, width){
     'generator' :
     function(children, par, prev, next){
       var page = coms.pageContainer().content(
-        coms.arrow('up', coms.transition(par.name, 'down', 'replace')).style('z-index', '1'),
+        coms.arrow('up', coms.conditionalBack(par.name)).style('z-index', '1'),
         coms.flexBox().content(
           content.style('max-width', width + '%')
         )

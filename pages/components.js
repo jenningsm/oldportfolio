@@ -83,6 +83,10 @@ module.exports.link = function(text, page, dir, action){
   .style('cursor', 'pointer')
 }
 
+module.exports.conditionalBack = function(par){
+  return 'conditionalBack(function() {' + transition(par, 'down', 'replace') + '})'
+}
+
 module.exports.transition = transition;
 function transition(to, dir, action){
   return 'toPage(&quot;' + to + '&quot;,&quot;' + dir + '&quot;,&quot;' + action + '&quot;)'
