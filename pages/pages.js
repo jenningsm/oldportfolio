@@ -5,6 +5,7 @@ var colors = require('../colors.js')
 var css = require('../css.js')
 var box = require('./box.js')
 var exp = require('./experience.js')
+var temp = require('./templates.js')
 
 //////////////////////////////////////////////////
 
@@ -29,7 +30,7 @@ module.exports = function(){
 
 
 function education(){
-  var div = coms.titledInfo(
+  var div = temp.titledInfo(
     'University of California, Los Angeles',
     new Element().content(
       "B.S. Computer Science",
@@ -39,7 +40,7 @@ function education(){
       "GPA: 3.19"
     )
   )
-  return coms.plainInfo('education', div, false, false, 100)
+  return temp.linkedContainer('education', div, false, false, 100)
 }
 
 function contact(){
@@ -50,7 +51,7 @@ function contact(){
     "mpjngs@gmail.com"
   )
 
-  return coms.plainInfo('contact', content)
+  return temp.linkedContainer('contact', content)
 }
 
 
@@ -61,7 +62,7 @@ function about(){
     'are now looking at my site. I like to make websites now.'
   )
 
-  return coms.plainInfo('about', content)
+  return temp.linkedContainer('about', content)
 }
 
 function title(){
@@ -81,7 +82,7 @@ function title(){
 
 
 function dummy(name){
-  return coms.plainInfo(name, new Element('div').content(name));
+  return temp.linkedContainer(name, new Element('div').content(name));
 }
 
 

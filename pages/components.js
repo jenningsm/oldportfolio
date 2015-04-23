@@ -3,41 +3,7 @@ var Element = require('/home/mjennings/pagebuilder/html.js');
 var arrow = require('../arrow.js')
 var colors = require('../colors.js')
 
-module.exports.titledInfo = function(){
-  var div = new Element('div')
-  div.content(underline(arguments[0], true).style('font-size', '1.2em'))
-  for(var i = 1; i < arguments.length; i++){
-    div.content(new Element('p').content(arguments[i]))
-  }
-  return div
-}
 
-module.exports.plainInfo = function(name, content, siblings, child, width){
-
-  if(width === undefined)
-    width = 30
-
-  return {
-    'generator' :
-    function(children, par, prev, next){
-      var page = pageContainer().content(
-        arrowBox('up', conditionalBack(par.name)).style('z-index', '1'),
-        flexBox().content(
-          content.style('max-width', width + '%')
-        )
-      )
-      if(siblings === true){
-        page.content(arrowBox('left', transition(prev.name, 'right', 'replace')).style('z-index' , 1))
-        page.content(arrowBox('right', transition(next.name, 'left', 'replace')).style('z-index' , 1))
-      }
-      if(child === true){
-        page.content(arrowBox('down', transition(children[0].name, 'up', 'push')).style('z-index', '1'))
-      }
-      return page
-    },
-    'name' : name
-  }
-}
 module.exports.pageContainer = pageContainer
 function pageContainer(){
   return new Element('div').style({
@@ -64,7 +30,7 @@ function flexBox(){
 }
 
 var breadth = [21, 12]
-var length = [90, 55]
+var length = [90, 50]
 module.exports.arrowBox = arrowBox
 function arrowBox(dir, onclick){
   var dim = (dir === 'left' || dir === 'right' ? 1 : 0)
@@ -152,35 +118,3 @@ function font(size, unit, weight){
     'font-size': size + unit
   }
 }
-
-module.exports.browseButtons = function(curr, prev, next){
-  var prevButton = new Element('span').content('PREV');
-  var nextButton = new Element('span').content('NEXT');
-  
-  var buttons = [prevButton, nextButton];
-  var targets = [];
-  for(var i = 1 ; i < 3; i++){
-    if(arguments[i] === null){
-      targets.push(null)
-    } else {
-      targets.push(arguments[i].name)
-    }
-  }
-
-  for(var i = 0; i < buttons.length; i++){
-    if(targets[i] !== null){
-      buttons[i].attribute('onclick', transition(targets[i], (i === 1 ? 'right' : 'left'), 'replace'))
-    } else {
-      buttons[i].style('opacity', '.5')
-    }
-  }
-
-  return edgeButton(true).content(
-    '-&nbsp;',
-    prevButton,
-    '&nbsp;|&nbsp;',
-    nextButton,
-    '&nbsp;-'
-  )
-}
-
