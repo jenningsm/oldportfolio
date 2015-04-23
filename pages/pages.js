@@ -105,7 +105,7 @@ function about(){
 function title(){
   return {
   'generator' :
-    function(children, currPage){
+    function(children, par){
       return coms.pageContainer().content(
 
         box('MICHAEL JENNINGS', children, [1.8, 1.1], [8, 1.5])
@@ -141,9 +141,9 @@ function indexPage(name, content, width){
 
   return {
     'generator' :
-    function(children){
+    function(children, par){
       return coms.pageContainer().content(
-        coms.arrow('up', 'history.back()').style('z-index', '1'),
+        coms.arrow('up', coms.transition(par.name, 'down', 'replace')).style('z-index', '1'),
         coms.flexBox().content(
           content.style('max-width', width + '%')
         ),
@@ -162,9 +162,9 @@ function plainInfo(name, content, siblings, width){
 
   return {
     'generator' :
-    function(children, currpage, prev, next){
+    function(children, par, prev, next){
       var page = coms.pageContainer().content(
-        coms.arrow('up', 'history.back()').style('z-index', '1'),
+        coms.arrow('up', coms.transition(par.name, 'down', 'replace')).style('z-index', '1'),
         coms.flexBox().content(
           content.style('max-width', width + '%')
         )
