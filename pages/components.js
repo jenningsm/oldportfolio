@@ -74,6 +74,7 @@ function arrowBox(dir, onclick){
     arrow(dir, '', length[dim])
     .attribute('onclick', onclick)
     .style('pointer-events', pe)
+    .style('padding', (30 - breadth[dim]) + 'px')
   ).style({
     'position': 'absolute',
     'pointer-events' : 'none'
@@ -82,13 +83,13 @@ function arrowBox(dir, onclick){
   if(dim === 1){
     a.style({
       'height' : '100%',
-      'width' : breadth[1] + '%'
+      'width' : breadth[1] + '%',
     })
     a.style(dir, 0)
   } else {
     a.style({
       'width' : '100%',
-      'height' : breadth[0] + '%'
+      'height' : breadth[0] + '%',
     })
     a.style(dir === 'up' ? 'top' : 'bottom', 0)
   }
