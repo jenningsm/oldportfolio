@@ -93,9 +93,9 @@ function education(){
 function contact(){
 
   var content = new Element('div').content(
-    "Want to chat?<br>" + 
-    "Shoot me an email:<br>" + 
-    "mpjngs@gmail.com"
+    "Want to chat?<br>",
+    "Shoot me an email:<br>",
+    coms.outLink("mpjngs@gmail.com", "mailto:mpjngs@gmail.com")
   )
 
   return temp.linkedContainer('contact', content)
@@ -104,11 +104,20 @@ function contact(){
 
 function about(){
   var content = new Element('div').content(
-    'My name is Michael Jennings. This is my site. You ' +
-    'are now looking at my site. I like to make websites now.'
+    new Element('p').content(
+      "My name is Michael Jennings, and I'm looking for work as a front-end web developer. \
+       I love working with javascript. I like to build single-page sites. My style is minimalist."
+    ),
+    new Element('p').content(
+      "Check out my ",
+       coms.link("projects", "projects", 'up', "push"),
+      " or shoot me an ",
+       coms.outLink("email", "mailto:mpjngs@gmail.com"),
+      "."
+    )
   )
 
-  return temp.linkedContainer('about', content)
+  return temp.linkedContainer('about', content, false, false, 50)
 }
 
 
