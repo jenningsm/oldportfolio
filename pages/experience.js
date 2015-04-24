@@ -7,17 +7,17 @@ module.exports.experience = function(){
   var info = new Element('div').content(
      new Element('p').content(
       "I have ",
-     coms.link("worked at Amazon", 'amazon', 'up', 'push'),
+     coms.link("worked at Amazon", 'amazon', 'up'),
      " as a Software Engineering Intern, ",
-     coms.link("worked at ViaSat", 'viasat', 'up', 'push'),
+     coms.link("worked at ViaSat", 'viasat', 'up'),
      " as a Software Engineering Intern, and ",
-     coms.link("worked at D&B Credibility Corp.", 'dandb', 'up', 'push'),
+     coms.link("worked at D&B Credibility Corp.", 'dandb', 'up'),
      ' as a Web Development Intern.'
      ),
      new Element('p').content(
       "Admittedly, none of my work experience thus far has been front-end work.\
        I hope my ",
-       coms.link("personal projects", 'projects', 'up', 'push'),
+       coms.link("personal projects", 'projects', 'up'),
       " make up for this deficit."
      )
   )

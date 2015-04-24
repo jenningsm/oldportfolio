@@ -89,9 +89,9 @@ function underline(text, spaced){
   )
 }
 
-module.exports.link = function(text, page, dir, action){
+module.exports.link = function(text, page, dir){
   return underline(text)
-  .attribute('onclick', transition(page, dir, action))
+  .attribute('onclick', transition(page, dir))
   .style('cursor', 'pointer')
 }
 
@@ -103,12 +103,12 @@ module.exports.outLink = function(text, link, emphasis){
 
 module.exports.conditionalBack = conditionalBack
 function conditionalBack(par){
-  return 'conditionalBack(function() {' + transition(par, 'down', 'replace') + '})'
+  return 'conditionalBack(function() {' + transition(par, 'down') + '})'
 }
 
 module.exports.transition = transition;
-function transition(to, dir, action){
-  return 'toPage(&quot;' + to + '&quot;,&quot;' + dir + '&quot;,&quot;' + action + '&quot;)'
+function transition(to, dir){
+  return 'toPage(&quot;' + to + '&quot;,&quot;' + dir + '&quot;)'
 }
 
 module.exports.font = font;

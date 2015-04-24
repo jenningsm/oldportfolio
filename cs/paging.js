@@ -1,5 +1,5 @@
 
-var root = '/dr';
+var root = '/dr/';
 
 var p = pbr.pages;
 var keys = Object.keys(p);
@@ -9,7 +9,7 @@ for (var i = 0; i < keys.length; i++){
   pages[keys[i]] = p[keys[i]]();
 }
 
-window.addEventListener('popstate', function(e) { toPage(e.state.page, 'down', 'pop') });
+window.addEventListener('popstate', function(e) { toPage(e.state.page, 'down', true) });
 
 
 var frontPage = 'front'
@@ -48,7 +48,7 @@ function conditionalBack(transition){
 var queue = null;
 var lock = false;
 
-function toPage(page, dir, action){
+function toPage(page, dir, back){
   if(lock){
     queue = {'page' : page, 'dir': dir, 'action' : action}
     return
@@ -56,16 +56,22 @@ function toPage(page, dir, action){
     lock = true;
   }
 
-  var urlEnd = (page === frontPage ? '' : page);
-  if(action === 'push'){
-    pageDepth++
-    var url = window.location.pathname.replace(/\/$/g, '') + '/' + urlEnd
-    history.pushState({page : page}, '', url);
-  } else if(action === 'replace'){
-    var url = window.location.pathname.split('/')
-    url[url.length - 1] = urlEnd
-    url = url.join('/')
-    history.replaceState({page : page}, '', url);
+  if(back !== true){
+    var urlEnd = (page === frontPage ? '' : page);
+    if(dir === 'up'){
+      pageDepth++
+      var url = window.location.pathname.replace(/\/$/g, '') + '/' + urlEnd
+      history.pushState({page : page}, '', url);
+    } else if (dir === 'down'){
+      var url = window.location.pathname.replace(/\/$/g, '').split('/')
+      url.pop()
+      history.replaceState({page : page}, '', url.join('/'))
+    } else {
+      var url = window.location.pathname.split('/')
+      url[url.length - 1] = urlEnd
+      url = url.join('/')
+      history.replaceState({page : page}, '', url);
+    }
   }
 
   var to = pages[page]

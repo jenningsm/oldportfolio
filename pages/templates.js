@@ -26,11 +26,11 @@ module.exports.linkedContainer = function(name, content, siblings, child, width)
         )
       )
       if(siblings === true){
-        page.content(coms.arrowBox('left', coms.transition(prev.name, 'right', 'replace')).style('z-index' , 1))
-        page.content(coms.arrowBox('right', coms.transition(next.name, 'left', 'replace')).style('z-index' , 1))
+        page.content(coms.arrowBox('left', coms.transition(prev.name, 'right')).style('z-index' , 1))
+        page.content(coms.arrowBox('right', coms.transition(next.name, 'left')).style('z-index' , 1))
       }
       if(child === true){
-        page.content(coms.arrowBox('down', coms.transition(children[0].name, 'up', 'push')).style('z-index', '1'))
+        page.content(coms.arrowBox('down', coms.transition(children[0].name, 'up')).style('z-index', '1'))
       }
       return page
     },

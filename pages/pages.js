@@ -124,13 +124,13 @@ function projects(){
       "Here's some things I've been working on lately:"
     ),
     new Element('p').content(
-      coms.link("Deftly", 'deftly', 'up', 'push'),
+      coms.link("Deftly", 'deftly', 'up'),
       ", a website I built to display some of my generative sketches.",
       "<br/>",
-      coms.link("Electrodynamics", 'electrodynamics', 'up', 'push'),
+      coms.link("Electrodynamics", 'electrodynamics', 'up'),
       ", an Android app that generates lightning bolt visuals.",
       "<br/>",
-      coms.link("A porfolio website", 'charlibeck', 'up', 'push'),
+      coms.link("A porfolio website", 'charlibeck', 'up'),
       " for an illustrator, Charli Beck.",
       "<br/>"
     )
@@ -167,7 +167,7 @@ function about(){
     ),
     new Element('p').content(
       "Check out my ",
-       coms.link("projects", "projects", 'up', "push"),
+       coms.link("projects", "projects", 'up'),
       " or shoot me an ",
        coms.outLink("email", "mailto:mpjngs@gmail.com"),
       "."

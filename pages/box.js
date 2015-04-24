@@ -73,7 +73,7 @@ function textTable(title, children){
 
     var span = new Element('span')
     .content(children[i].name.toUpperCase())
-    .attribute('onclick', coms.transition(children[i].name, 'up', 'push'))
+    .attribute('onclick', coms.transition(children[i].name, 'up'))
     .style('cursor', 'pointer')
 
     table[table.length-1].push(span);
