@@ -22,8 +22,8 @@ module.exports = function(){
       dummy('skills'),
       [projects(),
         deftly(),
-        dummy('electrodynamics'),
-        dummy('charlibeck')],
+        electrodynamics(),
+        charlibeck()]
   ]
   return connectPages(structure, 'loop');
 }
@@ -57,6 +57,47 @@ function deftly(){
   return temp.linkedContainer('deftly', div, true, false, 50)
 }
 
+function electrodynamics(){
+  var div = new Element('div').content(
+    new Element('p').content(
+      coms.outLink('Electrodynamics', 'http://www.mjngs.com', true)
+    ).style(coms.font(1.3)),
+    new Element('p').content(
+      'Electrodynamics is a very simple Android app that generates lightning bolt visuals when the screen is touched. \
+       You can download it from the play store ',
+      coms.outLink("here", 'http://www.mjngs.com'),
+      "."
+    ),
+    new Element('p').content(
+      'The app was built in Java and uses OpenGL for the graphics.' 
+    )
+  )
+  return temp.linkedContainer('electrodynamics', div, true, false, 50)
+}
+
+function charlibeck(){
+  var div = new Element('div').content(
+    new Element('p').content(
+      coms.outLink('Charli Beck', 'http://www.mjngs.com/cb', true)
+    ).style(coms.font(1.3)),
+    new Element('p').content(
+      'A portfolio site I built for an illustrator. \
+       You can check it out at ',
+      coms.outLink("mjngs.com/cb", 'http://www.mjngs.com/cb')
+    ),
+    new Element('p').content(
+      "The illustrator ended up deciding not to use the site (which is why it's hosted on one my domains). \
+       This was the first full website I'd ever built, and I think I learned a lot from it."
+    ),
+    new Element('p').content(
+      "You can take a look at the code on ",
+      coms.outLink("Github", "https://github.com/jenningsm/cb"),
+      "."
+    )
+  )
+  return temp.linkedContainer('charlibeck', div, true, false, 50)
+}
+
 function projects(){
   var content = new Element('div').content(
     new Element('p').content(
@@ -70,7 +111,11 @@ function projects(){
       ", an Android app that generates lightning bolt visuals.",
       "<br/>",
       coms.link("A porfolio website", 'charlibeck', 'up', 'push'),
-      " for an illustrator, Charli Beck."
+      " for an illustrator, Charli Beck.",
+      "<br/>",
+      "And, of course, ",
+      coms.link("this site", "portfolio", "up", "push"),
+      "."
     )
   )
   return temp.linkedContainer('projects', content, false, true, 50)

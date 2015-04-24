@@ -29,11 +29,6 @@ var head = new Element('head').content(
   new Element('link/').attribute({
     'rel' : 'stylesheet', 
     'type' : 'text/css', 
-    'href' : 'http://fonts.googleapis.com/css?family=Source+Sans+Pro:300'
-  }),
-  new Element('link/').attribute({
-    'rel' : 'stylesheet', 
-    'type' : 'text/css', 
     'href' : 'http://fonts.googleapis.com/css?family=Open+Sans:300'
   })
 )
