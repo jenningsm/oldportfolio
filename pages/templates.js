@@ -3,6 +3,15 @@
 var Element = require('/home/mjennings/pagebuilder/html.js')
 var coms = require('./components.js')
 
+function getUrl(lineage){
+  var url = [];
+  for(var i = 0; i < lineage.length - 1; i++){
+    url.unshift(lineage[i].name)
+  }
+  return url.join('/')
+}
+
+
 module.exports.titledInfo = function(){
   var div = new Element('div')
   div.content(coms.underline(arguments[0], true).style('font-size', '1.2em'))
@@ -18,9 +27,9 @@ module.exports.linkedContainer = function(name, content, siblings, child, width)
 
   return {
     'generator' :
-    function(children, par, prev, next){
+    function(children, lineage, prev, next){
       var page = coms.pageContainer().content(
-        coms.arrowBox('up', coms.conditionalBack(par.name)).style('z-index', '1'),
+        coms.arrowBox('up', coms.conditionalBack(lineage[1].name)).style('z-index', '1'),
         coms.flexBox().content(
           content.style('max-width', width + '%')
         )
@@ -32,7 +41,8 @@ module.exports.linkedContainer = function(name, content, siblings, child, width)
       if(child === true){
         page.content(coms.arrowBox('down', coms.transition(children[0].name, 'up')).style('z-index', '1'))
       }
-      return page
+
+      return {'page' : page, 'url' : getUrl(lineage) }
     },
     'name' : name
   }

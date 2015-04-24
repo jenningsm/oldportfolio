@@ -6,26 +6,26 @@ var keys = Object.keys(p);
 var pages = {};
 
 for (var i = 0; i < keys.length; i++){
-  pages[keys[i]] = p[keys[i]]();
+  pages[keys[i]] = {'page' : p[keys[i]].page(), 'url' : p[keys[i]].url}
 }
 
-window.addEventListener('popstate', function(e) { toPage(e.state.page, 'down', true) });
+window.addEventListener('popstate', function(e) { toPage(e.state.page, 'down') });
 
 
 var frontPage = 'front'
-var currPage
+var currPageName
 
-var page = window.location.pathname.split('/')
-if(page.length === 2 || page[2] === ''){
-  currPage = 'front'
+var url = window.location.pathname.split('/')
+if(url.length === 2 || url[2] === ''){
+  currPageName = 'front'
 } else {
-  currPage = page[page.length - 1]
+  currPageName = url[url.length - 1]
 }
 
-pages[currPage].style.display = 'block';
+pages[currPageName].page.style.display = 'block';
 
-if(currPage === frontPage){
-  history.replaceState({page : currPage}, '', root);
+if(currPageName === frontPage){
+  history.replaceState({page : currPageName}, '', root);
 }
 
 var pageDepth = 0;
@@ -50,32 +50,21 @@ var lock = false;
 
 function toPage(page, dir, back){
   if(lock){
-    queue = {'page' : page, 'dir': dir, 'action' : action}
+    queue = {'page' : page, 'dir': dir}
     return
   } else {
     lock = true;
   }
 
-  if(back !== true){
-    var urlEnd = (page === frontPage ? '' : page);
-    if(dir === 'up'){
-      pageDepth++
-      var url = window.location.pathname.replace(/\/$/g, '') + '/' + urlEnd
-      history.pushState({page : page}, '', url);
-    } else if (dir === 'down'){
-      var url = window.location.pathname.replace(/\/$/g, '').split('/')
-      url.pop()
-      history.replaceState({page : page}, '', url.join('/'))
-    } else {
-      var url = window.location.pathname.split('/')
-      url[url.length - 1] = urlEnd
-      url = url.join('/')
-      history.replaceState({page : page}, '', url);
-    }
+  if(dir === 'up'){
+    pageDepth++
+    history.pushState({page : page}, '', pages[page].url)
+  } else{
+    history.replaceState({page : page}, '', root + pages[page].url)
   }
 
-  var to = pages[page]
-  var from = pages[currPage]
+  var to = pages[page].page
+  var from = pages[currPageName].page
 
   var move = motion(3, 3);
 
@@ -111,13 +100,13 @@ function toPage(page, dir, back){
     } else {
       to.style.transform = "translate3d(0, 0, 0)";
       to.style.opacity = 1;
-      currPage = page;
+      currPageName = page;
 
       lock = false;
       if(queue !== null){
         var hold = queue
         queue = null
-        toPage(hold.page, hold.dir, hold.action)
+        toPage(hold.page, hold.dir)
       }
     }
   }

@@ -181,13 +181,20 @@ function about(){
 function title(){
   return {
   'generator' :
-    function(children, par){
-      return coms.pageContainer().content(
+    function(children, lineage){
+      var url = [];
+      for(var i = 0; i < lineage.length - 1; i++){
+        url.unshift(lineage[i].name)
+      }
+      url = url.join('/');
+      var page = coms.pageContainer().content(
 
         box('MICHAEL JENNINGS', children, [1.8, 1.1], [8, 1.5])
 
       )
       .style('font-family', '\'Quicksand\', sans serif')
+
+      return {'page' : page, 'url' : url }
     },
   'name' : 'front'
   }

@@ -80,7 +80,7 @@ var pages = require('./pages/pages.js')();
 var pageList = [];
 var keys = Object.keys(pages);
 for(var i = 0; i < keys.length; i++){
-  pageList.push(pages[keys[i]]);
+  pageList.push(pages[keys[i]].page);
 }
 
 //////////////////////////////////////
