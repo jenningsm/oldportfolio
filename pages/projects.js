@@ -6,7 +6,7 @@ var temp = require('./templates.js')
 module.exports.projects = function() {
   var content = new Element('div').content(
     new Element('p').content(
-      "Here's some things I've been working on lately:"
+      "Here are some things I've been working on lately:"
     ),
     new Element('p').content(
       coms.link("Deftly", 'deftly', 'up'),
@@ -50,12 +50,12 @@ module.exports.deftly = function(){
 module.exports.electrodynamics = function(){
   var div = new Element('div').content(
     new Element('p').content(
-      coms.outLink('Electrodynamics', 'http://www.mjngs.com', true)
+      coms.outLink('Electrodynamics', 'https://play.google.com/store/apps/details?id=com.mjngs.gllightning', true)
     ).style(coms.font(1.3)),
     new Element('p').content(
       'Electrodynamics is a very simple Android app that generates lightning bolt visuals when the screen is touched. \
        You can download it from the play store ',
-      coms.outLink("here", 'http://www.mjngs.com'),
+      coms.outLink("here", 'https://play.google.com/store/apps/details?id=com.mjngs.gllightning'),
       "."
     ),
     new Element('p').content(
