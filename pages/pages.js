@@ -43,13 +43,12 @@ function deftly(){
       coms.outLink("deftsketches.com", 'http://www.deftsketches.com')
     ),
     new Element('p').content(
-      "I'm pretty happy with how the site turned out. However, it has one major flaw, and ",
-      "that is that its implemention is very complicated and almost unmaintainable. ",
-      "I've learned from this mistake, and I think if I were to do it again, I could do it much ",
-      "more simply."
+      "I'm proud of this site, but I realize now that the implementation may be more complicated than \
+       it needs to be. Since building the site, I've learned to be much more careful about adding complexity \
+       to an application."
     ),
     new Element('p').content(
-      "Take a look at the code on ",
+      "You can take a look at the code on ",
       coms.outLink("Github", "https://github.com/jenningsm/deft"),
       "."
     )
@@ -83,7 +82,8 @@ function charlibeck(){
     new Element('p').content(
       'A portfolio site I built for an illustrator. \
        You can check it out at ',
-      coms.outLink("mjngs.com/cb", 'http://www.mjngs.com/cb')
+      coms.outLink("mjngs.com/cb", 'http://www.mjngs.com/cb'),
+      "."
     ),
     new Element('p').content(
       "The illustrator ended up deciding not to use the site (which is why it's hosted on one my domains). \
@@ -166,7 +166,8 @@ function about(){
   var content = new Element('div').content(
     new Element('p').content(
       "My name is Michael Jennings, and I'm looking for work as a front-end web developer. \
-       I love working with javascript. I like to build single-page sites. My style is minimalist."
+       I like working with javascript. I like making sites move. I like to build single-page sites. \
+       My style is minimalist."
     ),
     new Element('p').content(
       "Check out my ",

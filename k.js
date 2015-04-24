@@ -1,4 +1,4 @@
-var embed = false;
+var embed = true;
 var legible = false;
 
 var Element = require('/home/mjennings/pagebuilder/html.js');
