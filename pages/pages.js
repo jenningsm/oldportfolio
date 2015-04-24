@@ -16,8 +16,7 @@ module.exports = function(){
       [projects(),
         deftly(),
         electrodynamics(),
-        charlibeck(),
-        portfolio()],
+        charlibeck()],
       contact(),
       [exp.experience(),
          exp.amazon(),
@@ -86,7 +85,7 @@ function charlibeck(){
       "."
     ),
     new Element('p').content(
-      "The illustrator ended up deciding not to use the site (which is why it's hosted on one my domains). \
+      "The illustrator ended up deciding not to use the site (which is why it's hosted on one of my domains). \
        This was the first full website I'd ever built, and I think I learned a lot from it."
     ),
     new Element('p').content(
@@ -133,10 +132,7 @@ function projects(){
       "<br/>",
       coms.link("A porfolio website", 'charlibeck', 'up', 'push'),
       " for an illustrator, Charli Beck.",
-      "<br/>",
-      "And, of course, ",
-      coms.link("this site", "portfolio", "up", "push"),
-      "."
+      "<br/>"
     )
   )
   return temp.linkedContainer('projects', content, false, true, 50)
