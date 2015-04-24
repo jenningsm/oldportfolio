@@ -95,6 +95,12 @@ module.exports.link = function(text, page, dir, action){
   .style('cursor', 'pointer')
 }
 
+module.exports.outLink = function(text, link, emphasis){
+  return underline(text, emphasis)
+  .attribute('onclick', 'window.location.href=&quot;' + link + '&quot;')
+  .style('cursor', 'pointer')
+}
+
 module.exports.conditionalBack = conditionalBack
 function conditionalBack(par){
   return 'conditionalBack(function() {' + transition(par, 'down', 'replace') + '})'

@@ -12,23 +12,50 @@ var temp = require('./templates.js')
 module.exports = function(){
   var structure = [
     title(),
-      [projects(),
-        dummy('deftly'),
-        dummy('electrodynamics'),
-        dummy('charlibeck')],
-      about(),
       contact(),
+      about(),
+      education(),
       [exp.experience(),
          exp.amazon(),
          exp.viasat(),
          exp.dandb()],
-      education(),
+      dummy('skills'),
+      [projects(),
+        deftly(),
+        dummy('electrodynamics'),
+        dummy('charlibeck')],
   ]
   return connectPages(structure, 'loop');
 }
 
 
 /////////////////////////////////////////////////
+
+
+function deftly(){
+  var div = new Element('div').content(
+    new Element('p').content(
+      coms.outLink('Deftly', 'http://www.deftsketches.com', true)
+    ).style(coms.font(1.3)),
+    new Element('p').content(
+      'Deftly is a website I built to display some of my generative sketches. ',
+      'You can check it out at ',
+      coms.outLink("deftsketches.com", 'http://www.deftsketches.com')
+    ),
+    new Element('p').content(
+      "I'm pretty happy with how the site turned out. However, it has one major flaw, and ",
+      "that is that its implemention is very complicated and almost unmaintainable. ",
+      "I've learned from this mistake, and I think if I were to do it again, I could do it much ",
+      "more simply."
+    ),
+    new Element('p').content(
+      "Take a look at the code on ",
+      coms.outLink("Github", "https://github.com/jenningsm/deft"),
+      "."
+    )
+  )
+  return temp.linkedContainer('deftly', div, true, false, 50)
+}
 
 function projects(){
   var content = new Element('div').content(
@@ -40,7 +67,7 @@ function projects(){
       ", a website I built to display some of my generative sketches.",
       "<br/>",
       coms.link("Electrodynamics", 'electrodynamics', 'up', 'push'),
-      ", an Android app that creates lightning bolt visuals.",
+      ", an Android app that generates lightning bolt visuals.",
       "<br/>",
       coms.link("A porfolio website", 'charlibeck', 'up', 'push'),
       " for an illustrator, Charli Beck."

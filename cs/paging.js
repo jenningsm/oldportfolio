@@ -24,10 +24,9 @@ if(page.length === 2 || page[2] === ''){
 
 pages[currPage].style.display = 'block';
 
-var urlEnd = currPage
-if(urlEnd === frontPage)
-  urlEnd = ''
-history.replaceState({page : currPage}, '', root + '/' + urlEnd);
+if(currPage === frontPage){
+  history.replaceState({page : currPage}, '', root);
+}
 
 var pageDepth = 0;
 function conditionalBack(transition){

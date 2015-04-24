@@ -64,7 +64,7 @@ function textTable(title, children){
   for(var i = 0; i < children.length; i++){
     //when the length of a line exceeds the length of the title line
     //start a new line
-    if(lineLength < 0 || lineLength + children[i].name.length > 1.3 * title.length){
+    if(lineLength < 0 || lineLength + children[i].name.length > 1.5 * title.length){
       table.push([]);
       lineLength = 0;
     } else {
