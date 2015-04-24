@@ -50,15 +50,14 @@ module.exports = function(title, children, fontSizes, spacing){
     css.userSelect('none')
   )
 }
+
 function textTable(title, children){
   //divide the children into a two dimensional grid to be displayed
   //as a box
 
-  var table = [[
-               new Element('span')
+  var table = [[new Element('span')
                .content(title)
-               .style('border-bottom', '1px solid')
-             ]]
+               .style('border-bottom', '1px solid')]]
 
   var lineLength = -1
   for(var i = 0; i < children.length; i++){

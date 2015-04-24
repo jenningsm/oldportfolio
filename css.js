@@ -1,6 +1,9 @@
 
-function linearGradient(dir, start, stop){
+module.exports.linearGradient = function(dir, start, stop){
   return prefix('background', 'linear-gradient(to ' + dir + ', ' + start + ', ' + stop + ')');
+}
+module.exports.userSelect = function(value){
+  return prefix('user-select', value, ['moz', 'webkit', 'ms', 'o'])
 }
 
 function prefix(style, value, prefixes){
@@ -14,9 +17,3 @@ function prefix(style, value, prefixes){
   prefixed[style] = value;
   return prefixed;
 }
-
-module.exports.userSelect = function(value){
-  return prefix('user-select', value, ['moz', 'webkit', 'ms', 'o'])
-}
-
-module.exports.linearGradient = linearGradient;

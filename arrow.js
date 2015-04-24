@@ -2,12 +2,6 @@ var Element = require('/home/mjennings/pagebuilder/html.js')
 var colors = require('./colors.js')
 var color = colors.colorString(colors.scolor)
 
-function truncate(number, precision){
-  number = number * Math.pow(10, precision)
-  number = Math.round(number)
-  return number / Math.pow(10, precision)
-}
-
 module.exports = function(dir, unit, size){
 
   var ratio = 5;
@@ -63,4 +57,10 @@ module.exports = function(dir, unit, size){
     'cursor': 'pointer',
     'padding': '7px'
   })
+}
+
+function truncate(number, precision){
+  number = number * Math.pow(10, precision)
+  number = Math.round(number)
+  return number / Math.pow(10, precision)
 }

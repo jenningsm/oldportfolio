@@ -11,7 +11,6 @@ for (var i = 0; i < keys.length; i++){
 
 window.addEventListener('popstate', function(e) { toPage(e.state.page, 'down') });
 
-
 var frontPage = 'front'
 var currPageName
 
