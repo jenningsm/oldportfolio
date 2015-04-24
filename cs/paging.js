@@ -9,7 +9,31 @@ for (var i = 0; i < keys.length; i++){
   pages[keys[i]] = {'page' : p[keys[i]].page(), 'url' : p[keys[i]].url}
 }
 
-window.addEventListener('popstate', function(e) { toPage(e.state.page, 'down') });
+
+var opposites = {
+  'up' : 'down',
+  'down' : 'up',
+  'right' : 'left',
+  'left' : 'right'
+}
+
+//we keep track of the direction of each page transition, so
+//when the user goes back or forward we know which direction to go
+var historyIndex = -1
+var dirs = []
+
+window.addEventListener('popstate',
+  function(e) {
+    var dir
+    if(e.state.historyIndex > historyIndex){
+      dir = dirs[e.state.historyIndex]
+    } else {
+      dir = opposites[dirs[historyIndex]]
+    }
+    historyIndex = e.state.historyIndex
+    toPage(e.state.page, dir, true)
+  }
+);
 
 var frontPage = 'front'
 var currPageName
@@ -23,19 +47,8 @@ if(url.length === 2 || url[2] === ''){
 
 pages[currPageName].page.style.display = 'block';
 
-if(currPageName === frontPage){
-  history.replaceState({page : currPageName}, '', root);
-}
+history.replaceState({page : currPageName, historyIndex: -1}, '', window.location.pathname);
 
-var pageDepth = 0;
-function conditionalBack(transition){
-  if(pageDepth !== 0){
-    pageDepth--
-    history.back()
-  } else {
-    transition()
-  }
-}
 
 /*
   Transitions to a page
@@ -55,11 +68,10 @@ function toPage(page, dir, back){
     lock = true;
   }
 
-  if(dir === 'up'){
-    pageDepth++
-    history.pushState({page : page}, '', pages[page].url)
-  } else{
-    history.replaceState({page : page}, '', root + pages[page].url)
+  if(back !== true){
+    historyIndex++;
+    history.pushState({page : page, historyIndex : historyIndex}, '', root + pages[page].url)
+    dirs[historyIndex] = dir
   }
 
   var to = pages[page].page

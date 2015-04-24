@@ -101,11 +101,6 @@ module.exports.outLink = function(text, link, emphasis){
   .style('cursor', 'pointer')
 }
 
-module.exports.conditionalBack = conditionalBack
-function conditionalBack(par){
-  return 'conditionalBack(function() {' + transition(par, 'down') + '})'
-}
-
 module.exports.transition = transition;
 function transition(to, dir){
   return 'toPage(&quot;' + to + '&quot;,&quot;' + dir + '&quot;)'
