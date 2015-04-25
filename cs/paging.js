@@ -19,6 +19,10 @@ if(url.length === 2 || url[2] === ''){
   currPageName = url[url.length - 1]
 }
 
+if(pages[currPageName] === undefined){
+  currPageName = '404'
+}
+
 pages[currPageName].page.style.display = 'block';
 
 //the history
@@ -26,9 +30,13 @@ var hist = [currPageName]
 
 //go up in the hierarchy, from which ever page the current
 //page was linked from
-function up(){
+function up(backup){
   hist.pop()
-  toPage(hist[hist.length-1], 'down', true)
+  if(hist.length > 0){
+    toPage(hist[hist.length-1], 'down', true)
+  } else {
+    backup()
+  }
 }
 
 /*

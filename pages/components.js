@@ -106,6 +106,11 @@ function transition(to, dir){
   return 'toPage(&quot;' + to + '&quot;,&quot;' + dir + '&quot;)'
 }
 
+module.exports.up = function(transition){
+  return "up(function(){" + transition + "})"
+}
+
+
 module.exports.font = font;
 function font(size, unit, weight){
   if(weight === undefined){

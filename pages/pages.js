@@ -25,13 +25,21 @@ module.exports = function(){
          exp.dandb()],
       education(),
   ]
-  return connectPages(structure, 'loop');
+  var pages = connectPages(structure, 'loop')
+  pages['404'] = {'url' : '404', 'page' : fourohfour()}
+  return pages
 }
 
 
 /////////////////////////////////////////////////
 
-
+function fourohfour(){
+  return coms.pageContainer().content(
+           coms.flexBox().content(
+             "Sorry, there's no page here."
+           )
+         )
+}
 
 function education(){
   var div = new Element('div').content(
