@@ -20,7 +20,7 @@ module.exports.linkedContainer = function(name, content, siblings, child, width)
     'generator' :
     function(children, lineage, prev, next){
       var page = coms.pageContainer().content(
-        coms.arrowBox('up', coms.transition(lineage[1].name, 'down')).style('z-index', '1'),
+        coms.arrowBox('up', "up()").style('z-index', '1'),
         coms.flexBox().content(
           content.style('max-width', width + '%')
         )
