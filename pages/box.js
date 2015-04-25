@@ -22,6 +22,7 @@ module.exports = function(title, children, fontSizes, spacing){
     var d = new Element('div')
     .style(
       {
+        'display ' : '-webkit-flex',
         'display' : 'flex',
         'margin-bottom' : spacing[i] + 'px',
         'justify-content' : 'space-between'

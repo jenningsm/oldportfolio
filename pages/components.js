@@ -19,6 +19,10 @@ function pageContainer(){
 module.exports.flexBox = flexBox
 function flexBox(){
   return new Element('div').style({
+    'display ' : '-webkit-flex',
+    '-webkit-justify-content' : 'center',
+    '-webkit-align-items' : 'center',
+    '-webkit-flex-direction' : 'column',
     'display' : 'flex',
     'justify-content' : 'center',
     'align-items' : 'center',

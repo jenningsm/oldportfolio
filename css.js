@@ -6,6 +6,7 @@ module.exports.userSelect = function(value){
   return prefix('user-select', value, ['moz', 'webkit', 'ms', 'o'])
 }
 
+module.exports.prefix = prefix
 function prefix(style, value, prefixes){
   if(prefixes === undefined){
     prefixes = ['webkit', 'o', 'moz'];
