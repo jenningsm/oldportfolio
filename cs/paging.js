@@ -32,7 +32,7 @@ function sizeContainer(){
   var keys = Object.keys(pages)
   for(var i = 0; i < keys.length; i++){
     if(pages[keys[i]].container !== undefined){
-      pages[keys[i]].container.style.maxWidth = conWidth + 'px'
+      pages[keys[i]].container.style.maxWidth = p[keys[i]].width * conWidth + 'px'
     }
   }
 }

@@ -33,7 +33,7 @@ module.exports.linkedContainer = function(name, content, siblings, child, width)
         page.content(coms.arrowBox('down', coms.transition(children[0].name, 'up')).style('z-index', '1'))
       }
 
-      return {'page' : page, 'container' : content, 'url' : getUrl(lineage) }
+      return {'page' : page, 'container' : content, 'width' : width / 100, 'url' : getUrl(lineage) }
     },
     'name' : name
   }
