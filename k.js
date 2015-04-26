@@ -68,7 +68,6 @@ var scripts = [
   new Element('script', 'src', '/dr/cs/util.js'),
   new Element('script', 'src', '/dr/cs/motion.js'),
   new Element('script', 'src', '/dr/cs/paging.js'),
-  new Element('script', 'src', '/dr/cs/taperedline.js'),
   new Element('script', 'src', '/dr/cs/back.js'),
 ];
 if(!embed){
