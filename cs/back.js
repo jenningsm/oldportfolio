@@ -19,7 +19,7 @@ for(var i = 0; i < canvases.length; i++){
     }
     var axis = (Math.random() > .5 ? 'horz' : 'vert');
     length = (.5 + Math.random() * .5) / 5
-    width = Math.sqrt(length) / 150
+    width = Math.sqrt(length) / 175
     lines.push(line(context[i], point, axis, length, width, pbr.tcolor))
   }
   redraw()
