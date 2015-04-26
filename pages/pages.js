@@ -69,6 +69,9 @@ function about(){
        My style is minimalist."
     ),
     new Element('p').content(
+      "I've been programming for years now, but only recently started doing front-end stuff. I'm learning fast."
+    ),
+    new Element('p').content(
       "Check out my ",
        coms.link("projects", "projects", 'up'),
       " or shoot me an ",
