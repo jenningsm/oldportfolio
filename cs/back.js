@@ -2,7 +2,7 @@
 
 var canvases = [pbr.canvases[0](), pbr.canvases[1]()];
 var context = [canvases[0].getContext("2d"), canvases[1].getContext("2d")]
-var lines = []
+
 for(var i = 0; i < canvases.length; i++){
   var a = canvases[i].getBoundingClientRect();
   var dims = [a.right - a.left, a.bottom - a.top];
@@ -21,58 +21,33 @@ for(var i = 0; i < canvases.length; i++){
     length = (.5 + Math.random() * .5) * Math.max(dims[0], dims[1]) / 15;
     taper = length / 4;
     width = Math.random() * 2
-    lines.push(line(context[i], dims,  point, axis, length, width, pbr.tcolor))
+    line(context[i], point, axis, length, width, pbr.tcolor)
   }
 }
 
-context[0].save()
-context[1].save()
 
-var speed = .5
-function move(){
-  for(var i = 0; i < 2; i++){
-    context[i].clearRect(0, 0, canvases[i].width, canvases[i].height)
-  }
-  for(var i = 0; i < lines.length; i++){
-    lines[i](speed)
-  }
-//  requestAnimationFrame(move)
-}
-
-move()
-
-function line(context, dims, center, axis, length, width, color){
+function line(context, center, axis, length, width, color){
   var xspan = (axis === 'horz' ? length : width)
   var yspan = (axis === 'vert' ? length : width)
   axis = (axis === 'horz' ? 0 : 1)
   var dir = (Math.random() > .5 ? 1 : -1)
-  var path = new Path2D()
-  path.rect(0,0, xspan, yspan) 
 
-   var gradient = context.createLinearGradient(0, 0, xspan, yspan)
-   var transparent = colorString(color.slice(0, 3).concat([0]))
-   var colored = colorString(color)
-   gradient.addColorStop(0, transparent)
-   gradient.addColorStop(.25, colored)
-   gradient.addColorStop(.75, colored)
-   gradient.addColorStop(1, transparent)
+  var ends = [];
+  ends[axis] = center[axis] - length / 2
+  ends[axis + 2] = center[axis] + length / 2
+  ends[(1 + axis)%2] = center[(1+axis)%2]
+  ends[2 + (1 + axis)%2] = center[(1+axis)%2]
 
-  return function(step){
-    center[axis] += dir * step
-    if(center[axis] < -length / 2)
-      center[axis] = dims[axis] + length/2
-    if(center[axis] > dims[axis] + length/2)
-      center[axis] = -length/2
+  var gradient = context.createLinearGradient(ends[0], ends[1], ends[2], ends[3])
+  var transparent = colorString(color.slice(0, 3).concat([0]))
+  var colored = colorString(color)
+  gradient.addColorStop(0, transparent)
+  gradient.addColorStop(.25, colored)
+  gradient.addColorStop(.75, colored)
+  gradient.addColorStop(1, transparent)
 
-
-    context.save()
-    context.translate(center[0] - xspan/2, center[1]- yspan/2)
-    //context.fillStyle = colorString(color)
-    context.fillStyle = gradient
-    //context.fillRect(center[0] - xspan / 2, center[1] - yspan / 2, xspan, yspan)
-    context.fill(path)
-    context.restore()
-  }
+  context.fillStyle = gradient
+  context.fillRect(center[0] - xspan / 2, center[1] - yspan / 2, xspan, yspan)
 }
 
 function colorString(color){
