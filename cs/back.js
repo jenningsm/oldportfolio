@@ -1,53 +1,86 @@
 
-var svgs = [pbr.svgs[0](), pbr.svgs[1]()];
-var movers = [];
 
-for(var i = 0; i < svgs.length; i++){
-  var a = svgs[i].getBoundingClientRect();
+var canvases = [pbr.canvases[0](), pbr.canvases[1]()];
+var context = [canvases[0].getContext("2d"), canvases[1].getContext("2d")]
+var lines = []
+for(var i = 0; i < canvases.length; i++){
+  var a = canvases[i].getBoundingClientRect();
   var dims = [a.right - a.left, a.bottom - a.top];
+  context[i].canvas.width = dims[0]
+  context[i].canvas.height = dims[1]
   var num = 600;
-//  num = 0;
+
   for(var j = 0; j < num; j++){
-    var xp = ((j % Math.floor(num / 2)) * (100 / Math.floor(num / 2)));
+    var xp = ((j % Math.floor(num / 2)) * (dims[0] / Math.floor(num / 2)));
     xp += (Math.random() - .5) * 7;
-    var point = [xp, Math.random() * 100];
+    var point = [xp, Math.random() * dims[1]];
     if(i === 1){
-      point[1] = 100 - point[1];
+      point[1] = dims[1] - point[1];
     }
     var axis = (Math.random() > .5 ? 'horz' : 'vert');
-    length = (.5 + Math.random() * .5) * Math.max(dims[0], dims[1]) / 20;
+    length = (.5 + Math.random() * .5) * Math.max(dims[0], dims[1]) / 15;
     taper = length / 4;
-    var line = genTaperedLine(point[0], point[1], axis, length, Math.random() * 2, taper, pbr.tcolor)
-    svgs[i].appendChild(line.line);
-  //  movers.push(line.mover);
+    width = Math.random() * 2
+    lines.push(line(context[i], dims,  point, axis, length, width, pbr.tcolor))
   }
 }
 
+context[0].save()
+context[1].save()
 
-var pos = 0;
-function translate(){
-  pos += 1;
+var speed = .5
+function move(){
+  for(var i = 0; i < 2; i++){
+    context[i].clearRect(0, 0, canvases[i].width, canvases[i].height)
+  }
   for(var i = 0; i < lines.length; i++){
-    lines[i].setAttribute("transform", "translate(" + pos + ", 0)");
+    lines[i](speed)
   }
-  requestAnimationFrame(translate);
+//  requestAnimationFrame(move)
 }
 
-//translate();
+move()
 
-var bb = svgs[0].getBoundingClientRect(svgs[0]);
-var dims = [bb.right - bb.left, bb.bottom - bb.top];
-console.log(dims);
-var pos = 0;
-var rounds = 3;
-function moveEm(){
-  var start = Math.floor(movers.length / rounds) * pos;
-  var end = Math.floor(movers.length / rounds) * (pos + 1);
-  for(var i = start; i < end; i++){
-    movers[i](dims);
+function line(context, dims, center, axis, length, width, color){
+  var xspan = (axis === 'horz' ? length : width)
+  var yspan = (axis === 'vert' ? length : width)
+  axis = (axis === 'horz' ? 0 : 1)
+  var dir = (Math.random() > .5 ? 1 : -1)
+  var path = new Path2D()
+  path.rect(0,0, xspan, yspan) 
+
+   var gradient = context.createLinearGradient(0, 0, xspan, yspan)
+   var transparent = colorString(color.slice(0, 3).concat([0]))
+   var colored = colorString(color)
+   gradient.addColorStop(0, transparent)
+   gradient.addColorStop(.25, colored)
+   gradient.addColorStop(.75, colored)
+   gradient.addColorStop(1, transparent)
+
+  return function(step){
+    center[axis] += dir * step
+    if(center[axis] < -length / 2)
+      center[axis] = dims[axis] + length/2
+    if(center[axis] > dims[axis] + length/2)
+      center[axis] = -length/2
+
+
+    context.save()
+    context.translate(center[0] - xspan/2, center[1]- yspan/2)
+    //context.fillStyle = colorString(color)
+    context.fillStyle = gradient
+    //context.fillRect(center[0] - xspan / 2, center[1] - yspan / 2, xspan, yspan)
+    context.fill(path)
+    context.restore()
   }
-  pos = (pos + 1) % rounds;
-  requestAnimationFrame(moveEm);
 }
 
-//moveEm();
+function colorString(color){
+  var str = "rgba(";
+  for(var i = 0; i < color.length; i++){
+    str += color[i] + ','
+  }
+  str = str.substring(0, str.length -1)
+  str += ')'
+  return str
+}

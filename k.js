@@ -1,5 +1,5 @@
 var embed = true;
-var legible = true;
+var legible = false;
 
 var Element = require('/home/mjennings/pagebuilder/html.js');
 var colors = require('./colors.js');
@@ -57,14 +57,15 @@ var main = new Element('div').style({
 var bargen = require('./bars.js');
 var dirs = ['top', 'bottom'];
 var barContent = [];
-var svgs = [];
+var canvases = [];
 for(var i = 0; i < dirs.length; i++){
   var a = bargen(dirs[i], 50 - height / 2, colors.scolor, colors.tcolor);
-  barContent.push(a.svg, a.gradient);
-  svgs.push(a.svg);
+  barContent.push(a.canvas, a.gradient);
+  canvases.push(a.canvas);
 }
 
 var scripts = [
+  new Element('script', 'src', '/dr/cs/util.js'),
   new Element('script', 'src', '/dr/cs/motion.js'),
   new Element('script', 'src', '/dr/cs/paging.js'),
   new Element('script', 'src', '/dr/cs/taperedline.js'),
@@ -97,8 +98,8 @@ html.content(
 ///////////////////////////////////
 
 var p = html.generate({
-  'svgs': svgs,
-  'tcolor' : colors.colorString(colors.tcolor),
+  'canvases': canvases,
+  'tcolor' : colors.tcolor,
   'pages' : pages
 }, legible);
 
