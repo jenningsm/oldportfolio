@@ -1,8 +1,10 @@
 var embed = true;
-var legible = true;
+var legible = false;
 
 var Element = require('/home/mjennings/pagebuilder/html.js');
 var colors = require('./colors.js');
+
+var root = '/dr/'
 
 /////////////////////////////////
 
@@ -38,7 +40,7 @@ if(!embed){
     new Element('link/').attribute({
       'rel' : 'stylesheet',
       'type' : 'text/css',
-      'href' : '/dr/o.css'
+      'href' : root + 'o.css'
     })
   )
 } else {
@@ -68,13 +70,13 @@ for(var i = 0; i < dirs.length; i++){
 }
 
 var scripts = [
-  new Element('script', 'src', '/dr/cs/util.js'),
-  new Element('script', 'src', '/dr/cs/motion.js'),
-  new Element('script', 'src', '/dr/cs/paging.js'),
-  new Element('script', 'src', '/dr/cs/back.js'),
+  new Element('script', 'src', root + 'cs/util.js'),
+  new Element('script', 'src', root + 'cs/motion.js'),
+  new Element('script', 'src', root + 'cs/paging.js'),
+  new Element('script', 'src', root + 'cs/back.js'),
 ];
 if(!embed){
-  scripts.unshift(new Element('script', 'src', '/dr/o.js'));
+  scripts.unshift(new Element('script', 'src', root + 'o.js'));
 }
 
 var pages = require('./pages/pages.js')();
