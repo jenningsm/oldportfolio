@@ -46,7 +46,7 @@ function education(){
     "I attended the University of California, Los Angeles, from which I received a Bachelor of Science \
      in Computer Science. I graduated in March of 2014 with a GPA of 3.19."
   )
-  return temp.linkedContainer('education', div, false, false, 40)
+  return temp.linkedContainer('education', div, false, false, 80)
 }
 
 function contact(){
@@ -80,7 +80,7 @@ function about(){
     )
   )
 
-  return temp.linkedContainer('about', content, false, false, 50)
+  return temp.linkedContainer('about', content, false, false, 100)
 }
 
 
@@ -94,9 +94,7 @@ function title(){
       }
       url = url.join('/');
       var page = coms.pageContainer().content(
-
         box('MICHAEL JENNINGS', children, [1.8, 1.1], [8, 1.5])
-
       )
       .style('font-family', '\'Quicksand\', sans serif')
 

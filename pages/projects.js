@@ -20,7 +20,7 @@ module.exports.projects = function() {
       "<br/>"
     )
   )
-  return temp.linkedContainer('projects', content, false, true, 50)
+  return temp.linkedContainer('projects', content, false, true, 100)
 }
 
 module.exports.deftly = function(){
@@ -44,7 +44,7 @@ module.exports.deftly = function(){
       "."
     )
   )
-  return temp.linkedContainer('deftly', div, true, false, 50)
+  return temp.linkedContainer('deftly', div, true, false, 100)
 }
 
 module.exports.electrodynamics = function(){
@@ -62,7 +62,7 @@ module.exports.electrodynamics = function(){
       'The app was built in Java and uses OpenGL for the graphics.' 
     )
   )
-  return temp.linkedContainer('electrodynamics', div, true, false, 50)
+  return temp.linkedContainer('electrodynamics', div, true, false, 100)
 }
 
 module.exports.charlibeck = function(){
@@ -86,7 +86,7 @@ module.exports.charlibeck = function(){
       "."
     )
   )
-  return temp.linkedContainer('charlibeck', div, true, false, 50)
+  return temp.linkedContainer('charlibeck', div, true, false, 100)
 }
 
 module.exports.portfolio = function(){
@@ -107,6 +107,6 @@ module.exports.portfolio = function(){
        " for this site, you might be able to get a rough idea what's going on."
     )
   )
-  return temp.linkedContainer('portfolio', div, true, false, 60)
+  return temp.linkedContainer('portfolio', div, true, false, 100)
 }
 

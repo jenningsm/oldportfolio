@@ -1,5 +1,5 @@
 var embed = true;
-var legible = false;
+var legible = true;
 
 var Element = require('/home/mjennings/pagebuilder/html.js');
 var colors = require('./colors.js');

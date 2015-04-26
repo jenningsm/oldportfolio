@@ -7,6 +7,9 @@ var pages = {};
 
 for (var i = 0; i < keys.length; i++){
   pages[keys[i]] = {'page' : p[keys[i]].page(), 'url' : p[keys[i]].url}
+  if(p[keys[i]].container !== undefined){
+    pages[keys[i]].container = p[keys[i]].container()
+  }
 }
 
 var frontPage = 'front'
@@ -22,6 +25,19 @@ if(url.length === 2 || url[2] === ''){
 if(pages[currPageName] === undefined){
   currPageName = '404'
 }
+
+function sizeContainer(){
+  var width = window.innerWidth
+  var conWidth = Math.min(width * .9, Math.pow(width, .45) * 30)
+  var keys = Object.keys(pages)
+  for(var i = 0; i < keys.length; i++){
+    if(pages[keys[i]].container !== undefined){
+      pages[keys[i]].container.style.maxWidth = conWidth + 'px'
+    }
+  }
+}
+sizeContainer()
+window.addEventListener('resize', sizeContainer)
 
 pages[currPageName].page.style.display = 'block';
 

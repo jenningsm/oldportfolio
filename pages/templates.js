@@ -14,7 +14,7 @@ module.exports.titledInfo = function(){
 
 module.exports.linkedContainer = function(name, content, siblings, child, width){
   if(width === undefined)
-    width = 30
+    width = 60
 
   return {
     'generator' :
@@ -33,7 +33,7 @@ module.exports.linkedContainer = function(name, content, siblings, child, width)
         page.content(coms.arrowBox('down', coms.transition(children[0].name, 'up')).style('z-index', '1'))
       }
 
-      return {'page' : page, 'url' : getUrl(lineage) }
+      return {'page' : page, 'container' : content, 'url' : getUrl(lineage) }
     },
     'name' : name
   }
