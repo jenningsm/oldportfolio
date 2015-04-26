@@ -54,8 +54,8 @@ module.exports.electrodynamics = function(){
     ).style(coms.font(1.3)),
     new Element('p').content(
       'Electrodynamics is a very simple Android app that generates lightning bolt visuals when the screen is touched. \
-       You can download it from the play store ',
-      coms.outLink("here", 'https://play.google.com/store/apps/details?id=com.mjngs.gllightning'),
+       You can download it for free from the ',
+      coms.outLink("play store", 'https://play.google.com/store/apps/details?id=com.mjngs.gllightning'),
       "."
     ),
     new Element('p').content(

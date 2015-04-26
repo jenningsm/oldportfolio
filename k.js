@@ -28,7 +28,10 @@ var head = new Element('head').content(
     'rel' : 'stylesheet', 
     'type' : 'text/css', 
     'href' : 'http://fonts.googleapis.com/css?family=Open+Sans:300'
-  })
+  }),
+  new Element('title').content(
+    'Michael Jennings'
+  )
 )
 if(!embed){
   head.content(

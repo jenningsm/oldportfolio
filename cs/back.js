@@ -18,8 +18,8 @@ for(var i = 0; i < canvases.length; i++){
       point[1] = 1 - point[1];
     }
     var axis = (Math.random() > .5 ? 'horz' : 'vert');
-    length = (.5 + Math.random() * .5) * Math.sqrt(dims[0] * dims[1]) / 5;
-    width = Math.sqrt(length) / 7
+    length = (.5 + Math.random() * .5) / 5
+    width = Math.sqrt(length) / 150
     lines.push(line(context[i], point, axis, length, width, pbr.tcolor))
   }
   redraw()
@@ -29,6 +29,7 @@ window.addEventListener('resize', redraw)
 
 function redraw(){
   var dims = [canvases[0].clientWidth, canvases[0].clientHeight]
+  var scale = Math.sqrt(dims[0] * dims[1])
 
   for(var i = 0; i < context.length; i++){
     context[i].canvas.width = dims[0]
@@ -37,7 +38,7 @@ function redraw(){
   }
 
   for(var i = 0; i < lines.length; i++){
-    lines[i](dims)
+    lines[i](dims, scale)
   }
 }
 
@@ -49,10 +50,10 @@ function line(context, center, axis, length, width, color){
 
 
 
-  return function(dims){
+  return function(dims, scale){
     var ends = [];
-    ends[axis] = center[axis] * dims[axis] - length / 2
-    ends[axis + 2] = center[axis] * dims[axis] + length / 2
+    ends[axis] = center[axis] * dims[axis] - scale * length / 2
+    ends[axis + 2] = center[axis] * dims[axis] + scale * length / 2
     ends[(1 + axis)%2] = center[(1+axis)%2] * dims[axis]
     ends[2 + (1 + axis)%2] = center[(1+axis)%2] * dims[axis]
 
@@ -65,7 +66,9 @@ function line(context, center, axis, length, width, color){
     gradient.addColorStop(1, transparent)
 
     context.fillStyle = gradient
-    context.fillRect(center[0] * dims[0] - xspan / 2, center[1] * dims[1] - yspan / 2, xspan, yspan)
+    var scaledx = xspan * scale
+    var scaledy = yspan * scale
+    context.fillRect(center[0] * dims[0] - scaledx / 2, center[1] * dims[1] - scaledy / 2, scaledx, scaledy)
   }
 }
 
