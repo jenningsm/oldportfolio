@@ -25,6 +25,7 @@ module.exports = function(title, children, fontSizes, spacing){
         'display ' : '-webkit-flex',
         'display' : 'flex',
         'margin-bottom' : spacing[i] + 'px',
+        '-webkit-justify-content' : 'space-between',
         'justify-content' : 'space-between'
       },
       coms.font(fontSizes[i], 'rem')

@@ -1,5 +1,5 @@
 var embed = true;
-var legible = false;
+var legible = true;
 
 var Element = require('/home/mjennings/pagebuilder/html.js');
 var colors = require('./colors.js');
@@ -102,6 +102,7 @@ html.content(
 ///////////////////////////////////
 
 var p = html.generate({
+  'root' : root,
   'canvases': canvases,
   'tcolor' : colors.tcolor,
   'pages' : pages

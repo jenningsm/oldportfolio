@@ -1,5 +1,5 @@
 
-var root = '/dr/';
+var root = pbr.root;
 
 var p = pbr.pages;
 var keys = Object.keys(p);
