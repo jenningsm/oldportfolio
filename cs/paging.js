@@ -55,6 +55,11 @@ function up(backup){
   }
 }
 
+function applyTransform(element, transform){
+  element.style.webkitTransform = transform
+  element.style.transform = transform
+}
+
 /*
   Transitions to a page
 
@@ -106,18 +111,18 @@ function toPage(page, dir, back){
       if(time < pro + speed){
         if(time < pro){
           from.style.opacity = 1 - time / pro
-          from.style.transform = "translate3d(" + transform(pos) + ')';
+          applyTransform(from, "translate3d(" + transform(pos) + ')')
         } else {
           from.style.display = 'none';
         }
       }
       if(time > (1 - pro)){
-        to.style.transform = "translate3d(" + transform(pos-1) + ')';
+        applyTransform(to, "translate3d(" + transform(pos-1) + ')')
         to.style.opacity = Math.max(0, (time - 1 + pro) / pro);
       }
       requestAnimationFrame(transition);
     } else {
-      to.style.transform = "translate3d(0, 0, 0)";
+      applyTransform(to, "translate3d(0, 0, 0)")
       to.style.opacity = 1;
       currPageName = page;
 
@@ -130,7 +135,7 @@ function toPage(page, dir, back){
     }
   }
 
-  to.style.transform = "translate3d(" + transform(-1) + ')';
+  applyTransform(to, "translate3d(" + transform(-1) + ')')
   to.style.display = 'block';
   to.style.opacity = 0;
   requestAnimationFrame(transition);

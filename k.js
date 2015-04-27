@@ -4,7 +4,7 @@ var legible = true;
 var Element = require('/home/mjennings/pagebuilder/html.js');
 var colors = require('./colors.js');
 
-var root = '/dr/'
+var root = '/'
 
 /////////////////////////////////
 
