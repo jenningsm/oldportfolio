@@ -100,9 +100,15 @@ module.exports.link = function(text, page, dir){
 }
 
 module.exports.outLink = function(text, link, emphasis){
-  return underline(text, emphasis)
-  .attribute('onclick', 'window.location.href=&quot;' + link + '&quot;')
-  .style('cursor', 'pointer')
+  return new Element('a').content(
+    underline(text, emphasis)
+  )
+  .style({
+    'text-decoration' : 'none',
+    'outline' : 'none',
+    'color' : colors.colorString(colors.scolor)
+  })
+  .attribute('href', link)
 }
 
 module.exports.transition = transition;

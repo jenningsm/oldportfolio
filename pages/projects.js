@@ -31,7 +31,10 @@ module.exports.deftly = function(){
     new Element('p').content(
       'Deftly is a website I built to display some of my generative sketches. ',
       'You can check it out at ',
-      coms.outLink("deftsketches.com", 'http://www.deftsketches.com')
+      coms.outLink("deftsketches.com", 'http://www.deftsketches.com'),
+      '. ',
+      "It's a relatively simple single-page site, but features seamless \
+       transitions from sketch to sketch."
     ),
     new Element('p').content(
       "I don't have a Macbook to test on, so it may not not run well on Safari."
@@ -51,7 +54,7 @@ module.exports.electrodynamics = function(){
       coms.outLink('Electrodynamics', 'https://play.google.com/store/apps/details?id=com.mjngs.gllightning', true)
     ).style(coms.font(1.3)),
     new Element('p').content(
-      'Electrodynamics is a very simple Android app that generates lightning bolt visuals when the screen is touched. \
+      'Electrodynamics is a very simple Android app I built that generates lightning bolt visuals when the screen is touched. \
        You can download it for free from the ',
       coms.outLink("play store", 'https://play.google.com/store/apps/details?id=com.mjngs.gllightning'),
       "."
@@ -75,8 +78,8 @@ module.exports.charlibeck = function(){
       "."
     ),
     new Element('p').content(
-      "The illustrator ended up deciding not to use the site (which is why it's hosted on one of my domains). \
-       This was the first full website I'd ever built, and I think I learned a lot from it."
+      "This was the first full website I'd ever built, and I think there's a lot wrong with it. However, I've learned a lot since this site \
+       and I think it gives a sense of my trajectory."
     ),
     new Element('p').content(
       "You can take a look at the code on ",
