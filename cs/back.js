@@ -5,36 +5,30 @@ var context = [canvases[0].getContext("2d"), canvases[1].getContext("2d")]
 var lines = []
 
 for(var i = 0; i < canvases.length; i++){
-  var dims = [canvases[i].clientWidth, canvases[i].clientHeight];
-  context[i].canvas.width = dims[0]
-  context[i].canvas.height = dims[1]
   var num = 600;
-
   for(var j = 0; j < num; j++){
-    var xp = ((j % Math.floor(num / 2)) * (1 / Math.floor(num / 2)));
-    xp += (Math.random() - .5) * .1;
-    var point = [xp, Math.random()];
-    if(i === 1){
-      point[1] = 1 - point[1];
-    }
+    var xpos = ((j % Math.floor(num / 2)) * (1 / Math.floor(num / 2)));
+    xpos += (Math.random() - .5) * .1;
+    var point = [xpos, Math.random()];
+
     var axis = (Math.random() > .5 ? 'horz' : 'vert');
     length = (.5 + Math.random() * .5) / 5
     width = Math.sqrt(length) / 175
     lines.push(line(context[i], point, axis, length, width, pbr.tcolor))
   }
-  redraw()
+  draw()
 }
 
-window.addEventListener('resize', redraw)
+window.addEventListener('resize', draw)
 
-function redraw(){
+function draw(){
   var dims = [canvases[0].clientWidth, canvases[0].clientHeight]
   var scale = Math.sqrt(dims[0] * dims[1])
 
   for(var i = 0; i < context.length; i++){
     context[i].canvas.width = dims[0]
     context[i].canvas.height = dims[1]
-    context[i].clearRect(0, 0, context[i].canvas.width, context[i].canvas.height)
+    context[i].clearRect(0, 0, dims[0], dims[1])
   }
 
   for(var i = 0; i < lines.length; i++){
@@ -42,14 +36,14 @@ function redraw(){
   }
 }
 
+
 function line(context, center, axis, length, width, color){
   var xspan = (axis === 'horz' ? length : width)
   var yspan = (axis === 'vert' ? length : width)
   axis = (axis === 'horz' ? 0 : 1)
-  var dir = (Math.random() > .5 ? 1 : -1)
 
-
-
+  //return a function to draw the line given the dimensions of the
+  //containing canvas and the size scale to draw the line at
   return function(dims, scale){
     var ends = [];
     ends[axis] = center[axis] * dims[axis] - scale * length / 2

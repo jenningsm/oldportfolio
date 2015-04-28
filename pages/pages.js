@@ -64,7 +64,7 @@ function contact(){
 function about(){
   var content = new Element('div').content(
     new Element('p').content(
-      "My name is Michael Jennings, and I'm looking for work as a front-end web developer. \
+      "My name is Michael Jennings, and I'm looking for work as a front-end developer. \
        I like working with javascript. I like making sites move. I like to build single-page sites. \
        My style is minimalist."
     ),
@@ -103,13 +103,5 @@ function title(){
   'name' : 'front'
   }
 }
-
-
-function dummy(name){
-  return temp.linkedContainer(name, new Element('div').content(name));
-}
-
-
-////////////////////////////////////////////
 
 

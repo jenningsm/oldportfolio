@@ -5,9 +5,9 @@ var color = colors.colorString(colors.scolor)
 module.exports = function(dir, unit, size){
 
   var ratio = 5;
-  var width = size / 30;
+  var lineWidth = size / 30;
 
-  var insize = size - 2 * width;
+  var insize = size - 2 * lineWidth;
 
   var dims;
   if(dir === 'left' || dir === 'right'){
@@ -34,13 +34,13 @@ module.exports = function(dir, unit, size){
 
   var pointString = '';
   for(var i = 0; i < 3; i++){
-    pointString += truncate(points[i * 2] * dims[0] + width, 1) + ',' + truncate(points[i * 2 + 1] * dims[1] + width, 1) + ' ';
+    pointString += truncate(points[i * 2] * dims[0] + lineWidth, 1) + ',' + truncate(points[i * 2 + 1] * dims[1] + lineWidth, 1) + ' ';
   }
 
   var line = new Element('polyline/').attribute({
     'fill' : 'none',
     'stroke' : color,
-    'stroke-width' : truncate(width, 1),
+    'stroke-width' : truncate(lineWidth, 1),
     'stroke-linecap' : 'round',
     'stroke-linejoin' : 'round',
     'points' : pointString 
@@ -49,8 +49,8 @@ module.exports = function(dir, unit, size){
   return new Element('svg').attribute({
     'xmlns' : 'http://www.w3.org/2000/svg',
     'version' : '1.1',
-    'height' : truncate(2 * width + dims[1], 1) + unit,
-    'width' : truncate(2 * width + dims[0], 1) + unit,
+    'height' : truncate(2 * lineWidth + dims[1], 1) + unit,
+    'width' : truncate(2 * lineWidth + dims[0], 1) + unit,
   })
   .content(line)
   .style({

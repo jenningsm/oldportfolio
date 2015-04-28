@@ -1,10 +1,14 @@
 var embed = true;
-var legible = true;
+var legible = false;
 
 var Element = require('/home/mjennings/pagebuilder/html.js');
 var colors = require('./colors.js');
 
-var root = '/'
+var root = '/dr/'
+if(process.argv[2] !== undefined){
+  root = process.argv[2]
+}
+
 
 /////////////////////////////////
 
@@ -17,7 +21,7 @@ var html = new Element('html').style({
 
 var body = new Element('body').style({
   'margin' : '0',
-  'padding' : '0'
+  'padding' : '0',
 })
 
 var head = new Element('head').content(
@@ -70,7 +74,6 @@ for(var i = 0; i < dirs.length; i++){
 }
 
 var scripts = [
-  new Element('script', 'src', root + 'cs/util.js'),
   new Element('script', 'src', root + 'cs/motion.js'),
   new Element('script', 'src', root + 'cs/paging.js'),
   new Element('script', 'src', root + 'cs/back.js'),

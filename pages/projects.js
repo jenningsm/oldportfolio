@@ -34,9 +34,7 @@ module.exports.deftly = function(){
       coms.outLink("deftsketches.com", 'http://www.deftsketches.com')
     ),
     new Element('p').content(
-      "I'm proud of this site, but I realize now that the implementation may be more complicated than \
-       it needs to be. Since building the site, I've learned to be much more careful about adding complexity \
-       to an application."
+      "I don't have a Macbook to test on, so it may not not run well on Safari."
     ),
     new Element('p').content(
       "You can take a look at the code on ",

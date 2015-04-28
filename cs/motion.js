@@ -28,7 +28,6 @@ function motion(accel, decel, maxSpeed){
     stopSpeed = 0;
 
 
-
   //the point in time at which the item will begin to decelerate
   var decelAt = (decel + stopSpeed - startSpeed) / (decel + accel);
   if(maxSpeed !== 0){

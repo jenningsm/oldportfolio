@@ -16,13 +16,18 @@ module.exports.linkedContainer = function(name, content, siblings, child, width)
   if(width === undefined)
     width = 60
 
+  //this is the container that will be scaled as the viewport changes
+  var contentContainer = coms.flexBox().style('position', 'relative')
+
   return {
     'generator' :
     function(children, lineage, prev, next){
       var page = coms.pageContainer().content(
         coms.arrowBox('up', coms.up(coms.transition(lineage[1].name, 'down'))).style('z-index', '1'),
         coms.flexBox().content(
-          content.style('max-width', width + '%')
+          contentContainer.content(
+            content.style('max-width', width + '%')
+          )
         )
       )
       if(siblings === true){
@@ -33,7 +38,7 @@ module.exports.linkedContainer = function(name, content, siblings, child, width)
         page.content(coms.arrowBox('down', coms.transition(children[0].name, 'up')).style('z-index', '1'))
       }
 
-      return {'page' : page, 'container' : content, 'width' : width / 100, 'url' : getUrl(lineage) }
+      return {'page' : page, 'container' : contentContainer, 'url' : getUrl(lineage) }
     },
     'name' : name
   }

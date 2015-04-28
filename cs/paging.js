@@ -15,37 +15,39 @@ for (var i = 0; i < keys.length; i++){
 var frontPage = 'front'
 var currPageName
 
-var url = window.location.pathname.split('/')
-if(url.length === 2 || url[2] === ''){
+var path = window.location.pathname
+if(path.replace(/\//g, '') === root.replace(/\//g, '')){
   currPageName = 'front'
 } else {
-  currPageName = url[url.length - 1]
+  path = path.split('/')
+  currPageName = path[path.length - 1]
 }
 
 if(pages[currPageName] === undefined){
   currPageName = '404'
 }
 
-function sizeContainer(){
+function scaleContainers(){
   var width = window.innerWidth
   var conWidth = Math.min(width * .9, Math.pow(width, .45) * 30)
   var keys = Object.keys(pages)
   for(var i = 0; i < keys.length; i++){
     if(pages[keys[i]].container !== undefined){
-      pages[keys[i]].container.style.maxWidth = p[keys[i]].width * conWidth + 'px'
+      pages[keys[i]].container.style.maxWidth = conWidth + 'px'
     }
   }
 }
-sizeContainer()
-window.addEventListener('resize', sizeContainer)
+window.addEventListener('resize', scaleContainers)
+scaleContainers()
 
 pages[currPageName].page.style.display = 'block';
 
 //the history
 var hist = [currPageName]
 
-//go up in the hierarchy, from which ever page the current
+//go up in the history, from which ever page the current
 //page was linked from
+//run function backup if there is no history
 function up(backup){
   hist.pop()
   if(hist.length > 0){
@@ -140,3 +142,9 @@ function toPage(page, dir, back){
   to.style.opacity = 0;
   requestAnimationFrame(transition);
 }
+
+window.requestAnimationFrame = window.requestAnimationFrame
+ || window.mozRequestAnimationFrame
+ || window.webkitRequestAnimationFrame
+ || window.msRequestAnimationFrame
+ || function(f){setTimeout(f, 1000/60)};

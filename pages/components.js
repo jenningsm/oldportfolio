@@ -11,7 +11,7 @@ function pageContainer(){
     'width' : '100%',
     'height' : '100%',
     'position' : 'absolute',
-    'text-align' : 'center',
+    'text-align' : 'center'
   })
   .style(font(1.3))
 }
@@ -110,6 +110,8 @@ function transition(to, dir){
   return 'toPage(&quot;' + to + '&quot;,&quot;' + dir + '&quot;)'
 }
 
+//goes up in the history
+//transition is the transition that will take place if there is no history
 module.exports.up = function(transition){
   return "up(function(){" + transition + "})"
 }
