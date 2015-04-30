@@ -33,11 +33,8 @@ module.exports.deftly = function(){
       'You can check it out at ',
       coms.outLink("deftsketches.com", 'http://www.deftsketches.com'),
       '. ',
-      "It's a relatively simple single-page site, but features seamless \
+      "It's a relatively simple single-page site, but features elegant \
        transitions from sketch to sketch."
-    ),
-    new Element('p').content(
-      "I don't have a Macbook to test on, so it may not not run well on Safari."
     ),
     new Element('p').content(
       "You can take a look at the code on ",
