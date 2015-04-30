@@ -70,12 +70,10 @@ function applyTransform(element, transform){
   to : the page to transition to
   dir : a boolean specifying if the page should transition up (true) or down (false)
 */
-var queue = null;
 var lock = false;
 
 function toPage(page, dir, back){
   if(lock){
-    queue = {'page' : page, 'dir': dir}
     return
   } else {
     lock = true;
@@ -130,11 +128,6 @@ function toPage(page, dir, back){
       currPageName = page;
 
       lock = false;
-      if(queue !== null){
-        var hold = queue
-        queue = null
-        toPage(hold.page, hold.dir)
-      }
     }
   }
 
