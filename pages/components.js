@@ -13,7 +13,9 @@ function pageContainer(){
     'position' : 'absolute',
     'text-align' : 'center'
   })
-  .style(font(1.3))
+  .style({
+    'font-size' : '2.5vmin'
+  })
 }
 
 module.exports.flexBox = flexBox
@@ -33,7 +35,7 @@ function flexBox(){
   })
 }
 
-var breadth = [21, 12]
+var breadth = [21, require('../settings.js').arrowWidth * 100]
 var length = [90, 50]
 module.exports.arrowBox = arrowBox
 function arrowBox(dir, onclick){

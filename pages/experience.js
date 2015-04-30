@@ -31,7 +31,7 @@ module.exports.amazon = function(){
     'At Amazon I developed a text advertisement data model and implemented an API in Java for ' + 
     "creating and updating advertisements within that model."
   )
-  return temp.linkedContainer('amazon', div, true, false, 80)
+  return temp.linkedContainer('amazon', div, true, false, 85)
 }
 
 module.exports.dandb = function(){
@@ -41,7 +41,7 @@ module.exports.dandb = function(){
     'At D&B I worked in PHP maintaining the backend of the company\'s website. I also worked with various public ' + 
     "API's to gather and validate business information."
   )
-  return temp.linkedContainer('dandb', div, true, false, 80)
+  return temp.linkedContainer('dandb', div, true, false, 85)
 }
 
 module.exports.viasat = function(){
@@ -51,5 +51,5 @@ module.exports.viasat = function(){
     'At ViaSat I worked on a team of three interns to develop a prototype for a home security ' + 
     "and automation system. I worked primarily in Java."
   )
-  return temp.linkedContainer('viasat', div, true, false, 80)
+  return temp.linkedContainer('viasat', div, true, false, 85)
 }

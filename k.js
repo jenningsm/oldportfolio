@@ -37,7 +37,11 @@ var head = new Element('head').content(
   }),
   new Element('title').content(
     'Michael Jennings'
-  )
+  ),
+  new Element('meta').attribute({
+    'name' : 'viewport',
+    'content' : 'width=device-width, initial-scale=1'
+  })
 )
 if(!embed){
   head.content(
@@ -108,7 +112,8 @@ var p = html.generate({
   'root' : root,
   'canvases': canvases,
   'tcolor' : colors.tcolor,
-  'pages' : pages
+  'pages' : pages,
+  'maxWidth' : 1 - (require('./settings.js').arrowWidth * 2)
 }, legible);
 
 var fs = require('fs');

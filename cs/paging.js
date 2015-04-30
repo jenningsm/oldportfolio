@@ -30,6 +30,7 @@ if(pages[currPageName] === undefined){
 function scaleContainers(){
   var width = window.innerWidth
   var conWidth = Math.min(width * .9, Math.pow(width, .45) * 30)
+  conWidth = Math.min(conWidth, width * pbr.maxWidth)
   var keys = Object.keys(pages)
   for(var i = 0; i < keys.length; i++){
     if(pages[keys[i]].container !== undefined){
