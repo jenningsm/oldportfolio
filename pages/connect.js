@@ -1,83 +1,70 @@
 
 /*
 
-  NOT ENTIRELY UP-TO-DATE
+  connectPages takes a page hierarchy. Each page in this hierarchy contains
+  a function called a generator. Each generator, when passed information
+  about that page's neighboring siblings, ancestors, and children within the
+  hierarchy, returns a page element for that page. connectPages calls each
+  generator in the hierarchy with the relevant arguments and returns a set
+  of the generated page elements.
 
-  connectPages takes a page hierarchy composed of page generators. Each of
-  these generators, when supplied with information about it's neighboring
-  siblings and its children within the hierarchy, which it may or may not 
-  use to link to those pages, will generate a page. The role of connectPages
-  is to get this information to each page.
+  A page element is any object that will convert directly to the html for
+  that page.
 
-  The intent is to allow you to write page generators that dynamically link
-  to children and siblings, rather than hardcoding links into pages.
+  Each page in the hierarchy is an object with the following properties:
 
-  More specifically, connectPages takes a page tree composed of page objects,
-  and calls each page object's generator function, passing in sibling and child
-  information and returns the pages generated. Each of these terms is defined
-  below.
-
-  TERMS:
-
-  A PAGE ELEMENT is an object with a generate() function which will 
-  return the actual html for that page.
-
-  A PAGE OBJECT represents a page. It may come in two forms. The first form
-  is an object with the following properties:
- 
-   generator: A function which takes info about the page's
-              siblings and children, and returns a page element.
+   generator: As described above.
 
    name     : The name of the page, as a string. if this property is not
-              included, one will be automatically created.
+              included, one will be automatically created. Will be passed
+              to neighboring pages' generators.
 
-   info     : This property is entirely optional, and may take any form
-              (ie function, string, object). If it exists, it will be passed,
-              along with name, to the page object's parent's generator.
-              The parent may use this information to determine how to
-              link to it (ie you may include a short description of the page
-              that the parent will include below the link to it)
+   info     : This property is optional, and may take any form (ie function,
+              string, object) and may contain any information. If it exists,
+              it will be passed to neighboring pages' generators.
+  
+  A page may also be just a single function, in which case that function will
+  be interpreted as the page's generator, and the name and info fields will
+  be assumed to have been omitted.
 
-  The second form is a single function. If it comes in this form, the function
-  will be interpreted as the generate property of a page object of the first
-  form, without name or info properties.
+  The hierarchy takes the form of a page tree.
 
-  A PAGE RECORD is the same as a page object, except that it does not have the
-  generator property.
+  A page tree is an array with the following structure: The first element of
+  the array is a page, and this page is interpreted as the root of the tree.
+  The rest of the elements in the array are the children of this page, and 
+  may be either pages or page trees. Children that are immediately
+  adjacent to each other within this array will be interpreted as neighboring
+  siblings. 
 
-  A PAGE TREE represents a page hierarchy. It is passed in the form of
-  an array. The first element of this array must be a page object, and
-  this object is the root of the tree. The rest of the elements in the array
-  are the children of this node, and may be either page objects, or page trees
-  themselves. The order of these elements are preserved. The siblings passed
-  to the generator functions (described below) of each child will be those
-  adjacent to each child within this array.
 
   the generator functions are expected to return a page element, and will
   be passed the following parameters, in this order:
 
-    children    : an array of page records, each one belonging to one of the
+    children    : an array of pages, each one belonging to one of the
                   page's children, and arranged in order.
 
-    name        : The name this page.
+    lineage     : An array containing the lineage of this page. The first
+                  element will be this page itself, the second element its
+                  parent, the third element its grandparent, and so on up
+                  to the root.
 
-    nextSibling : The page record of the next sibling. If page being generated
-                  is the last sibling, then this will be the page record of
-                  the page's parent.
+    prevSibling : The previous neighboring sibling page. If the current page
+                  is the first child, then the value of this argument
+                  depends on the loop parameter, described below.
 
-    prevSibling : The page record of the previous sibling. If the page being
-                  generated is the first sibling, then this will be the page
-                  record of the page's parent.
+    nextSibling : The next neighboring sibling page. If the current page
+                  is the last child, then the value of this argument
+                  depends on the loop parameter, described below.
   
+  
+  The loop parameter determines which pages will be passed as the next
+  neighboring sibling to the last child and the previous neighboring 
+  sibling to the first child.
 
-  BEHAVIOR:
-
-  Each page will be passed, as siblings, the sibling page immediately before
-  and immediately after it in the page tree. If the page is at the end or the
-  beginning, the loop argument determines which page is passed as its siblings.
-  If loop is 'stop', then null will be passed as its siblings, it loop is
-  'parent' then its parent will be passed, and if loop is 'loop' then the
-  child at the other end wil be passed
+  If the value of loop is 'stop', then null will be passed to each.
+  If the value of loop is 'parent', then the parent will be passed to each.
+  if the value of loop is 'loop', then the sibling at the opposite end will
+    be passed to each.
 
 */
 
