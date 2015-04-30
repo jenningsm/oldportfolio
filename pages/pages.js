@@ -17,7 +17,7 @@ module.exports = function(){
       [proj.projects(),
         proj.deftly(),
         proj.electrodynamics(),
-        proj.charlibeck()],
+        /*proj.charlibeck()*/],
       contact(),
       [exp.experience(),
          exp.amazon(),

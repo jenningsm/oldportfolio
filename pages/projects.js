@@ -14,10 +14,10 @@ module.exports.projects = function() {
       "<br/>",
       coms.link("Electrodynamics", 'electrodynamics', 'up'),
       ", an Android app that generates lightning bolt visuals.",
-      "<br/>",
-      coms.link("A porfolio website", 'charlibeck', 'up'),
-      " for an illustrator, Charli Beck.",
       "<br/>"
+//      coms.link("A porfolio website", 'charlibeck', 'up'),
+//      " for an illustrator, Charli Beck.",
+//      "<br/>"
     )
   )
   return temp.linkedContainer('projects', content, false, true, 100)
