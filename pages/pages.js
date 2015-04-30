@@ -16,8 +16,7 @@ module.exports = function(){
       about(),
       [proj.projects(),
         proj.deftly(),
-        proj.electrodynamics(),
-        /*proj.charlibeck()*/],
+        proj.electrodynamics()],
       contact(),
       [exp.experience(),
          exp.amazon(),
@@ -65,7 +64,7 @@ function about(){
   var content = new Element('div').content(
     new Element('p').content(
       "My name is Michael Jennings, and I'm looking for work as a front-end developer. \
-       I like working with javascript. I like making sites move. I like to build single-page sites. \
+       I like working with javascript. I like making sites move. \
        My style is minimalist."
     ),
     new Element('p').content(
