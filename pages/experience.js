@@ -16,9 +16,9 @@ module.exports.experience = function(){
      ),
      new Element('p').content(
       "Admittedly, none of my work experience thus far has been front-end work,\
-       but I've been working on ",
+       but I've been getting experience with the front-end through ",
        coms.link("personal projects", 'projects', 'up'),
-      " to develop my skills."
+      "."
      )
   )
   return temp.linkedContainer('experience', info, false, true, 100)
