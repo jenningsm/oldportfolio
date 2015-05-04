@@ -23,7 +23,7 @@ window.addEventListener('resize', draw)
 
 function draw(){
   var dims = [canvases[0].clientWidth, canvases[0].clientHeight]
-  var scale = Math.sqrt(dims[0] * dims[1])
+  var scale = dims[0] * dims[1] / 450;
 
   for(var i = 0; i < context.length; i++){
     context[i].canvas.width = dims[0]
