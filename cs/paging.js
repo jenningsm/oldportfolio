@@ -41,7 +41,15 @@ function scaleContainers(){
 window.addEventListener('resize', scaleContainers)
 scaleContainers()
 
+function applyTransform(element, transform){
+  element.style.webkitTransform = transform
+  element.style.transform = transform
+}
+
 pages[currPageName].page.style.display = 'block';
+//this fixes a wierd issue with android chrome
+applyTransform(pages[currPageName].page, 'translate3d(0, 0, 0)');
+
 
 //the history
 var hist = [currPageName]
@@ -58,10 +66,6 @@ function up(backup){
   }
 }
 
-function applyTransform(element, transform){
-  element.style.webkitTransform = transform
-  element.style.transform = transform
-}
 
 /*
   Transitions to a page
